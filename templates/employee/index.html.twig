@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employee index{% endblock %}
+
+{% block body %}
+    <h1>Employee index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>FatherName</th>
+                <th>LastName</th>
+                <th>Gender</th>
+                <th>DateOfBirth</th>
+                <th>Phone</th>
+                <th>BirthPlace</th>
+                <th>Photo</th>
+                <th>BloodGroup</th>
+                <th>EyeColor</th>
+                <th>Email</th>
+                <th>IdNumber</th>
+                <th>PentionNumber</th>
+                <th>CreatedAt</th>
+                <th>FirstNameAm</th>
+                <th>FatherNameAm</th>
+                <th>LastNameAm</th>
+                <th>UpdatedAt</th>
+                <th>EmployementDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for employee in employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.firstName }}</td>
+                <td>{{ employee.fatherName }}</td>
+                <td>{{ employee.lastName }}</td>
+                <td>{{ employee.gender }}</td>
+                <td>{{ employee.dateOfBirth ? employee.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ employee.phone }}</td>
+                <td>{{ employee.birthPlace }}</td>
+                <td>{{ employee.photo }}</td>
+                <td>{{ employee.bloodGroup }}</td>
+                <td>{{ employee.eyeColor }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.idNumber }}</td>
+                <td>{{ employee.pentionNumber }}</td>
+                <td>{{ employee.createdAt ? employee.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ employee.firstNameAm }}</td>
+                <td>{{ employee.fatherNameAm }}</td>
+                <td>{{ employee.lastNameAm }}</td>
+                <td>{{ employee.updatedAt ? employee.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ employee.employementDate ? employee.employementDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_employee_show', {'id': employee.id}) }}">show</a>
+                    <a href="{{ path('app_employee_edit', {'id': employee.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="21">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_employee_new') }}">Create new</a>
+{% endblock %}

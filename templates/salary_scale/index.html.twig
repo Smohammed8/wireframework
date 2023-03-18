@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salary Scale{% endblock %}
+
+{% block body %}
+    <h3>SalaryScale </h3>
+
+    <table class="table table-sm">
+        <thead>
+            <tr style="background-color:lightblue;">
+                <th>#</th>
+                <th>Start Salary</th>
+                <th>One</th>
+                <th>Two</th>
+                <th>Three</th>
+                <th>Four</th>
+                <th>Five</th>
+                <th>Six</th>
+                <th>Seven</th>
+                <th>Eight</th>
+                <th>Nine</th>
+                <th>CeilSalary</th>
+                {# <th>CreatedAt</th>
+                <th>UpdatedAt</th> #}
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for salary_scale in salary_scales %}
+            <tr>
+                <td>{{  loop.index  }}</td>
+                <td>{{ salary_scale.startSalary |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.one |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.two |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.three |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.four |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.five |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.six |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.seven |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.eight |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.nine |number_format(2, '.', ',') }}</td>
+                <td>{{ salary_scale.ceilSalary |number_format(2, '.', ',') }}  </td>
+
+
+
+
+
+
+                {# <td>{{ salary_scale.createdAt ? salary_scale.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ salary_scale.updatedAt ? salary_scale.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                <td>
+                    <a href="{{ path('app_salary_scale_show', {'id': salary_scale.id}) }}">Show</a>
+                    <a href="{{ path('app_salary_scale_edit', {'id': salary_scale.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_salary_scale_new') }}">Create new</a>
+{% endblock %}

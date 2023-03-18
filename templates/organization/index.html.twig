@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organization{% endblock %}
+
+{% block body %}
+    <h4>Organization </h4>
+
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Moto</th>
+                <th>Logo</th>
+                <th>Tel</th>
+                <th>Fax</th>
+                <th>Pobox</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for organization in organizations %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ organization.name }}</td>
+                <td>{{ organization.moto }}</td>
+                <td>{{ organization.logo }}</td>
+                <td>{{ organization.tel }}</td>
+                <td>{{ organization.fax }}</td>
+                <td>{{ organization.pobox }}</td>
+                <td>
+
+
+                     <a href="{{ path('app_organization_show', {'id': organization.id}) }}">Structure</a>
+                    <a href="{{ path('app_organization_show', {'id': organization.id}) }}"> Show</a>
+                    <a href="{{ path('app_organization_edit', {'id': organization.id}) }}"> Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+     {% if organizations|length == 0 %}
+    <a href="{{ path('app_organization_new') }}">Create new</a>
+     {% endif %}
+{% endblock %}

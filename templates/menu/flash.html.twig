@@ -1,0 +1,89 @@
+
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="ace-icon fa fa-times"></i>
+            </button>
+
+            {{ message }}
+            <br>
+        </div>
+
+    {% endfor %}
+
+    {% for message in app.flashes('info') %}
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="ace-icon fa fa-times"></i>
+            </button>
+
+            <strong>{{ message }}</strong>
+            <br>
+        </div>
+
+    {% endfor %}
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="ace-icon fa fa-times"></i>
+            </button>
+
+            <strong>{{ message }}</strong>
+            <br>
+        </div>
+
+    {% endfor %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-block alert-success">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="ace-icon fa fa-times"></i>
+            </button>
+            <div class="well well-lg text-center">
+                <div class="label label-large label-success arrowed">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+    {# pass an array argument to get the messages of those types  #}
+    {% for label, messages in app.flashes(['warning']) %}
+        {% for message in messages %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <strong>
+                    {{ message }}</strong>
+
+                <br>
+            </div>
+
+
+        {% endfor %}
+    {% endfor %}
+
+    {% for label, messages in app.flashes(['error']) %}
+        {% for message in messages %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="ace-icon fa fa-times"></i>
+                </button>
+
+                <div class="well well-lg text-center">
+                    <span class="label label-warning">
+                        <i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>
+                        Error
+                    </span>
+                    <div class="label label-large label-danger arrowed-in">
+                        {{ message }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EmployeeLanguage{% endblock %}
+
+{% block body %}
+    <h1>EmployeeLanguage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ employee_language.id }}</td>
+            </tr>
+            <tr>
+                <th>Speaking</th>
+                <td>{{ employee_language.speaking }}</td>
+            </tr>
+            <tr>
+                <th>Reading</th>
+                <td>{{ employee_language.reading }}</td>
+            </tr>
+            <tr>
+                <th>Writing</th>
+                <td>{{ employee_language.writing }}</td>
+            </tr>
+            <tr>
+                <th>Listening</th>
+                <td>{{ employee_language.listening }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_employee_language_index') }}">back to list</a>
+
+    <a href="{{ path('app_employee_language_edit', {'id': employee_language.id}) }}">edit</a>
+
+    {{ include('employee_language/_delete_form.html.twig') }}
+{% endblock %}

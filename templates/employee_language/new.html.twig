@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EmployeeLanguage{% endblock %}
+
+{% block body %}
+    <h1>Create new EmployeeLanguage</h1>
+
+    {{ include('employee_language/_form.html.twig') }}
+
+    <a href="{{ path('app_employee_language_index') }}">back to list</a>
+{% endblock %}

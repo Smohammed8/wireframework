@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}JobTitleFields{% endblock %}
+
+{% block body %}
+    <h1>JobTitleFields</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ job_title_field.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_job_title_fields_index') }}">back to list</a>
+
+    <a href="{{ path('app_job_title_fields_edit', {'id': job_title_field.id}) }}">edit</a>
+
+    {{ include('job_title_fields/_delete_form.html.twig') }}
+{% endblock %}

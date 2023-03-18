@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users{% endblock %}
+
+{% block body %}
+
+ 
+      
+
+   <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-1">
+        <div class="col-sm-6">
+            <h4>  List of List</h4>
+        </div>
+        <div class="col-sm-6">
+            <a style="float:right;" class="btn btn-outline-primary" href="{{ path('app_user_new') }}"> <i class="fa fa-plus"> </i> Create new</a>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+<hr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                {# <th>Roles</th> #}
+                {# <th>Password</th> #}
+                <th>FirstName</th>
+                <th>FatherName</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>LastLogin</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{  loop.index }}</td>
+                <td>{{ user.username }}</td>
+                {# <td>{{ user.roles ? user.roles|json_encode : '' }}</td> #}
+                {# <td>{{ user.password }}</td> #}
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.fatherName }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.gender }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.lastLogin ? user.lastLogin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.status }}</td>
+                <td>
+                    {# <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}"> <i class="fas fa-edit" >  </i> Edit</a> #}
+
+                    <a  class="btn btn-outline-secondary btn-sm" href="{{ path('app_user_show', {'id': user.id}) }}"> <i class="fa fa-eye"> </i> Show</a>
+                    <a  class="btn btn-outline-secondary btn-sm" href="{{ path('app_user_edit', {'id': user.id}) }}"> <i class="fa fa-edit"> </i> Edit</a>
+                    <a  class="btn btn-outline-secondary btn-sm" href="{{ path('app_user_edit', {'id': user.id}) }}"> <i class="fa fa-trash"> </i> Delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+    <div class="btn-sm btn float-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(users) }}</div>
+
+
+    
+{% endblock %}

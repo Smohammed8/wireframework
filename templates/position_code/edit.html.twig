@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PositionCode{% endblock %}
+
+{% block body %}
+    <h1>Edit PositionCode</h1>
+
+    {{ include('position_code/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_position_code_index') }}">back to list</a>
+
+    {{ include('position_code/_delete_form.html.twig') }}
+{% endblock %}

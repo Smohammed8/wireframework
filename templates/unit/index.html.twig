@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Unit{% endblock %}
+
+{% block body %}
+    <h4>List of Organization units</h4>
+
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th> Unit name </th>
+                <th>Accountable to </th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for unit in units %}
+            <tr>
+                <td>{{ unit.id }}</td>
+                <td>{{ unit.name }}</td>
+                <td>{{ unit.parentUnit ?? '-' }}</td>
+                <td>{{ unit.email }}</td>
+                <td>{{ unit.phone }}</td>
+                <td>
+
+                   <a href="{{ path('app_unit_show', {'id': unit.id}) }}">Subordinates</a>
+
+                    <a href="{{ path('app_unit_show', {'id': unit.id}) }}">Show</a>
+                    <a href="{{ path('app_unit_edit', {'id': unit.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_unit_new') }}">Create new</a>
+{% endblock %}

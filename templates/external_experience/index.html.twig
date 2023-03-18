@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ExternalExperience index{% endblock %}
+
+{% block body %}
+    <h1>ExternalExperience index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>JobTitle</th>
+                <th>CompanyName</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Clearance</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for external_experience in external_experiences %}
+            <tr>
+                <td>{{ external_experience.id }}</td>
+                <td>{{ external_experience.jobTitle }}</td>
+                <td>{{ external_experience.companyName }}</td>
+                <td>{{ external_experience.startDate ? external_experience.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ external_experience.endDate ? external_experience.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ external_experience.clearance }}</td>
+                <td>
+                    <a href="{{ path('app_external_experience_show', {'id': external_experience.id}) }}">show</a>
+                    <a href="{{ path('app_external_experience_edit', {'id': external_experience.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_external_experience_new') }}">Create new</a>
+{% endblock %}

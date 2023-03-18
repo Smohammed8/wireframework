@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EmploymentStatus index{% endblock %}
+
+{% block body %}
+    <h1>EmploymentStatus index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for employment_status in employment_statuses %}
+            <tr>
+                <td>{{ employment_status.id }}</td>
+                <td>{{ employment_status.name }}</td>
+                <td>{{ employment_status.description }}</td>
+                <td>
+                    <a href="{{ path('app_employment_status_show', {'id': employment_status.id}) }}">show</a>
+                    <a href="{{ path('app_employment_status_edit', {'id': employment_status.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_employment_status_new') }}">Create new</a>
+{% endblock %}

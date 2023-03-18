@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EmployeeCategory{% endblock %}
+
+{% block body %}
+    <h1>Create new EmployeeCategory</h1>
+
+    {{ include('employee_category/_form.html.twig') }}
+
+    <a href="{{ path('app_employee_category_index') }}">back to list</a>
+{% endblock %}
