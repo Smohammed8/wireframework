@@ -30,6 +30,9 @@ class JobTitle
     #[ORM\OneToMany(mappedBy: 'jobTitle', targetEntity: Position::class)]
     private Collection $positions;
 
+    #[ORM\ManyToOne(inversedBy: 'jobTitles')]
+    private ?Level $level = null;
+
     public function __construct()
     {
         $this->jobTitleFields = new ArrayCollection();
@@ -136,6 +139,18 @@ class JobTitle
                 $position->setJobTitle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLevel(): ?Level
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?Level $level): self
+    {
+        $this->level = $level;
 
         return $this;
     }

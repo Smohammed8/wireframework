@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Employee</h1>
 
-    <table class="table">
+    {# <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -88,7 +88,556 @@
                 <td>{{ employee.employementDate ? employee.employementDate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
-    </table>
+    </table> #}
+
+
+ 
+       
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+              
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Ownership</li>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+    
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+              <div class="col-md-3">
+    
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                  <div class="card-body box-profile">
+                    <div class="text-center">
+                      <img class="profile-user-img img-fluid img-circle"
+                           src="{{ asset('assets/dist/img/user4-128x128.jpg') }}"
+                           alt="User profile picture">
+                    </div>
+    
+                    <h3 class="profile-username text-center">Seid Moammed</h3>
+    
+                    <p class="text-muted text-center">Current Ownership</p>
+    
+                    <ul class="list-group list-group-unbordered mb-3">
+                      <li class="list-group-item">
+                        <b>Issued date: </b> <a class="float-right"> 12/05/2014 </a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Carta NO: </b> <a class="float-right"> 1001/12</a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Phone </b> <a class="float-right"> 0985122541</a>
+                      </li>
+                    </ul>
+    
+                    {# <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> #}
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+    
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">About Ownership</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <strong><i class="fas fa-book mr-1"></i> Education</strong>
+    
+                    <p class="text-muted">
+                      B.S. in Computer Science from the University of Tennessee at Knoxville
+                    </p>
+    
+                    <hr>
+    
+                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+    
+                    <p class="text-muted">Bahar Dar, 04  Kebele</p>
+    
+                    <hr>
+    
+                    <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+    
+                    <p class="text-muted">
+                      <span class="tag tag-danger">UI Design</span>
+                      <span class="tag tag-success">Coding</span>
+                      <span class="tag tag-info">Javascript</span>
+                      <span class="tag tag-warning">PHP</span>
+                      <span class="tag tag-primary">Node.js</span>
+                    </p>
+    
+                    <hr>
+    
+                    <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+    
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
+    
+    
+    
+              <div class="col-md-9">  
+    
+    
+                <div class="card">
+                  <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                      <li class="nav-item"><a class="nav-link active" href="" data-toggle="tab">Assign</a></li>
+    
+                      <li class="nav-item"><a class="nav-link " href="#activity" data-toggle="tab">Overview</a></li>
+                      <li class="nav-item"><a class="nav-link" href="" data-toggle="tab">Transfer</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Payment</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Location</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#" data-toggle="tab">Uploads</a></li>
+    
+                    </ul>
+                  </div><!-- /.card-header -->
+                  <div class="card-body">
+                    <div class="tab-content">
+            <div class="active tab-pane" id="activity">
+                        <!-- Post -->
+                          <!-- /.row -->
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row mb-1">
+                      <div class="col-sm-6">
+                        <h3 class="card-title">Payment and credit</h3>
+                      </div>
+                      <div class="col-sm-6">
+                          <a style="float:right;" class="btn btn-outline-primary btn-sm" href="{{ path('app_employee_new') }}"> <i class="fa fa-plus"> </i> Add </a>
+                      </div>
+                    </div>
+                  </div>
+    
+             
+    
+                  <!-- ./card-header -->
+                  <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>User</th>
+                          <th>Date</th>
+                          <th>Status</th>
+                          <th>Reason</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    
+                   
+                     
+                        <tr data-widget="expandable-table" aria-expanded="false">
+                          <td>175</td>
+                          <td>Mike Doe</td>
+                          <td>11-7-2014</td>
+                          <td>Denied</td>
+                          <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                        </tr>
+                        <tr class="expandable-body">
+                          <td colspan="5">
+                            <p>
+                              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            </p>
+                          </td>
+                        </tr>
+                
+                   
+                   
+                        <tr data-widget="expandable-table" aria-expanded="false">
+                          <td>982</td>
+                          <td>Rocky Doe</td>
+                          <td>11-7-2014</td>
+                          <td>Denied</td>
+                          <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                        </tr>
+                        <tr class="expandable-body">
+                          <td colspan="5">
+                            <p>
+                              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+            </div>
+            <!-- /.row -->
+                        <!-- /.post -->
+    
+                        <!-- Post -->
+                        <div class="post clearfix">
+                          <div class="card">
+                            <div class="card-header">
+                              <h3 class="card-title">Transfers history</h3>
+              
+                              <div class="card-tools">
+                                <ul class="pagination pagination-sm float-right">
+                                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Task</th>
+                                    <th>Progress</th>
+                                    <th style="width: 40px">Label</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1.</td>
+                                    <td>Update software</td>
+                                    <td>
+                                      <div class="progress progress-xs">
+                                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                      </div>
+                                    </td>
+                                    <td><span class="badge bg-danger">55%</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td>2.</td>
+                                    <td>Clean database</td>
+                                    <td>
+                                      <div class="progress progress-xs">
+                                        <div class="progress-bar bg-warning" style="width: 70%"></div>
+                                      </div>
+                                    </td>
+                                    <td><span class="badge bg-warning">70%</span></td>
+                                  </tr>
+                           
+                                </tbody>
+                              </table>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
+                        </div>
+                        <!-- /.post -->
+    
+    
+                        <div class="card">
+                          <div class="card-header">
+                            <h3 class="card-title">Bordered Table</h3>
+                          </div>
+                          <!-- /.card-header -->
+                          <div class="card-body">
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th style="width: 10px">#</th>
+                                  <th>Task</th>
+                                  <th>Progress</th>
+                                  <th style="width: 40px">Label</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>1.</td>
+                                  <td>Update software</td>
+                                  <td>
+                                    <div class="progress progress-xs">
+                                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                    </div>
+                                  </td>
+                                  <td><span class="badge bg-danger">55%</span></td>
+                                </tr>
+                                <tr>
+                                  <td>2.</td>
+                                  <td>Clean database</td>
+                                  <td>
+                                    <div class="progress progress-xs">
+                                      <div class="progress-bar bg-warning" style="width: 70%"></div>
+                                    </div>
+                                  </td>
+                                  <td><span class="badge bg-warning">70%</span></td>
+                                </tr>
+                                <tr>
+                                  <td>3.</td>
+                                  <td>Cron job running</td>
+                                  <td>
+                                    <div class="progress progress-xs progress-striped active">
+                                      <div class="progress-bar bg-primary" style="width: 30%"></div>
+                                    </div>
+                                  </td>
+                                  <td><span class="badge bg-primary">30%</span></td>
+                                </tr>
+                                <tr>
+                                  <td>4.</td>
+                                  <td>Fix and squish bugs</td>
+                                  <td>
+                                    <div class="progress progress-xs progress-striped active">
+                                      <div class="progress-bar bg-success" style="width: 90%"></div>
+                                    </div>
+                                  </td>
+                                  <td><span class="badge bg-success">90%</span></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <!-- /.card-body -->
+                          <div class="card-footer clearfix">
+                            <ul class="pagination pagination-sm m-0 float-right">
+                              <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <!-- /.card -->
+    
+    
+    
+    
+                        <!-- Post -->
+                        <div class="post">
+                          <div class="user-block">
+                            <img class="img-circle img-bordered-sm" src="{{ asset('assets/dist/img/user6-128x128.jpg')}}" alt="User Image">
+                            <span class="username">
+                              <a href="#">Seid Mohammed</a>
+                              <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                            </span>
+                            <span class="description">Current ownership</span>
+                          </div>
+                          <!-- /.user-block -->
+                        <div class="row mb-3">
+                          
+                            <div class="col-sm-6">
+                              <div class="position-relative">
+                                <img class="img-fluid" src="{{ asset('assets/dist/img/photo1.png') }}" alt="Photo">
+                                <div class="ribbon-wrapper ribbon-lg">
+                                  <div class="ribbon bg-success text-lg">
+                                    Front
+                                  </div>
+                                </div>
+                                
+                              </div>
+                            </div>
+                            <!-- /.col -->
+                           
+                         <div class="col-sm-6">
+                                  <div class="position-relative">
+                                <img class="img-fluid" src="{{ asset('assets/dist/img/photo1.png') }}" alt="Photo">
+                                <div class="ribbon-wrapper ribbon-lg">
+                                  <div class="ribbon bg-danger text-lg">
+                                    Back
+                                  </div>
+                                </div>
+    
+                           </div>
+                              <!-- /.row -->
+                            </div>
+                            <!-- /.col -->
+                          </div>
+                          <!-- /.row -->
+    
+                     
+                        </div>
+                        <!-- /.post -->
+                      </div>
+                      <!-- /.tab-pane -->
+                      <div class="tab-pane" id="timeline">
+                        <!-- The timeline -->
+                        <div class="timeline timeline-inverse">
+                          <!-- timeline time label -->
+                          <div class="time-label">
+                            <span class="bg-danger">
+                              10 Feb. 2014
+                            </span>
+                          </div>
+                          <!-- /.timeline-label -->
+                          <!-- timeline item -->
+                          <div>
+                            <i class="fas fa-envelope bg-primary"></i>
+    
+                            <div class="timeline-item">
+                              <span class="time"><i class="far fa-clock"></i> 12:05</span>
+    
+                              <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+    
+                              <div class="timeline-body">
+                                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                quora plaxo ideeli hulu weebly balihoo...
+                              </div>
+                              <div class="timeline-footer">
+                                <a href="#" class="btn btn-primary btn-sm">Read more</a>
+                                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- END timeline item -->
+                          <!-- timeline item -->
+                          <div>
+                            <i class="fas fa-user bg-info"></i>
+    
+                            <div class="timeline-item">
+                              <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
+    
+                              <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
+                              </h3>
+                            </div>
+                          </div>
+                          <!-- END timeline item -->
+                          <!-- timeline item -->
+                          <div>
+                            <i class="fas fa-comments bg-warning"></i>
+    
+                            <div class="timeline-item">
+                              <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+    
+                              <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+    
+                              <div class="timeline-body">
+                                Take me to your leader!
+                                Switzerland is small and neutral!
+                                We are more like Germany, ambitious and misunderstood!
+                              </div>
+                              <div class="timeline-footer">
+                                <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- END timeline item -->
+                          <!-- timeline time label -->
+                          <div class="time-label">
+                            <span class="bg-success">
+                              3 Jan. 2014
+                            </span>
+                          </div>
+                          <!-- /.timeline-label -->
+                          <!-- timeline item -->
+                          <div>
+                            <i class="fas fa-camera bg-purple"></i>
+    
+                            <div class="timeline-item">
+                              <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
+    
+                              <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+    
+                              <div class="timeline-body">
+                                <img src="https://placehold.it/150x100" alt="...">
+                                <img src="https://placehold.it/150x100" alt="...">
+                                <img src="https://placehold.it/150x100" alt="...">
+                                <img src="https://placehold.it/150x100" alt="...">
+                              </div>
+                            </div>
+                          </div>
+                          <!-- END timeline item -->
+                          <div>
+                            <i class="far fa-clock bg-gray"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.tab-pane -->
+    
+                      <div class="tab-pane" id="settings">
+                        <form class="form-horizontal">
+                          <div class="form-group row">
+                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control" id="inputName" placeholder="Name">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="inputName2" placeholder="Name">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
+                            <div class="col-sm-10">
+                              <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                              <button type="submit" class="btn btn-danger">Submit</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div><!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    
+ 
 
     <a href="{{ path('app_employee_index') }}">back to list</a>
 

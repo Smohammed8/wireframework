@@ -47,6 +47,7 @@
         <link rel="stylesheet" href="{{ asset('assets/plugins/bs-stepper/css/bs-stepper.min.css') }}">
         <!-- dropzonejs -->
         <link rel="stylesheet" href="{{ asset('assets/plugins/dropzone/min/dropzone.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/calendar/css/redmond.calendars.picker.css')}}">
 
 
         <style>
@@ -205,11 +206,25 @@
 <script src="{{ asset('assets/plugins/dropzone/min/dropzone.min.js') }}"></script>
 <!-- AdminLTE App -->
 
+<script src="{{ asset('assets/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
 
 <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/jquery-validation/additional-methods.min.js') }}"></script>
 
+<script src=" {{ asset('assets/calendar/js/jquery.plugin.js')}}"></script>
+<script src=" {{ asset('assets/calendar/js/jquery.calendars.js')}}"></script>
+<script src=" {{ asset('assets/calendar/js/jquery.calendars.plus.js')}}"></script>
+<script src=" {{ asset('assets/calendar/js/jquery.calendars.picker.js')}}"></script>
+<script src=" {{ asset('assets/calendar/js/jquery.calendars.ethiopian.js')}}"></script>
+<script src=" {{ asset('assets/calendar/js/jquery.calendars.ethiopian-am.js')}}"></script>
+<script src=" {{ asset('assets/calendar/js/jquery.calendars.picker-am.js')}}"></script>
 
+
+<script>
+  var calendar = $.calendars.instance('ethiopian', 'am');
+ $('#start').calendarsPicker({calendar: calendar});
+ $('#end').calendarsPicker({calendar: calendar});
+           </script>
 
 
 <script>

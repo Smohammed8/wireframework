@@ -37,8 +37,8 @@ class Employee
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $birthPlace = null;
 
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
-    private array $photo = [];
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $bloodGroup = null;
@@ -120,6 +120,9 @@ class Employee
 
     #[ORM\ManyToOne(inversedBy: 'employees')]
     private ?Position $position = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $institution = null;
 
     public function __construct()
     {
@@ -240,12 +243,12 @@ class Employee
         return $this;
     }
 
-    public function getPhoto(): array
+    public function getPhoto(): ?string
     {
         return $this->photo;
     }
 
-    public function setPhoto(?array $photo): self
+    public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
 
@@ -662,6 +665,18 @@ class Employee
     public function setPosition(?Position $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getInstitution(): ?string
+    {
+        return $this->institution;
+    }
+
+    public function setInstitution(?string $institution): self
+    {
+        $this->institution = $institution;
 
         return $this;
     }

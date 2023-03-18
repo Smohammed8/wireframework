@@ -41,6 +41,11 @@ class Position
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return $this->jobTitle;
+    }
+
     public function getUnit(): ?Unit
     {
         return $this->unit;
