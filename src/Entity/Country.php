@@ -34,7 +34,7 @@ class Country
 
     public function __toString()
     {
-        return $this->name;
+        return $this->nationality;
     }
     
     public function getId(): ?int

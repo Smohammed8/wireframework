@@ -21,6 +21,16 @@ class EmployeeRepository extends ServiceEntityRepository
         parent::__construct($registry, Employee::class);
     }
 
+
+    public function getQuery($search=null)
+    {
+        $qb= $this->createQueryBuilder('a');
+        $qb->andWhere("a.idNumber   like '%$search%'");
+        $qb->orderBy('a.id', 'DESC');
+           return  $qb->getQuery();
+    }
+
+
     public function save(Employee $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

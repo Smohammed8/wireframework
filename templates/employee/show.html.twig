@@ -3,7 +3,12 @@
 {% block title %}Employee{% endblock %}
 
 {% block body %}
-    <h1>Employee</h1>
+    <small> Completing profile </small>
+    <div class="progress progress-xs">
+      <div class="progress-bar bg-success" style="width: 70%">   <span class="badge bg-success">70%</span> </div>
+      
+    </div>
+  
 
     {# <table class="table">
         <tbody>
@@ -102,7 +107,7 @@
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active">Ownership</li>
+                  <li class="breadcrumb-item active">Employee Profile</li>
                 </ol>
               </div>
             </div>
@@ -131,24 +136,28 @@
                 <div class="card card-primary card-outline">
                   <div class="card-body box-profile">
                     <div class="text-center">
-                      <img class="profile-user-img img-fluid img-circle"
-                           src="{{ asset('assets/dist/img/user4-128x128.jpg') }}"
-                           alt="User profile picture">
+                 
+
+
+                           <img   width="20px" src="{{ asset('employee_photo')}}/{{employee.photo ? employee.photo: 'user.png'}}" class="profile-user-img img-fluid img-circle">
+                     
+                    
                     </div>
     
-                    <h3 class="profile-username text-center">Seid Moammed</h3>
+                    <h3 class="profile-username text-center">{{ employee.firstName }} {{ employee.fatherName }} </h3>
     
-                    <p class="text-muted text-center">Current Ownership</p>
+                    <p class="text-muted text-center">{{ employee.position.jobTitle ?? '-' }} </p>
     
                     <ul class="list-group list-group-unbordered mb-3">
                       <li class="list-group-item">
-                        <b>Issued date: </b> <a class="float-right"> 12/05/2014 </a>
+                        {% set age = date().diff(date(employee.dateOfBirth)).y %}
+                        <b> Age : </b> <a class="float-right"> {{ age }} years old </a>
                       </li>
                       <li class="list-group-item">
-                        <b>Carta NO: </b> <a class="float-right"> 1001/12</a>
+                        <b>ID Number: </b> <a class="float-right"> {{ employee.idNumber }} </a>
                       </li>
                       <li class="list-group-item">
-                        <b>Phone </b> <a class="float-right"> 0985122541</a>
+                        <b>Phone </b> <a class="float-right"> {{ employee.phone}} </a>
                       </li>
                     </ul>
     
@@ -159,45 +168,107 @@
                 <!-- /.card -->
     
                 <!-- About Me Box -->
-                <div class="card card-primary">
+              
+                <div class="card card-gray">
                   <div class="card-header">
-                    <h3 class="card-title">About Ownership</h3>
+                    <h3 class="card-title">About Employee </h3>
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
                     <strong><i class="fas fa-book mr-1"></i> Education</strong>
     
                     <p class="text-muted">
-                      B.S. in Computer Science from the University of Tennessee at Knoxville
+                      {{ employee.educationallevel ?? '-' }}  in {{  employee.fieldOfStudy ?? '-' }} from  {{  employee.institution ?? '-'  }} 
                     </p>
     
                     <hr>
     
-                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Place of birth</strong>
     
-                    <p class="text-muted">Bahar Dar, 04  Kebele</p>
+                    <p class="text-muted">  {{ employee.birthPlace  ?? '-' }} </p>
     
                     <hr>
     
-                    <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+                    <strong><i class="fas fa-pencil-alt mr-1"></i> Experience </strong>
     
                     <p class="text-muted">
-                      <span class="tag tag-danger">UI Design</span>
-                      <span class="tag tag-success">Coding</span>
+                      {% set exp = date().diff(date(employee.employementDate)).y %}
+
+                      <span class="tag tag-danger"> {{ exp }} years </span>
+                      {# <span class="tag tag-success">Coding</span>
                       <span class="tag tag-info">Javascript</span>
                       <span class="tag tag-warning">PHP</span>
-                      <span class="tag tag-primary">Node.js</span>
+                      <span class="tag tag-primary">Node.js</span> #}
                     </p>
     
                     <hr>
     
-                    <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-    
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                    <strong><i class="far fa-file-alt mr-1"></i> Date of Retirement </strong>
+                    {% set age = date().diff(date(employee.dateOfBirth)).y %}
+                      {% set remaining = 60 - age  %}
+                    <p class="text-muted">
+
+
+                  Aftere  {{  remaining   }} years
+                    </p>
                   </div>
                   <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
+
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">    <i class="fa fa-list"></i>  <b> Other Information </b> </h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <ul class="nav nav-pills flex-column">
+                <li class="nav-item active">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-dollar-sign"></i> Salary
+                    <span class="float-right">12,000</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-book"></i> Pension Number
+                    <span class="float-right"> 100 000</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-user"></i> Gender
+                    <span class="float-right"> Male</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-envelope"></i> Email
+                    <span class="float-right"> seid.seid@ju.edu.et </span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-trash-alt"></i> Blood group
+                    <span class="badge bg-warning float-right"> B+ </span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-trash-alt"></i> Eye color
+                    <span class="badge bg-warning float-right"> Brown </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- /.card-body -->
+          </div>
               </div>
               <!-- /.col -->
     
@@ -209,16 +280,17 @@
                 <div class="card">
                   <div class="card-header p-2">
                     <ul class="nav nav-pills">
-                      <li class="nav-item"><a class="nav-link active" href="" data-toggle="tab">Assign</a></li>
-    
-                      <li class="nav-item"><a class="nav-link " href="#activity" data-toggle="tab">Overview</a></li>
+                    
+                      <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Profile</a></li>
                       <li class="nav-item"><a class="nav-link" href="" data-toggle="tab">Transfer</a></li>
                       <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Payment</a></li>
                       <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Location</a></li>
                       <li class="nav-item"><a class="nav-link" href="#" data-toggle="tab">Uploads</a></li>
     
                     </ul>
-                  </div><!-- /.card-header -->
+                  </div>
+                  
+                  <!-- /.card-header -->
                   <div class="card-body">
                     <div class="tab-content">
             <div class="active tab-pane" id="activity">
@@ -230,7 +302,7 @@
                   <div class="card-header">
                     <div class="row mb-1">
                       <div class="col-sm-6">
-                        <h3 class="card-title">Payment and credit</h3>
+                        <h3 class="card-title"> <i class="fa fa-graduation-cap"> </i> Education & Study</h3>
                       </div>
                       <div class="col-sm-6">
                           <a style="float:right;" class="btn btn-outline-primary btn-sm" href="{{ path('app_employee_new') }}"> <i class="fa fa-plus"> </i> Add </a>
@@ -246,10 +318,11 @@
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>User</th>
-                          <th>Date</th>
-                          <th>Status</th>
-                          <th>Reason</th>
+                          <th>Education Level </th>
+                          <th>From</th>
+                          <th>To</th>
+                          <th> Instition </th>
+                          <th> Certification </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -257,36 +330,17 @@
                    
                      
                         <tr data-widget="expandable-table" aria-expanded="false">
-                          <td>175</td>
+                          <td>1</td>
                           <td>Mike Doe</td>
                           <td>11-7-2014</td>
-                          <td>Denied</td>
-                          <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr class="expandable-body">
-                          <td colspan="5">
-                            <p>
-                              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
-                          </td>
-                        </tr>
-                
-                   
-                   
-                        <tr data-widget="expandable-table" aria-expanded="false">
-                          <td>982</td>
-                          <td>Rocky Doe</td>
                           <td>11-7-2014</td>
-                          <td>Denied</td>
-                          <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                          <td>Bacon ip</td>
+                          <td>Uploads</td>
                         </tr>
-                        <tr class="expandable-body">
-                          <td colspan="5">
-                            <p>
-                              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            </p>
-                          </td>
-                        </tr>
+                   
+                   
+                   
+                    
                       </tbody>
                     </table>
                   </div>
@@ -296,139 +350,311 @@
               </div>
             </div>
             <!-- /.row -->
-                        <!-- /.post -->
-    
-                        <!-- Post -->
-                        <div class="post clearfix">
-                          <div class="card">
-                            <div class="card-header">
-                              <h3 class="card-title">Transfers history</h3>
-              
-                              <div class="card-tools">
-                                <ul class="pagination pagination-sm float-right">
-                                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                                </ul>
-                              </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body p-0">
-                              <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Task</th>
-                                    <th>Progress</th>
-                                    <th style="width: 40px">Label</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
-                                    <td>
-                                      <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                      </div>
-                                    </td>
-                                    <td><span class="badge bg-danger">55%</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td>2.</td>
-                                    <td>Clean database</td>
-                                    <td>
-                                      <div class="progress progress-xs">
-                                        <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                      </div>
-                                    </td>
-                                    <td><span class="badge bg-warning">70%</span></td>
-                                  </tr>
+
+
+
+                           <!-- /.row -->
+                           <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-header">
+                                  <div class="row mb-1">
+                                    <div class="col-sm-6">
+                                      <h3 class="card-title"> <i class="fa fa-graduation-cap"> </i> Internal Experience </h3>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a style="float:right;" class="btn btn-outline-primary btn-sm" href="{{ path('app_employee_new') }}"> <i class="fa fa-plus"> </i> Add </a>
+                                    </div>
+                                  </div>
+                                </div>
+                  
                            
-                                </tbody>
-                              </table>
+                  
+                                <!-- ./card-header -->
+                                <div class="card-body">
+                                  <table class="table table-bordered table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th>#</th>
+                                        <th>Education Level </th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th> Instition </th>
+                                        <th> Certification </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                  
+                                 
+                                   
+                                      <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td>1</td>
+                                        <td>Mike Doe</td>
+                                        <td>11-7-2014</td>
+                                        <td>11-7-2014</td>
+                                        <td>Bacon ip</td>
+                                        <td>Uploads</td>
+                                      </tr>
+                                 
+                                 
+                                 
+                                  
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <!-- /.card-body -->
+                              </div>
+                              <!-- /.card -->
                             </div>
-                            <!-- /.card-body -->
                           </div>
-                          <!-- /.card -->
-                        </div>
+                          <!-- /.row -->
+
+
+
+                                 <!-- /.row -->
+                                 <div class="row">
+                                  <div class="col-12">
+                                    <div class="card">
+                                      <div class="card-header">
+                                        <div class="row mb-1">
+                                          <div class="col-sm-6">
+                                            <h3 class="card-title"> <i class="fa fa-graduation-cap"> </i> External Experience </h3>
+                                          </div>
+                                          <div class="col-sm-6">
+                                              <a style="float:right;" class="btn btn-outline-primary btn-sm" href="{{ path('app_employee_new') }}"> <i class="fa fa-plus"> </i> Add </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                        
+                                 
+                        
+                                      <!-- ./card-header -->
+                                      <div class="card-body">
+                                        <table class="table table-bordered table-hover">
+                                          <thead>
+                                            <tr>
+                                              <th>#</th>
+                                              <th>Education Level </th>
+                                              <th>From</th>
+                                              <th>To</th>
+                                              <th> Instition </th>
+                                              <th> Certification </th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                        
+                                       
+                                         
+                                            <tr data-widget="expandable-table" aria-expanded="false">
+                                              <td>1</td>
+                                              <td>Mike Doe</td>
+                                              <td>11-7-2014</td>
+                                              <td>11-7-2014</td>
+                                              <td>Bacon ip</td>
+                                              <td>Uploads</td>
+                                            </tr>
+                                       
+                                       
+                                       
+                                        
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                  </div>
+                                </div>
+                                <!-- /.row -->
+      
+                              <!-- /.post -->
+
+
+
+                                     <!-- /.row -->
+                           <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-header">
+                                  <div class="row mb-1">
+                                    <div class="col-sm-6">
+                                      <h3 class="card-title"> <i class="fa fa-user"> </i> Emergency Contacts </h3>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a style="float:right;" class="btn btn-outline-primary btn-sm" href="{{ path('app_employee_new') }}"> <i class="fa fa-plus"> </i> Add </a>
+                                    </div>
+                                  </div>
+                                </div>
+                  
+                           
+                  
+                                <!-- ./card-header -->
+                                <div class="card-body">
+                                  <table class="table table-bordered table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th>#</th>
+                                        <th>Education Level </th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th> Instition </th>
+                                        <th> Certification </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                  
+                                 
+                                   
+                                      <tr data-widget="expandable-table" aria-expanded="false">
+                                        <td>1</td>
+                                        <td>Mike Doe</td>
+                                        <td>11-7-2014</td>
+                                        <td>11-7-2014</td>
+                                        <td>Bacon ip</td>
+                                        <td>Uploads</td>
+                                      </tr>
+                                 
+                                 
+                                 
+                                  
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <!-- /.card-body -->
+                              </div>
+                              <!-- /.card -->
+                            </div>
+                          </div>
+                          <!-- /.row -->
+
+
+                                 <!-- /.row -->
+                                 <div class="row">
+                                  <div class="col-12">
+                                    <div class="card">
+                                      <div class="card-header">
+                                        <div class="row mb-1">
+                                          <div class="col-sm-6">
+                                            <h3 class="card-title"> <i class="fa fa-users"> </i> Familiy Relatinship </h3>
+                                          </div>
+                                          <div class="col-sm-6">
+                                              <a style="float:right;" class="btn btn-outline-primary btn-sm" href="{{ path('app_employee_new') }}"> <i class="fa fa-plus"> </i> Add </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                        
+                                 
+                        
+                                      <!-- ./card-header -->
+                                      <div class="card-body">
+                                        <table class="table table-bordered table-hover">
+                                          <thead>
+                                            <tr>
+                                              <th>#</th>
+                                              <th>Education Level </th>
+                                              <th>From</th>
+                                              <th>To</th>
+                                              <th> Instition </th>
+                                              <th> Certification </th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                        
+                                       
+                                         
+                                            <tr data-widget="expandable-table" aria-expanded="false">
+                                              <td>1</td>
+                                              <td>Mike Doe</td>
+                                              <td>11-7-2014</td>
+                                              <td>11-7-2014</td>
+                                              <td>Bacon ip</td>
+                                              <td>Uploads</td>
+                                            </tr>
+                                       
+                                       
+                                       
+                                        
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                      <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                  </div>
+                                </div>
+                                <!-- /.row -->
+
+
+                                     <!-- /.row -->
+                                     <div class="row">
+                                      <div class="col-12">
+                                        <div class="card">
+                                          <div class="card-header">
+                                            <div class="row mb-1">
+                                              <div class="col-sm-6">
+                                                <h3 class="card-title"> <i class="fa fa-globe"> </i> Language Skill </h3>
+                                              </div>
+                                              <div class="col-sm-6">
+                                                  <a style="float:right;" class="btn btn-outline-primary btn-sm" href="{{ path('app_employee_new') }}"> <i class="fa fa-plus"> </i> Add </a>
+                                              </div>
+                                            </div>
+                                          </div>
+                            
+                                     
+                            
+                                          <!-- ./card-header -->
+                                          <div class="card-body">
+                                            <table class="table table-bordered table-hover">
+                                              <thead>
+                                                <tr>
+                                                  <th>#</th>
+                                                  <th>Education Level </th>
+                                                  <th>From</th>
+                                                  <th>To</th>
+                                                  <th> Instition </th>
+                                                  <th> Certification </th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                            
+                                           
+                                             
+                                                <tr data-widget="expandable-table" aria-expanded="false">
+                                                  <td>1</td>
+                                                  <td>Mike Doe</td>
+                                                  <td>11-7-2014</td>
+                                                  <td>11-7-2014</td>
+                                                  <td>Bacon ip</td>
+                                                  <td>Uploads</td>
+                                                </tr>
+                                           
+                                           
+                                           
+                                            
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                          <!-- /.card-body -->
+                                        </div>
+                                        <!-- /.card -->
+                                      </div>
+                                    </div>
+                                    <!-- /.row -->
+      
+                              <!-- /.post -->
+    
+                              
                         <!-- /.post -->
     
     
-                        <div class="card">
-                          <div class="card-header">
-                            <h3 class="card-title">Bordered Table</h3>
-                          </div>
-                          <!-- /.card-header -->
-                          <div class="card-body">
-                            <table class="table table-bordered">
-                              <thead>
-                                <tr>
-                                  <th style="width: 10px">#</th>
-                                  <th>Task</th>
-                                  <th>Progress</th>
-                                  <th style="width: 40px">Label</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1.</td>
-                                  <td>Update software</td>
-                                  <td>
-                                    <div class="progress progress-xs">
-                                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-danger">55%</span></td>
-                                </tr>
-                                <tr>
-                                  <td>2.</td>
-                                  <td>Clean database</td>
-                                  <td>
-                                    <div class="progress progress-xs">
-                                      <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-warning">70%</span></td>
-                                </tr>
-                                <tr>
-                                  <td>3.</td>
-                                  <td>Cron job running</td>
-                                  <td>
-                                    <div class="progress progress-xs progress-striped active">
-                                      <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-primary">30%</span></td>
-                                </tr>
-                                <tr>
-                                  <td>4.</td>
-                                  <td>Fix and squish bugs</td>
-                                  <td>
-                                    <div class="progress progress-xs progress-striped active">
-                                      <div class="progress-bar bg-success" style="width: 90%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-success">90%</span></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <!-- /.card-body -->
-                          <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-right">
-                              <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                              <li class="page-item"><a class="page-link" href="#">1</a></li>
-                              <li class="page-item"><a class="page-link" href="#">2</a></li>
-                              <li class="page-item"><a class="page-link" href="#">3</a></li>
-                              <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                        <!-- /.card -->
+                              
+
+                        <!-- /.post -->
     
+
+
+
+            
     
     
     

@@ -5,6 +5,8 @@
 {% block body %}
 
 
+
+
     <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-1">
@@ -23,12 +25,13 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>Photo </th>
                 <th>Employee Name</th>
               
                 <th>Gender</th>
-                <th> Bierg date</th>
+                <th>Age </th>
                 <th>Phone</th>
-                <th>BirthPlace</th>
+                <th>Working unit </th>
                 {# <th>Photo</th>
                 <th>BloodGroup</th>
                 <th>EyeColor</th> #}
@@ -41,6 +44,7 @@
                 <th>LastNameAm</th> #}
                 {# <th>UpdatedAt</th> #}
                 <th>EmployementDate</th>
+                 <th>Job title </th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -48,12 +52,31 @@
         {% for employee in employees %}
             <tr>
                 <td>{{  loop.index }}</td>
+
+             
+                     <td> 
+                 
+                      
+                    	<img   width="20px" src="{{ asset('employee_photo')}}/{{employee.photo ? employee.photo: 'user.png'}}" class="img-circle elevation-2">
+                     
+                    
+
+                  
+
+                        
+										
+                        
+                        </td>
+                  
+
                 <td>{{ employee.firstName }} {{ employee.fatherName }} {{ employee.lastName }} </td>
              
+               {% set age = date().diff(date(employee.dateOfBirth)).y %}
+
                 <td>{{ employee.gender }}</td>
-                <td>{{ employee.dateOfBirth ? employee.dateOfBirth|date('Y-m-d') : '' }}</td>
+                <td>{{ age   }}</td>
                 <td>{{ employee.phone }}</td>
-                <td>{{ employee.birthPlace }}</td>
+                <td>{{ employee.position.unit ?? '-' }}</td>
                 {# <td>{{ employee.photo }}</td>
                 <td>{{ employee.bloodGroup }}</td>
                 <td>{{ employee.eyeColor }}</td> #}
@@ -65,7 +88,8 @@
                 <td>{{ employee.fatherNameAm }}</td>
                 <td>{{ employee.lastNameAm }}</td>
                 <td>{{ employee.updatedAt ? employee.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
-                <td>{{ employee.employementDate ? employee.employementDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ employee.employementDate ? employee.employementDate|ago : '' }}</td>
+                     <td>{{ employee.position.jobTitle ? employee.position.jobTitle  : '' }}</td>
                 <td>
                   
 
@@ -83,5 +107,55 @@
         </tbody>
     </table>
 
- 
+    <div class="btn btn-sm float-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(employees) }}</div>
+
+
+    <br>
+
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+            <form action="enhanced-results.html">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <div class="row">
+                        
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label> Working unit:</label>
+                                    <select class="select2" style="width: 100%;">
+                                        <option selected>ASC</option>
+                                        <option>DESC</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Job title :</label>
+                                    <select class="select2" style="width: 100%;">
+                                        <option selected>Title</option>
+                                        <option>Date</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label> Employement type:</label>
+                                    <select class="select2" style="width: 100%;">
+                                        <option selected>Title</option>
+                                        <option>Date</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </form>
+        
+        </div>
+    </section>
 {% endblock %}
+

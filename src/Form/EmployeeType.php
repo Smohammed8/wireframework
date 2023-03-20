@@ -26,6 +26,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -40,18 +41,30 @@ class EmployeeType extends AbstractType
        
             ->add('gender', ChoiceType::class,["choices" => ["Select sex"=>null,"Male" => "M","Female"=>"F"]])
           //  ->add('dateOfBirth')
-            ->add('phone')
+          //  ->add('phone')
+            ->add('phone',TelType::class)
             ->add('birthPlace')
-            ->add('photo')
+           
+            // ->add('photo',FileType::class)
+
+
+            ->add('photo', FileType::class, array(
+                'attr' => array(
+                    'id' => 'customFile',
+                    'class' => 'sr-only',
+                    'accept' => 'image/jpeg,image/png,image/jpg'
+                ),
+                'label' => 'Employee Photo',
+
+
+            ))
+
 
 
             ->add('bloodGroup', ChoiceType::class,["choices" => ["Select blood group"=>null,"A" => "A","B"=>"B","AB"=>"AB","O"=>"O"]])
             ->add('eyeColor', ChoiceType::class,["choices" => ["Select eye color"=>null,"Amber" => "Amber","Blue"=>"Blue","Brown"=>"Brown","Gray"=>"Gray" ,"Green"=>"Green","Red"=>"Red","Hazel"=>"Hazel"]])
-
-
-         
-       
-            ->add('email')
+          //  ->add('email')
+            ->add('email',EmailType::class,['mapped'=>false])
         //    ->add('idNumber')
             ->add('pentionNumber')
           //  ->add('createdAt')
@@ -61,8 +74,6 @@ class EmployeeType extends AbstractType
         //    ->add('updatedAt')
             //->add('employementDate')
  
-
-
             ->add('employeeTitle', EntityType::class, [
                 'class' =>EmployeeTitle::class,
                 'required'=>false,
