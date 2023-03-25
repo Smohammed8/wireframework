@@ -354,6 +354,9 @@
               </div>
               <!-- /.row -->
               
+
+
+
                    <!-- /.row -->
                    <div class="row">
                     <div class="col-12">
@@ -363,8 +366,8 @@
                           <div class="card-header">
                             <h3 class="card-title"> <i class="fa fa-globe"> </i> Language Skill </h3>
                             <div class="card-tools">
-                              <a href="#" class="btn btn-tool btn-link">#06</a>
-                              <a href="{{ path('app_employee_new') }}" class="btn btn-tool">
+                              <small > Language</small>
+                              <a href="#my-modal" onclick="event.preventDefault();setAdmissionType('none');" role="button"  data-toggle="modal" class="btn btn-tool">
                                 <i class="fa fa-plus"></i> 
                               </a>
                             </div>
@@ -418,9 +421,7 @@
                                 </td>
                               </tr>
                          
-                         
-                         
-                          
+                      
                             </tbody>
                           </table>
                         </div>
@@ -428,10 +429,74 @@
                       </div>
                       <!-- /.card -->
 
-
-
         
                     </div>
+
+                    
                   </div>
                   <!-- /.row -->
-                  
+
+{# 
+                  <div id="my-modal" class="modal fade" tabindex="-1">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h3 class="smaller lighter blue no-margin">Add new admimssion</h3>
+                        </div>
+                        <div class="modal-body">
+                          <div>
+                            <form id="formAddmission" method="POST" action="">
+                              {# <form id="formAddmission" method="POST" action="{{path('admimssion_new',{patient:employee.id})}}"> #}
+                              {# <div class="row">
+                                <div>
+                                  {# <input type="hidden" name="patient_id" value="{{patient.id}}">
+                                  <input type="hidden" name="re_admission" id="re_admission" value="none"/>
+                                  <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ patient.id) }}"> #}
+                                {# </div>  #}
+                                {# <div class="col-md-12">
+                                  <label>Ward</label>
+                                  <select class="select2 form-control" required name="ward" id="selectWard" style="width:100%;">
+                                    <option value=""></option>
+                                  </select>
+                                </div>
+                                <div class="col-md-12">
+                                  <label>Unit</label>
+                                  <select class="select2 form-control" required name="unit" id="selectUnit" style="width:100%;"></select>
+                                </div>
+                                <div class="col-md-12">
+                                  <label>Room</label>
+                                  <select class="select2 form-control" required name="room" id="selectRoom" style="width:100%;"></select>
+                                </div>
+                                <div class="col-md-12">
+                                  <label>Bed</label>
+                                  <select class="select2 form-control" required name="bed" id="selectBed" style="width:100%;"></select>
+                                </div> #}
+                    
+                                {# <div class="col-md-12">
+                                  <label>Emergency Type</label>
+                                  <select class="select2 form-control" required name="type" id="selectType" style="width:100%;">
+                                    {% for type in types %}
+                                      <option value="{{type.id}}">{{type.name}}</option>
+                                    {% endfor %}
+                                  </select>
+                                </div> #}
+                    
+                    
+{#                     
+                                <div class="col-md-12">
+                                  <label> Need oxgen?</label>
+                                  <select class="select2 form-control" required name="oxgen" id="selectType" style="width:100%;">
+                                  
+                                      <option value="0"> No</option>
+                                                        <option value="1"> Yes</option>
+                                  
+                                  </select>
+                                </div>
+                    
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                                        #}
+

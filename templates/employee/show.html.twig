@@ -9,95 +9,6 @@
       
     </div>
   
-
-    {# <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ employee.id }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ employee.firstName }}</td>
-            </tr>
-            <tr>
-                <th>FatherName</th>
-                <td>{{ employee.fatherName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ employee.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>{{ employee.gender }}</td>
-            </tr>
-            <tr>
-                <th>DateOfBirth</th>
-                <td>{{ employee.dateOfBirth ? employee.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ employee.phone }}</td>
-            </tr>
-            <tr>
-                <th>BirthPlace</th>
-                <td>{{ employee.birthPlace }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ employee.photo }}</td>
-            </tr>
-            <tr>
-                <th>BloodGroup</th>
-                <td>{{ employee.bloodGroup }}</td>
-            </tr>
-            <tr>
-                <th>EyeColor</th>
-                <td>{{ employee.eyeColor }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ employee.email }}</td>
-            </tr>
-            <tr>
-                <th>IdNumber</th>
-                <td>{{ employee.idNumber }}</td>
-            </tr>
-            <tr>
-                <th>PentionNumber</th>
-                <td>{{ employee.pentionNumber }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ employee.createdAt ? employee.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>FirstNameAm</th>
-                <td>{{ employee.firstNameAm }}</td>
-            </tr>
-            <tr>
-                <th>FatherNameAm</th>
-                <td>{{ employee.fatherNameAm }}</td>
-            </tr>
-            <tr>
-                <th>LastNameAm</th>
-                <td>{{ employee.lastNameAm }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ employee.updatedAt ? employee.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EmployementDate</th>
-                <td>{{ employee.employementDate ? employee.employementDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table> #}
-
-
- 
-       
         <section class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
@@ -119,17 +30,7 @@
           <div class="container-fluid">
             <div class="row">
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
            <div class="col-md-3">
     
                 <!-- Profile Image -->
@@ -294,19 +195,37 @@
             
 
                   <li class="nav-item">
-                    <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true"> Profile </a>
+                    <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true"> <i class="fa fa-user-tie"> </i>  Profile </a>
                   </li>
                 
                   <li class="nav-item">
-                    <a class="nav-link " id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false"> Job Information </a>
+                    <a class="nav-link " id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false"> <i class="fa fa-flag"> </i> Job Information </a>
                   </li>
 
                   <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill" href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Messages</a>
+                    <a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill" href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false"><i class="fa fa-balance-scale"> </i>  Effiency </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Settings</a>
+                    <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false"> <i class="fa fa-user-minus"> </i>  Leave</a>
                   </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" id="" data-toggle="pill" href="" role="tab" aria-controls="custom-tabs-four-promotion" aria-selected="false"> Promotion</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" id="" data-toggle="pill" href="" role="tab" aria-controls="custom-tabs-four-demotion" aria-selected="false"> Demotion </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" id="" data-toggle="pill" href="" role="tab" aria-controls="custom-tabs-four-certification" aria-selected="false"> Certification </a>
+                  </li>
+
+
+                  <li class="nav-item">
+                    <a class="nav-link" id="" data-toggle="pill" href="" role="tab" aria-controls="custom-tabs-four-misconduct" aria-selected="false"> Misconduct </a>
+                  </li>
+
                 </ul>
               </div>
 
@@ -322,6 +241,7 @@
         
                        
                  
+                    
                </div>
 
                   <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
@@ -407,4 +327,7 @@
     <a href="{{ path('app_employee_edit', {'id': employee.id}) }}">edit</a>
 
     {{ include('employee/_delete_form.html.twig') }}
+
+
+    
 {% endblock %}

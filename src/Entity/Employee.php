@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 class Employee
 {
@@ -16,27 +18,38 @@ class Employee
     #[ORM\Column]
     private ?int $id = null;
 
+
+    #[Assert\NotBlank(message:"FirstName cannot be empty!")]
     #[ORM\Column(length: 100)]
     private ?string $firstName = null;
 
+    #[Assert\NotBlank(message:"FatherName cannot be  empty!")]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 100)]
     private ?string $fatherName = null;
-
+    #[Assert\NotBlank(message:"LastName cannot be  empty!")]
     #[ORM\Column(length: 100)]
     private ?string $lastName = null;
-
+    #[Assert\NotBlank(message:"Gender cannot be  empty!")]
     #[ORM\Column(length: 50)]
     private ?string $gender = null;
-
+    // #[Assert\NotBlank(message:"Birth date cannot be  empty!")]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateOfBirth = null;
-
+    
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $phone = null;
-
+    #[Assert\NotBlank]
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $birthPlace = null;
 
+
+
+   #[Assert\File(
+    maxSize: '1024k',
+    extensions: ['png','jpg','jpeg'],
+    extensionsMessage: 'Please upload a valid photo',
+    )]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
@@ -66,6 +79,7 @@ class Employee
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $lastNameAm = null;
+
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
@@ -103,6 +117,9 @@ class Employee
     #[ORM\ManyToOne(inversedBy: 'employees')]
     private ?FieldOfStudy $fieldOfStudy = null;
 
+
+    // #[Assert\NotBlank(message:"Date of hire cannot be  empty!")]
+    
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $employementDate = null;
 

@@ -29,6 +29,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\HttpFoundation\File\File;
 
 class EmployeeType extends AbstractType
 {
@@ -46,18 +47,26 @@ class EmployeeType extends AbstractType
             ->add('birthPlace')
            
             // ->add('photo',FileType::class)
+            ->add('photo', FileType::class, array('data_class' => null, 'required' => false))
 
 
-            ->add('photo', FileType::class, array(
-                'attr' => array(
-                    'id' => 'customFile',
-                    'class' => 'sr-only',
-                    'accept' => 'image/jpeg,image/png,image/jpg'
-                ),
-                'label' => 'Employee Photo',
+     
+
+            // ->add('photo', FileType::class, array(
+            //     'attr' => array(
+            //         'id' => 'customFile',
+            //         'class' => 'sr-only',
+            //         'accept' => 'image/jpeg,image/png,image/jpg'
+            //     ),
+            //     'label' => 'Employee Photo',
 
 
-            ))
+            // ))
+
+       
+        
+
+
 
 
 

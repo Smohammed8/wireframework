@@ -20,6 +20,8 @@ use Andegna\DateTime as et_date;
 // use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Helper\DomPrint;
+use App\Repository\PositionCodeRepository;
+use App\Repository\SalaryScaleRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,7 +29,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Session\Session;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 #[Route('/employee')]
@@ -41,7 +44,7 @@ class EmployeeController extends AbstractController
         $queryBuilder = $employeeRepository->getQuery($request->query->get('search'));
         $data = $paginator->paginate($queryBuilder, 
           $request->query->getInt('page', 1),
-            4
+            10
          );
 
          return $this->render('employee/index.html.twig', [
@@ -83,17 +86,15 @@ class EmployeeController extends AbstractController
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
 
 
                     $ed  = $request->get('employementDate');
                     $dob  = $request->get('dateOfBirth');
-                       
-
                     $emd   = explode('/', $ed);
                     $emdate  = DateTimeFactory::of($emd[2], $emd[1], $emd[0]);
-       
-                   
                     $sd   = explode('/', $dob);
                     $date_of_birth  = DateTimeFactory::of($sd[2], $sd[1], $sd[0]);
                 
@@ -131,14 +132,26 @@ class EmployeeController extends AbstractController
         return $this->renderForm('employee/new.html.twig', [
             'employee' => $employee,
             'form' => $form,
+          
         ]);
     }
 
     #[Route('/{id}', name: 'app_employee_show', methods: ['GET'])]
-    public function show(Employee $employee): Response
+    public function show(Employee $employee, SalaryScaleRepository $salaryScaleRepository, PositionCodeRepository $positionCodeRepository): Response
     {
+
+        $level_id  = $employee->getPosition()->getJobTitle()->getLevel()->getId();
+         $salarycale  =   $salaryScaleRepository->find($level_id);         
+          $salary  =  $salarycale->getStartSalary();
+     
+          
+        $code =   $positionCodeRepository->find($employee->getPosition()->getId() );
+
+  
         return $this->render('employee/show.html.twig', [
             'employee' => $employee,
+            'salary' => $salary,
+            'job_code' => $code->getCode()
         ]);
     }
 
@@ -156,7 +169,7 @@ class EmployeeController extends AbstractController
 
         return $this->renderForm('employee/edit.html.twig', [
             'employee' => $employee,
-            'form' => $form,
+            'form' => $form->getErrors()
         ]);
     }
 
