@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}InternalExperience index{% endblock %}
+
+{% block body %}
+    <h1>InternalExperience index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for internal_experience in internal_experiences %}
+            <tr>
+                <td>{{ internal_experience.id }}</td>
+                <td>{{ internal_experience.startDate ? internal_experience.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ internal_experience.endDate ? internal_experience.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ internal_experience.createdAt ? internal_experience.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_internal_experience_show', {'id': internal_experience.id}) }}">show</a>
+                    <a href="{{ path('app_internal_experience_edit', {'id': internal_experience.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_internal_experience_new') }}">Create new</a>
+{% endblock %}

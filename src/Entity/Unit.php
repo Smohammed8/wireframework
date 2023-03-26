@@ -36,10 +36,14 @@ class Unit
     #[ORM\OneToMany(mappedBy: 'unit', targetEntity: Position::class)]
     private Collection $positions;
 
+    #[ORM\OneToMany(mappedBy: 'unit', targetEntity: InternalExperience::class)]
+    private Collection $internalExperiences;
+
     public function __construct()
     {
         $this->units = new ArrayCollection();
         $this->positions = new ArrayCollection();
+        $this->internalExperiences = new ArrayCollection();
     }
 
   public function __toString()
@@ -166,6 +170,36 @@ class Unit
             // set the owning side to null (unless already changed)
             if ($position->getUnit() === $this) {
                 $position->setUnit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InternalExperience>
+     */
+    public function getInternalExperiences(): Collection
+    {
+        return $this->internalExperiences;
+    }
+
+    public function addInternalExperience(InternalExperience $internalExperience): self
+    {
+        if (!$this->internalExperiences->contains($internalExperience)) {
+            $this->internalExperiences->add($internalExperience);
+            $internalExperience->setUnit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInternalExperience(InternalExperience $internalExperience): self
+    {
+        if ($this->internalExperiences->removeElement($internalExperience)) {
+            // set the owning side to null (unless already changed)
+            if ($internalExperience->getUnit() === $this) {
+                $internalExperience->setUnit(null);
             }
         }
 

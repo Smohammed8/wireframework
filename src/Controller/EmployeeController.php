@@ -21,12 +21,17 @@ use Andegna\DateTime as et_date;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Helper\DomPrint;
 use App\Repository\EducationalLevelRepository;
+use App\Repository\EmergencyContactRepository;
+use App\Repository\EmployeeEducationRepository;
+use App\Repository\ExternalExperienceRepository;
+use App\Repository\InternalExperienceRepository;
 use App\Repository\JobTitleRepository;
 use App\Repository\LanguageRepository;
 use App\Repository\PositionCodeRepository;
 use App\Repository\RelationshipRepository;
 use App\Repository\SalaryScaleRepository;
 use App\Repository\UnitRepository;
+use App\Repository\PositionRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -160,7 +165,8 @@ class EmployeeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-
+                   $phone = $request->get('phone');
+                    
                     $ed  = $request->get('employementDate');
                     $dob  = $request->get('dateOfBirth');
                     $emd   = explode('/', $ed);
@@ -190,10 +196,13 @@ class EmployeeController extends AbstractController
             $employee->setLastName (ucfirst(strtolower($form->get('lastName')->getData())));
 
             $employee->setDateOfBirth($date_of_birth->toGregorian());
+            $employee->setPhone($phone);
             $employee->setEmployementDate ($emdate->toGregorian());
             $employee->setIdNumber($this->getEmployeeID());
             $employee->setCreatedAt(new \DateTimeImmutable());
             $employee->setUpdatedAt(new \DateTimeImmutable());
+
+            
             $employeeRepository->save($employee, true);
             $this->addFlash('success', "The Employee has been successfully registered!");
             return $this->redirectToRoute('app_employee_index', [], Response::HTTP_SEE_OTHER);
@@ -206,14 +215,28 @@ class EmployeeController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{id}', name: 'app_employee_show', methods: ['GET'])]
-    public function show(Employee $employee,LanguageRepository $languageRepository, RelationshipRepository $relationshipRepository, PositionRepository $positionRepository,  JobTitleRepository $jobTitleRepository, UnitRepository $unitRepository,  EducationalLevelRepository $educationalLevelRepository, SalaryScaleRepository $salaryScaleRepository, PositionCodeRepository $positionCodeRepository): Response
+    public function show(Employee $employee, LanguageRepository $languageRepository,
+        RelationshipRepository $relationshipRepository, 
+        JobTitleRepository $jobTitleRepository, 
+        UnitRepository $unitRepository, 
+        EducationalLevelRepository $educationalLevelRepository,
+        SalaryScaleRepository $salaryScaleRepository, 
+        PositionCodeRepository $positionCodeRepository,
+         PositionRepository  $positionRepository, 
+         EmployeeEducationRepository $employeeEducationRepository ,
+          ExternalExperienceRepository $externalExperienceRepository,
+           InternalExperienceRepository $internalExperienceRepository, EmergencyContactRepository $emergencyContactRepository ): Response
     {
  
-          $level_id    = $employee->getPosition()->getJobTitle()->getLevel()->getId();
-          $salarycale  =   $salaryScaleRepository->find($level_id);         
-          $salary      =  $salarycale->getStartSalary();
-          $code        =   $positionCodeRepository->find($employee->getPosition()->getId());
+       
+        
+            $level_id    = $employee->getPosition()->getJobTitle()->getLevel()->getId();
+            $salarycale  =   $salaryScaleRepository->find($level_id);         
+            $salary      =  $salarycale->getStartSalary();
+            $code        =   $positionCodeRepository->find($employee->getPosition()->getId());
           return $this->render('employee/show.html.twig', [
              'employee' => $employee,
              'salary' => $salary,
@@ -223,7 +246,11 @@ class EmployeeController extends AbstractController
              'jobTitles' =>$jobTitleRepository->findAll(),
              'positions' =>$positionRepository->findAll(),
              'relations' =>$relationshipRepository->findAll(),
-             'languages' =>$languageRepository->findAll()
+             'languages' =>$languageRepository->findAll(),
+             'employee_educations' => $employeeEducationRepository->findAll(),
+             'internal_experiences' =>$internalExperienceRepository->findAll(),
+             'external_experiences' =>$externalExperienceRepository->findAll(),
+             'emergency_contacts' =>$emergencyContactRepository->findAll()
         ]);
     }
 

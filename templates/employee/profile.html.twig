@@ -2,180 +2,247 @@
 
 <div class=" card col-md-12 mb-2 card card-gray card-outline">
 
-<div class="card-body" style="font-family:inherit; font-size:14px;">
+<div class="card-body" style="font-family:inherit; font-size:1rem; color:#6c757d;">
     <div class="row">
     
         <div class="col-md-11">
             <div class="row justify-content-between">
-                <div class="col-md-6">
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Employee Name : </b> </label>
-                        <label for="">{{ employee.firstName }} {{ employee.fatherName }} {{ employee.lastName }} </label>
-
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <label for=""> </label>
-                      <span> [ {{ employee.firstNameAm ?? '__'  }} {{ employee.fatherNameAm ?? '__'  }} {{ employee.lastNameAm ?? '__'  }}  ]
-
-                        </span> 
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Job title : </b></label>
-                        <label for=""> {{ employee.position.jobTitle ?? '-' }}  </label>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Educational level : </b></label>
-                        <label for="">{{ employee.educationallevel ?? '-'}}</label>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Phone Number : </b></label>
-                        <label for="">{{ employee.phone ?? '-'}}  </label>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Ethnicity : </b></label>
-                        <label for="">{{ employee.ethnicity ?? '-' }}</label>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Religion : </b></label>
-                        <label for="">{{ employee.religion ?? '-'}}</label>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Avearge Efficinecy : </b></label>
-                        <label for="">{{  '-' }}%</label>
-                    </div>
-
-                 
-
-                
-
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Job grade: </b></label>
-                        <label for=""> {{ employee.position.jobTitle.level }} </label>
-                    </div>
 
 
-                    {# <div class="d-flex justify-content-between">
-                        <label for=""><b>Horizonat Level: </b></label>
-                        <label for="">Start salary </label>
-                       {{  '1'}}<sup>st</sup>   
-                    </div> #}
+            <div class="card-body p-0">
+              
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item active">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Full Name : 
+                  <span class="float-right">{{ employee.firstName }} {{ employee.fatherName }} {{ employee.lastName }} </span><br>
+                  <span class="float-right"> [ {{ employee.firstNameAm ?? '__'  }} {{ employee.fatherNameAm ?? '__'  }} {{ employee.lastNameAm ?? '__'  }}  ] </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Job title :
+                  <span class="float-right"> {{ employee.position.jobTitle ?? '-' }}  </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-caret-right"></i> Educational level
+                  <span class="float-right"> {{ employee.educationallevel ?? '-'}} </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Telephone :
+                  <span class="float-right"> {{ employee.phone ?? '-'}}  </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Ethnicity:
+                  <span class="float-right"> {{ employee.ethnicity ?? '-' }} </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Religion :
+                  <span class="float-right"> {{ employee.religion ?? '-'}}</span>
+                </a>
+              </li>
 
 
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Job code  : </b></label>
-                        <label for=""> {{ job_code ?? '-' }} </label>
-                    </div>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Average Efficinecy :
+                  <span class=" float-right"> {{ '-'}}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Job grade:
+                  <span class="badge bg-warning float-right"> {{ employee.position.jobTitle.level }} </span>
+                </a>
+              </li>
 
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Nationality: </b></label>
-                        <label for=""> {{ employee.nationality ?? 'Ethiopian'  }} </label>
-                    </div>
-                    {% set exp = date().diff(date(employee.employementDate)).y %}
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Job code :
+                  <span class=" float-right">  {{ job_code ?? '-' }}  </span>
+                </a>
+              </li>
 
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Experience : </b></label>
-                        <label for=""
-                            title="Hired date: '-'">
-                            {{ exp ?? '-' }}
-                        </label>
-                    </div>
 
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Pention number: </b></label>
-                        <label for=""> {{ employee.pentionNumber ?? '-' }} </label>
-                    </div>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Nationality:
+                  <span class=" float-right">  {{ employee.nationality ?? 'Ethiopian'  }}  </span>
+                </a>
+              </li>
+              {% set exp = date().diff(date(employee.employementDate)).y %}
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Experience :
+                  <span class="float-right">    {{ exp ?? '-' }}  </span>
+                </a>
+              </li>
 
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Current Status: </b></label>
-                        <label for="" style="color:red;">    {{ employee.employeeCurrentStatus ?? '-'   }}     </label>
-                        </div>
-                </div>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Pention number: :
+                  <span class=" float-right">  {{ employee.pentionNumber ?? '-' }} </span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Current Status:
+                  <span class="badge bg-info float-right">   {{ employee.employeeCurrentStatus ?? '-'   }}    </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+
+
+                  
                 <div class="col-md-6" style="border-left:1px solid black;">
+                <div class="card-body p-0">
                     {% set age = date().diff(date(employee.dateOfBirth)).y %}
-                        <div class="d-flex justify-content-between">
-                            <label for=""><b>Age : </b></label>
-                            <label for=" ">
-                           {{ age ?? '-'  }}  years old </label>
-                        </div>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Blood group : </b> </label>
-                        <label for="">{{ employee.bloodGroup ?? '-' }}</label>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Email : </b></label>
-                        <label for="">{{ employee.email ?? '-' }} </label>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Gender : </b></label>
-                        <label for="">{{ employee.gender ?? '-' }} </label>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Marital status : </b></label>
-                        <label for="">{{employee.martitalStatus}}</label>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Employee ID Number : </b></label>
-                        <label for=""> {{ employee.idNumber ?? '-' }}  </label>
-                    </div>
-                    <style>
-                        #sal {
-                            border-bottom: 3px double;
-                        }
-                    </style>
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Gross Salary : </b></label>
-                        <label id="sal" for=""> ETB   {{ salary|number_format(2, '.', ',') }}
-                        </label>
-                    </div>
-                    {% set exp = date().diff(date(employee.employementDate)).y %}
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Employement type : </b></label>
-                        <label for=""> {{  employee.employmentType ?? '-' }} </label>
-                    </div>
+                <ul class="nav nav-pills flex-column">
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Age : 
+                      <span class="float-right">   {{ age ?? '-'  }}  years old  </span>
+                   
+                    </a>
+                  </li>
 
 
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Employee type : </b></label>
-                        <label for=""> {{ employee.employeeCategory ?? '-' }} 
-                        </label>
-                    </div>
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Blood group: 
+                      <span class="float-right"> {{ employee.bloodGroup ?? '-' }}  years old  </span>
+                   
+                    </a>
+                  </li>
 
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b>Place of Birth : </b></label>
-                        <label for=""> {{ employee.birthPlace  ?? '-' }}  </label>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Working office : </b></label>
-                        <label for=""> {{  employee.position.unit ?? '-' }} </label>
-                    </div>
-
-
-
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Field of study : </b></label>
-                        <label for=""> {{ employee.fieldOfStudy ?? '-'  }} </label>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Employee title : </b></label>
-                        <label for=""> {{ employee.employeeTitle ?? '-'   }} </label>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <label for=""><b> Institution of studty: </b></label>
-                        <label for=""> {{ employee.institution ?? '-'   }} </label>
-                    </div>
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Email :
+                      <span class="float-right"> {{ employee.email ?? '-' }}   </span>
+                   
+                    </a>
+                  </li>
 
 
-               
-                 
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Gender :
+                      <span class="float-right"> {{ employee.gender ?? '-' }}  </span>
+                   
+                    </a>
+                  </li>
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Marital status:
+                      <span class="float-right"> {{employee.martitalStatus}} </span>
+                   
+                    </a>
+                  </li>
+                  <style>
+                    #sal {
+                        border-bottom: 3px double;
+                    }
+                </style>
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Employee ID Number:
+                      <span class="float-right"> {{ employee.idNumber ?? '-' }}  </span>
+                   
+                    </a>
+                  </li>
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Gross Salary : 
+                      <span class="float-right"> ETB {{ salary|number_format(2, '.', ',') }} </span>
+                   
+                    </a>
+                  </li>
+
+
+                  {% set exp = date().diff(date(employee.employementDate)).y %}
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Employement type :
+                      <span class="float-right"> {{  employee.employmentType ?? '-' }} </span>
+                   
+                    </a>
+                  </li>
+
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Employement category:
+                      <span class="float-right">  {{ employee.employeeCategory ?? '-' }}  </span>
+                   
+                    </a>
+                  </li>
+
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Place of Birth : 
+                      <span class="float-right"> {{ employee.birthPlace  ?? '-' }}  </span>
+                   
+                    </a>
+                  </li>
+
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Working office: 
+                      <span class="float-right"> {{  employee.position.unit ?? '-' }} </span>
+                   
+                    </a>
+                  </li>
 
 
 
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Field of study: 
+                      <span class="float-right"> {{ employee.fieldOfStudy ?? '-'  }} </span>
+                   
+                    </a>
+                  </li>
+
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Employee title: 
+                      <span class="float-right"> {{ employee.employeeTitle ?? '-'   }}  </span>
+                   
+                    </a>
+                  </li>
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Institution of studty: : 
+                      <span class="float-right"> {{ employee.institution ?? '-'   }}  </span>
+                   
+                    </a>
+                  </li>
+
+                  </ul>
+                  </div>
+                  
+
+        
                 </div>
             </div>
         </div>

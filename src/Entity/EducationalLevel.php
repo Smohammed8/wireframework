@@ -31,10 +31,14 @@ class EducationalLevel
     #[ORM\OneToMany(mappedBy: 'minEducationalRequirment', targetEntity: JobTitle::class)]
     private Collection $jobTitles;
 
+    #[ORM\OneToMany(mappedBy: 'educationLevel', targetEntity: EmployeeEducation::class)]
+    private Collection $employeeEducation;
+
     public function __construct()
     {
         $this->employees = new ArrayCollection();
         $this->jobTitles = new ArrayCollection();
+        $this->employeeEducation = new ArrayCollection();
     }
 
     public function __toString()
@@ -136,6 +140,36 @@ class EducationalLevel
             // set the owning side to null (unless already changed)
             if ($jobTitle->getMinEducationalRequirment() === $this) {
                 $jobTitle->setMinEducationalRequirment(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmployeeEducation>
+     */
+    public function getEmployeeEducation(): Collection
+    {
+        return $this->employeeEducation;
+    }
+
+    public function addEmployeeEducation(EmployeeEducation $employeeEducation): self
+    {
+        if (!$this->employeeEducation->contains($employeeEducation)) {
+            $this->employeeEducation->add($employeeEducation);
+            $employeeEducation->setEducationLevel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployeeEducation(EmployeeEducation $employeeEducation): self
+    {
+        if ($this->employeeEducation->removeElement($employeeEducation)) {
+            // set the owning side to null (unless already changed)
+            if ($employeeEducation->getEducationLevel() === $this) {
+                $employeeEducation->setEducationLevel(null);
             }
         }
 

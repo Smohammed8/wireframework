@@ -141,6 +141,12 @@ class Employee
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $institution = null;
 
+    #[ORM\OneToMany(mappedBy: 'employee', targetEntity: EmployeeEducation::class)]
+    private Collection $employeeEducation;
+
+    #[ORM\OneToMany(mappedBy: 'employee', targetEntity: InternalExperience::class)]
+    private Collection $internalExperiences;
+
     public function __construct()
     {
         $this->emergencyContacts = new ArrayCollection();
@@ -148,6 +154,8 @@ class Employee
         $this->contractRanges = new ArrayCollection();
         $this->externalExperiences = new ArrayCollection();
         $this->units = new ArrayCollection();
+        $this->employeeEducation = new ArrayCollection();
+        $this->internalExperiences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -694,6 +702,66 @@ class Employee
     public function setInstitution(?string $institution): self
     {
         $this->institution = $institution;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmployeeEducation>
+     */
+    public function getEmployeeEducation(): Collection
+    {
+        return $this->employeeEducation;
+    }
+
+    public function addEmployeeEducation(EmployeeEducation $employeeEducation): self
+    {
+        if (!$this->employeeEducation->contains($employeeEducation)) {
+            $this->employeeEducation->add($employeeEducation);
+            $employeeEducation->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployeeEducation(EmployeeEducation $employeeEducation): self
+    {
+        if ($this->employeeEducation->removeElement($employeeEducation)) {
+            // set the owning side to null (unless already changed)
+            if ($employeeEducation->getEmployee() === $this) {
+                $employeeEducation->setEmployee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InternalExperience>
+     */
+    public function getInternalExperiences(): Collection
+    {
+        return $this->internalExperiences;
+    }
+
+    public function addInternalExperience(InternalExperience $internalExperience): self
+    {
+        if (!$this->internalExperiences->contains($internalExperience)) {
+            $this->internalExperiences->add($internalExperience);
+            $internalExperience->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInternalExperience(InternalExperience $internalExperience): self
+    {
+        if ($this->internalExperiences->removeElement($internalExperience)) {
+            // set the owning side to null (unless already changed)
+            if ($internalExperience->getEmployee() === $this) {
+                $internalExperience->setEmployee(null);
+            }
+        }
 
         return $this;
     }

@@ -43,14 +43,11 @@ class EmployeeType extends AbstractType
             ->add('gender', ChoiceType::class,["choices" => ["Select sex"=>null,"Male" => "M","Female"=>"F"]])
           //  ->add('dateOfBirth')
           //  ->add('phone')
-            ->add('phone',TelType::class)
+           // ->add('phone',TelType::class)
+
             ->add('birthPlace')
-           
             // ->add('photo',FileType::class)
             ->add('photo', FileType::class, array('data_class' => null, 'required' => false))
-
-
-     
 
             // ->add('photo', FileType::class, array(
             //     'attr' => array(

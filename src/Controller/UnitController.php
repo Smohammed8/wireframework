@@ -32,7 +32,7 @@ class UnitController extends AbstractController
    
    $units = $unitRepository->findBy(array(),array('parentUnit'=>'DESC'),1,0);
 
-   dd($units);
+ //  dd($units);
 
         return $this->render('unit/show.html.twig', [
             'units' => $units,

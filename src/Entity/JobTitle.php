@@ -33,10 +33,14 @@ class JobTitle
     #[ORM\ManyToOne(inversedBy: 'jobTitles')]
     private ?Level $level = null;
 
+    #[ORM\OneToMany(mappedBy: 'jobTitle', targetEntity: InternalExperience::class)]
+    private Collection $internalExperiences;
+
     public function __construct()
     {
         $this->jobTitleFields = new ArrayCollection();
         $this->positions = new ArrayCollection();
+        $this->internalExperiences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -151,6 +155,36 @@ class JobTitle
     public function setLevel(?Level $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InternalExperience>
+     */
+    public function getInternalExperiences(): Collection
+    {
+        return $this->internalExperiences;
+    }
+
+    public function addInternalExperience(InternalExperience $internalExperience): self
+    {
+        if (!$this->internalExperiences->contains($internalExperience)) {
+            $this->internalExperiences->add($internalExperience);
+            $internalExperience->setJobTitle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInternalExperience(InternalExperience $internalExperience): self
+    {
+        if ($this->internalExperiences->removeElement($internalExperience)) {
+            // set the owning side to null (unless already changed)
+            if ($internalExperience->getJobTitle() === $this) {
+                $internalExperience->setJobTitle(null);
+            }
+        }
 
         return $this;
     }
