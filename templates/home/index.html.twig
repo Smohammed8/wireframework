@@ -40,22 +40,47 @@
         </div>
         <div class="card-body">
           <div class="container-fluid">
-            <h2 class="text-center display-4">Search      <i class="fa fa-user-tie"> </i></h4>
+            <h2 class="text-center display-4">Search  <i class="fa fa-user-tie"> </i></h4>
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <form action="simple-results.html">
+                  {# <form action="{{ path('ajax_search')}}"> #}
                         <div class="input-group">
-                            <input type="search" class="form-control form-control-lg" placeholder="Type employee ID number">
+                            <input type="text"  autocomplete="off" id="search" class="form-control form-control-lg" placeholder="Search employee">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-lg btn-default">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
                         </div>
-                    </form>
+                        {# <ul class="nav" id="side-menu">
+                          <li>
+                              <a href="#"> Employee: <span class="fa arrow"></span ></a>
+                              <ul class="nav nav-second-level" id="entitiesNav">
+                              </ul>
+                          </li>
+                      </ul> #}
+
+
+
+                          <span>  <div id="entitiesNav"> </div>        </span>  
+
+                    
+                        
+                     
+                
+
+
+
+
+                    {# </form> #}
+
                 </div>
             </div>
         </div>
+
+    
+
+
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -67,6 +92,51 @@
 
     </section>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
 
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var searchRequest = null;
+            $("#search").keyup(function() {
+                var minlength = 3;
+                var that = this;
+                var value = $(this).val();
+                var entitySelector = $("#entitiesNav").html('');
+                if (value.length >= minlength ) {
+                    if (searchRequest != null)
+                        searchRequest.abort();
+                    searchRequest = $.ajax({
+                        type: "GET",
+                        url: "{{ path('ajax_search') }}",
+                        data: {
+                            'q' : value
+                        },
+                        dataType: "text",
+                        success: function(msg){
+                            //we need to check if the value is the same
+                            if (value==$(that).val()) {
+                                var result = JSON.parse(msg);
+                                $.each(result, function(key, arr) {
+                                    $.each(arr, function(id, value) {
+                                        if (key == 'entities') {
+                                            if (id != 'error') {
+
+
+                                                entitySelector.append('<li class="list-group-item">  <i class="fa fa-user-tie"> </i> <a href="/employee/'+id+'">'+value+'</a></li>');
+                                            } else {
+                                                entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                         }
+                    });
+                }
+            });
+        });
+    </script>
+
+{# {{ path('app_employee_show', {'id':id}) }} #}
 
 {% endblock %}

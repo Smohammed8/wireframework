@@ -31,6 +31,17 @@ class EmployeeRepository extends ServiceEntityRepository
     }
 
 
+
+   /////////////////////////////////////////////////////////	
+   public function searchResult($searchKey)  {
+    $qb= $this->createQueryBuilder('u');
+    $qb = $qb->andWhere("u.firstName LIKE '%" .$searchKey."%' or u.fatherName LIKE '%".$searchKey. "%'  or u.lastName LIKE  '%".$searchKey. "%'  or u.idNumber LIKE  '%".$searchKey ."%' or u.phone  LIKE  '%".$searchKey ."%' or u.email  LIKE  '%".$searchKey ."%' or u.pentionNumber LIKE '%".$searchKey."%' ");
+    return  $qb->getQuery()->getResult();
+ 
+}
+
+
+
     public function save(Employee $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

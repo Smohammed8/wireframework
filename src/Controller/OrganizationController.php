@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Organization;
 use App\Form\OrganizationType;
 use App\Repository\OrganizationRepository;
+use App\Repository\UnitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,6 +48,15 @@ class OrganizationController extends AbstractController
             'organization' => $organization,
         ]);
     }
+
+
+
+
+
+
+
+
+
 
     #[Route('/{id}/edit', name: 'app_organization_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Organization $organization, OrganizationRepository $organizationRepository): Response

@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Unit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * @extends ServiceEntityRepository<Unit>
@@ -29,6 +31,19 @@ class UnitRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+ public function setupTree() 
+        { 
+
+      $qb = $this->createQueryBuilder('n')
+      ->select('n.name')
+       ->orderBy('n.parentUnit', 'DESC');
+ 
+        return  $qb->getQuery()->getResult();
+    }
+
+
+
+
 
     public function remove(Unit $entity, bool $flush = false): void
     {

@@ -20,8 +20,13 @@ use Andegna\DateTime as et_date;
 // use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Helper\DomPrint;
+use App\Repository\EducationalLevelRepository;
+use App\Repository\JobTitleRepository;
+use App\Repository\LanguageRepository;
 use App\Repository\PositionCodeRepository;
+use App\Repository\RelationshipRepository;
 use App\Repository\SalaryScaleRepository;
+use App\Repository\UnitRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -31,11 +36,14 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 #[Route('/employee')]
 class EmployeeController extends AbstractController
 {
+
+
 
     #[Route('/', name: 'app_employee_index', methods: ['GET'])]
     public function index(EmployeeRepository $employeeRepository,PaginatorInterface $paginator, Request $request): Response
@@ -52,8 +60,70 @@ class EmployeeController extends AbstractController
          
         ]);
 
-
     }
+    // #[Route('/search', name: 'search_result', methods: ['POST'])]
+    // public function searchResult(PatientRepository $patientRepository, PaginatorInterface $paginator, Request $request): Response
+    // {
+
+    //  //  dd($this->isGranted("ROLE_GATE_KEEPER"));
+
+    //     if ($request->getMethod() === 'POST') {
+    //         $searchKey = $request->request->get('search');
+    //         if ($searchKey) {       
+    //            $data = $patientRepository->searchResult($searchKey);
+    //             if (count($data) < 1) {
+    //                    if ($this->isGranted("ROLE_NURSE") || $this->isGranted("ROLE_PHYSICIAN ") || $this->isGranted("ROLE_CHECKPOINT") || $this->isGranted("ROLE_ADMIN") || $this->isGranted("ROLE_SUPERADMIN") || $this->isGranted("ROLE_LIAISON")  || $this->isGranted("ROLE_LIAISON")  )  {
+    //                     return $this->render('patient/result_show.html.twig', [
+    //                     'message' => 'does not exist!',
+    //                     'here' => 'https://ims.ju.edu.et/patient/new',
+    //                     'searchkey' => $searchKey
+    //                      ]);
+    //                    }
+    //                  else{
+    //                     return $this->render('patient/result_patient.html.twig', [
+    //                         'message' => 'does not exist!',
+    //                         'searchkey' => $searchKey
+    //                        ]);
+    //                    }
+    //                 }
+    //             $patient = $data[0];
+    //             if ($data != null) {
+    //             return $this->redirectToRoute('patient_show', ['id' => $patient->getId()]);
+                    
+    //             }
+    //         }
+
+    //         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+    //     }
+    // }
+
+
+  #[Route('/search', name: 'ajax_search', methods: ['GET'])]
+
+  public function searchAction(Request $request, EmployeeRepository $employeeRepository)
+  {
+ 
+
+      $requestString = $request->get('q');
+      $entities = $employeeRepository->searchResult($requestString);
+      if(!$entities) {
+          $result['entities']['error'] = '<p style="color:red;"> No employee foound! </p>';
+      } else {
+          $result['entities'] = $this->getRealEntities($entities);
+      }
+
+      return new Response(json_encode($result));
+  }
+
+
+  public function getRealEntities($entities){
+
+    foreach ($entities as $entity){
+        $realEntities[$entity->getId()] = $entity->getFirstName().' '.$entity->getFatherName().'   '.$entity->getLastName().'- <u>'.$entity->getPosition().'</u>';
+    }
+
+    return $realEntities;
+}
 
    
     public function calculateAge($birthDate){
@@ -137,21 +207,23 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_employee_show', methods: ['GET'])]
-    public function show(Employee $employee, SalaryScaleRepository $salaryScaleRepository, PositionCodeRepository $positionCodeRepository): Response
+    public function show(Employee $employee,LanguageRepository $languageRepository, RelationshipRepository $relationshipRepository, PositionRepository $positionRepository,  JobTitleRepository $jobTitleRepository, UnitRepository $unitRepository,  EducationalLevelRepository $educationalLevelRepository, SalaryScaleRepository $salaryScaleRepository, PositionCodeRepository $positionCodeRepository): Response
     {
-
-        $level_id  = $employee->getPosition()->getJobTitle()->getLevel()->getId();
-         $salarycale  =   $salaryScaleRepository->find($level_id);         
-          $salary  =  $salarycale->getStartSalary();
-     
-          
-        $code =   $positionCodeRepository->find($employee->getPosition()->getId() );
-
-  
-        return $this->render('employee/show.html.twig', [
-            'employee' => $employee,
-            'salary' => $salary,
-            'job_code' => $code->getCode()
+ 
+          $level_id    = $employee->getPosition()->getJobTitle()->getLevel()->getId();
+          $salarycale  =   $salaryScaleRepository->find($level_id);         
+          $salary      =  $salarycale->getStartSalary();
+          $code        =   $positionCodeRepository->find($employee->getPosition()->getId());
+          return $this->render('employee/show.html.twig', [
+             'employee' => $employee,
+             'salary' => $salary,
+             'job_code' => $code->getCode(),
+             'educationalLevels' =>$educationalLevelRepository->findAll(),
+             'units'     => $unitRepository->findAll(),
+             'jobTitles' =>$jobTitleRepository->findAll(),
+             'positions' =>$positionRepository->findAll(),
+             'relations' =>$relationshipRepository->findAll(),
+             'languages' =>$languageRepository->findAll()
         ]);
     }
 

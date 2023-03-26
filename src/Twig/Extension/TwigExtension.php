@@ -15,7 +15,7 @@ use Andegna\DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-// use App\Twig\Extension\TwigExtension;
+use App\Twig\Extension\TwigExtension;
 
 class AppExtension extends AbstractExtension
 {

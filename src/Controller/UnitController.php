@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 #[Route('/unit')]
 class UnitController extends AbstractController
@@ -20,6 +22,33 @@ class UnitController extends AbstractController
             'units' => $unitRepository->findAll(),
         ]);
     }
+
+
+
+    #[Route('/hierarchy', name: 'office_hierarchy', methods: ['GET','POST'])]
+    public function hierarchy(UnitRepository $unitRepository): Response
+{
+   // $units = $unitRepository->setupTree($unit=null);
+   
+   $units = $unitRepository->findBy(array(),array('parentUnit'=>'DESC'),1,0);
+
+   dd($units);
+
+        return $this->render('unit/show.html.twig', [
+            'units' => $units,
+        ]);
+    }
+
+
+
+    //     Route::get( '/hierarchy',
+//     function () {
+//         $units = Unit::where('parent_unit_id')->latest()->get();
+//         return view('unit.tree', ['orgs' => $units]);
+//     }
+// )->name('hierarchy')->middleware('auth');
+
+
 
     #[Route('/new', name: 'app_unit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UnitRepository $unitRepository): Response
