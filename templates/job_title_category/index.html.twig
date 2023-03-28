@@ -1,17 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}JobTitleCategory index{% endblock %}
+{% block title %}Job Title Category{% endblock %}
 
 {% block body %}
-    <h1>JobTitleCategory index</h1>
 
-    <table class="table">
+
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-1">
+            <div class="col-sm-6">
+                <h1> Job Title Category  </h4>
+            </div>
+            <div class="col-sm-6">
+                <a style="float:right;" class="btn btn-outline-primary" href="{{ path('app_job_title_category_new') }}"> <i class="fa fa-plus"> </i> Create new</a>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+    <hr>
+
+
+    <table class="table table-sm">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
+                <th>Categoty</th>
                 <th>Description</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,11 +35,21 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ job_title_category.name }}</td>
                 <td>{{ job_title_category.description }}</td>
+               
                 <td>
-                    <a href="{{ path('app_job_title_category_show', {'id': job_title_category.id}) }}">Job titles </a>
-                 
-                    <a href="{{ path('app_job_title_category_edit', {'id': job_title_category.id}) }}">Edit</a>
-                </td>
+                <div class="btn-group">
+
+                    <a class="btn btn-outline-secondary btn-sm mr-1"   href="{{ path('app_job_title_category_show', {'id': job_title_category.id}) }}"> <i class="fa fa-list"></i> Field of studies </a>
+                    <a class="btn btn-outline-secondary btn-sm mr-1"   href="{{ path('app_job_title_category_show', {'id': job_title_category.id}) }}"> <i class="fa fa-list"></i> Job titles </a>
+                
+                
+                <a  class="btn btn-outline-secondary btn-sm mr-1"  href="{{ path('app_job_title_category_edit', {'id': job_title_category.id}) }}"><i class="fa fa-edit"></i> Edit  </a>
+            
+                {{ include('job_title_category/_delete_form.html.twig') }}
+        </div>
+                 </td>
+
+
             </tr>
         {% else %}
             <tr>
@@ -34,5 +59,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_job_title_category_new') }}">Create new</a>
+ 
 {% endblock %}

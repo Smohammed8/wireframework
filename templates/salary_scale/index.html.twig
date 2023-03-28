@@ -3,7 +3,25 @@
 {% block title %}Salary Scale{% endblock %}
 
 {% block body %}
-    <h3>SalaryScale </h3>
+
+
+
+
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-1">
+            <div class="col-sm-6">
+                <h1> Salary scale  </h4>
+            </div>
+            <div class="col-sm-6">
+                <a style="float:right;" class="btn btn-outline-primary" href="{{ path('app_salary_scale_new') }}"> <i class="fa fa-plus"> </i> Create new</a>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+    <hr>
+
+
 
     <table class="table table-sm">
         <thead>
@@ -48,10 +66,19 @@
 
                 {# <td>{{ salary_scale.createdAt ? salary_scale.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ salary_scale.updatedAt ? salary_scale.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+            
                 <td>
-                    <a href="{{ path('app_salary_scale_show', {'id': salary_scale.id}) }}">Show</a>
-                    <a href="{{ path('app_salary_scale_edit', {'id': salary_scale.id}) }}">Edit</a>
-                </td>
+                    <div class="btn-group">
+    
+                     
+                    
+                    <a  class="btn btn-outline-secondary btn-sm mr-1"  href="{{ path('app_salary_scale_edit', {'id': salary_scale.id}) }}"><i class="fa fa-edit"></i> Edit  </a>
+                
+                    {{ include('salary_scale/_delete_form.html.twig') }}
+            </div>
+                     </td>
+
+
             </tr>
         {% else %}
             <tr>
@@ -61,5 +88,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_salary_scale_new') }}">Create new</a>
+ 
 {% endblock %}

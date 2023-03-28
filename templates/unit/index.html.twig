@@ -3,7 +3,23 @@
 {% block title %} Unit{% endblock %}
 
 {% block body %}
-    <h4>List of Organization units</h4>
+ 
+
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-1">
+            <div class="col-sm-6">
+                <h1> List of Organization units </h4>
+            </div>
+            <div class="col-sm-6">
+                <a style="float:right;" class="btn btn-outline-primary" href="{{ path('app_unit_new') }}"> <i class="fa fa-plus"> </i> Create new</a>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+    <hr>
+
+
 
     <table class="table table-sm">
         <thead>
@@ -25,11 +41,15 @@
                 <td>{{ unit.email }}</td>
                 <td>{{ unit.phone }}</td>
                 <td>
+                    <div class="btn-group">
+                   <a   class="btn btn-outline-secondary btn-sm mr-1"  href="{{ path('app_unit_show', {'id': unit.id}) }}"> <i class="fa fa-sitemap"></i> Sub-units</a>
+                   <a   class="btn btn-outline-secondary btn-sm mr-1"  href="{{ path('app_unit_show', {'id': unit.id}) }}"><i class="fa fa-users"></i> Employees</a>
+                   <a   class="btn btn-outline-secondary btn-sm mr-1"  href="{{ path('app_unit_show', {'id': unit.id}) }}"><i class="fa fa-list"></i> Positions </a>
 
-                   <a href="{{ path('app_unit_show', {'id': unit.id}) }}">Subordinates</a>
-
-                    <a href="{{ path('app_unit_show', {'id': unit.id}) }}">Show</a>
-                    <a href="{{ path('app_unit_edit', {'id': unit.id}) }}">Edit</a>
+                    {# <a href="{{ path('app_unit_show', {'id': unit.id}) }}">Show</a> #}
+                    <a   class="btn btn-outline-secondary btn-sm mr-1"  href="{{ path('app_unit_edit', {'id': unit.id}) }}"><i class="fa fa-edit"></i> Edit</a>
+                     {{ include('unit/_delete_form.html.twig') }} 
+                     </div>
                 </td>
             </tr>
         {% else %}
@@ -40,5 +60,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_unit_new') }}">Create new</a>
 {% endblock %}
