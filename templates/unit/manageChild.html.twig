@@ -1,0 +1,53 @@
+<ul>
+
+
+
+{% for child in childs %}
+
+	<li>
+
+	
+
+
+		{% if child.units|length  == 0  %}
+
+	
+		<i class="fa fa-minus"> </i> 
+
+		{% else  %}
+		<i class="fa fa-plus"> </i>  
+		{% endif %}
+		{{child.name }}  <br> 
+	
+	   {% if child.units|length  > 0 %}
+
+        {# {% include('manageChild',['childs' => unit.getParentUnit ?? '']) %} #}
+
+		{% for child.position in  positions %}
+
+		{% if child.position    %} &nbsp;&nbsp;&nbsp;	
+		<i class="la la-caret-right"> </i> 
+		{{ position.name }}-
+
+		{% for  position.positionCode in positionCodes %}
+		
+		{{ positionCode.code }}-[ {{ ucfirst( positionCode.employee.fullName ?? '-') }} ]
+
+
+		
+
+		<br> 
+	{% endfor %}
+
+{% endif %}
+	{% endfor %}
+
+{% endif %}
+
+	</li>
+
+       {% endfor %}
+
+</ul>
+
+

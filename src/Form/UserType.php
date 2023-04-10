@@ -29,11 +29,15 @@ class UserType extends AbstractType
     
         ];
 
+     
         $builder
         
-        ->add('roles', ChoiceType::class,["choices" => $role,'mapped'=>false,"multiple"=>true,"placeholder"=>"Select Role"])
+        ->add('roles', ChoiceType::class,["choices" => $role,
+        'mapped'=>false,
+        "multiple"=>true,
+        "placeholder"=>"Select Role"
+        ])
            
-     
            // ->add('username')
          
           //  ->add('password')

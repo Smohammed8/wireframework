@@ -1,6 +1,6 @@
 
 
-{{ form_start(form, {'attr': {'id': 'userform'}}) }}
+{{ form_start(form) }}
 
 {{ form_errors(form) }}
 
@@ -48,7 +48,7 @@
    <div class="form-group">
     <label for="exampleInputEmail1"> Roles </label>
   
-    {{ form_widget(form.roles,{'attr':{'class':'form-control select2','id':'gender'}}) }} 
+    {{ form_widget(form.roles,{'attr':{'class':'form-control select2'}}) }} 
        </div>
 
        <div class="help-block text-danger">{{form_errors(form.roles)}}</div>

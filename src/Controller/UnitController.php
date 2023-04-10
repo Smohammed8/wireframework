@@ -30,11 +30,11 @@ class UnitController extends AbstractController
 {
    // $units = $unitRepository->setupTree($unit=null);
    
-   $units = $unitRepository->findBy(array(),array('parentUnit'=>'DESC'),1,0);
+   $units = $unitRepository->findAll();
 
  //  dd($units);
 
-        return $this->render('unit/show.html.twig', [
+        return $this->render('unit/tree.html.twig', [
             'units' => $units,
         ]);
     }
