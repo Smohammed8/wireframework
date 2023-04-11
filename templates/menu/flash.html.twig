@@ -85,5 +85,35 @@
                 </div>
             </div>
         {% endfor %}
+
+
+        {% set toast = "" %}
+            {% for label, messages in app.flashes %}
+                {% if label == "success" or label == "warning" or label == "danger"  %}
+
+                    {% for message in messages %}
+                        <div class="row alert alert-{{ label }} alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4 class="mr-4">
+                                <i class="icon fa fa-{% if label=='success' %}check {% else %}ban {% endif %}"></i>
+                                Alert!</h4>
+                            {{ message }}
+
+                        </div>
+
+
+                    {% endfor %}
+
+                {% else %}
+                    {% for message in messages %}
+                        {% set toast = toast ~ 'toastIt("'~ (label | trim('t')) ~'","'~ message ~'","top-right");' %}
+                    {% endfor %}
+
+                {% endif %}
+            {% endfor %}
+            
     {% endfor %}
 
+
+
+    

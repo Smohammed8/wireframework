@@ -66,6 +66,32 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+
+
+    public function total_users()
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->select('count(a.id) as user')
+            ->getQuery()
+            ->getSingleScalarResult();
+          
+            return $qb;
+            
+    }
+    public function findForUserGroup($usergroup = null)
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        if (sizeof($usergroup)) {
+
+            $qb->andWhere('u.id not in ( :usergroup )')
+                ->setParameter('usergroup', $usergroup);
+        }
+        
+        return $qb->orderBy('u.id', 'ASC')
+            ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

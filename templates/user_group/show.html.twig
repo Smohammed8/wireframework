@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+    {% block maintitle %}
+        User Group Permission
+    {% endblock %}
+  
+    {% block stylesheets %}
+    
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/src/bootstrap-duallistbox.css') }}">
+
+        <link rel="stylesheet" href="{{asset('assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
+    {% endblock %}
+    
+    {% block body %}
+  
+    
+     
+
+
+    <div class="card card-default">
+        <div class="card-header">
+          <h3 class="card-title">   User Group: <b>	{{ user_group.name }} </b> </h3>
+
+          <div class="card-tools">
+            <div class="widget-toolbar">
+                            <div class="card-header-right">
+                                <a href="{{ path('app_user_group_index') }}" class="btn btn-success">
+                                    Back</a>
+    
+                            </div>
+                        </div>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <form id="demoform" action="#" method="post">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+           
+
+              <pre>  <script>  var demo1 = $('select[name="permission[]"]').bootstrapDualListbox(); </script> </pre>
+
+            <input  type="hidden" value="{{ user_group.id}}" name="usergrouppermission">
+            <select class="duallistbox"  size="10" multiple="multiple" name="permission[]">
+    
+                {% for permission in user_group.permissions %}
+                    <option selected value="{{permission.id}}" title="{{permission.description}}">{{ permission.name }}</option>
+                {% endfor %}
+              
+                {% for permission in permissions %}
+                    <option value="{{permission.id}}" title="{{permission.description}}">{{ permission.name }}</option>
+                {% endfor %}
+               
+              </select>
+            
+
+              </div>
+              <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+     <!-- /.card-body -->
+     <div class="card-footer pull-right">
+        <div class="float-right">
+            {# <a href="{{path('app_user_group_index')}}" class="btn btn-primary">Cancel</a> #}
+            <button class="btn btn-info  ">Save</button>
+
+
+        </div>
+    </div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+          
+            <script>
+   
+    var demo1 = $('select[name="permission[]"]').bootstrapDualListbox({
+     nonSelectedListLabel: 'List of Privilages',
+    selectedListLabel: 'Granted Privilages',
+    preserveSelectionOnMove: 'moved',
+    moveOnSelect: false,
+    moveSelectedLabel: "Grant Selected Privilages",
+    moveAllLabel: "Grant All Privilages ",
+    removeSelectedLabel: "Revoke Selected Privilages",
+    removeAllLabel: "Revoke All privilages",
+    selectorMinimalHeight: "300"
+
+              });
+            //   $("#demoform").submit(function() {
+            //     alert($('[name="permission[]"]').val());
+            //     return false;
+            //   });
+            
+            </script>
+
+      <!-- /.card -->
+    
+    {% endblock %}
+    
+
+ {% block javascripts %}
+
+
+  
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="{{ asset('assets/src/jquery.bootstrap-duallistbox.js')}}"></script>
+
+    
+    {# <script src="{{ asset('assets/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script> #}
+ 
+
+        
+    
+    {% endblock %}
+    

@@ -68,11 +68,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: InternalExperience::class)]
     private Collection $internalExperiences;
 
+    #[ORM\ManyToMany(targetEntity: UserGroup::class, inversedBy: 'users')]
+    private Collection $userGroup;
     public function __construct()
     {
         $this->salaryScales = new ArrayCollection();
         $this->employeeEducation = new ArrayCollection();
         $this->internalExperiences = new ArrayCollection();
+        $this->userGroup = new ArrayCollection();
+    
     }
 
     public function getId(): ?int
@@ -363,4 +367,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, UserGroup>
+     */
+    public function getUserGroup(): Collection
+    {
+        return $this->userGroup;
+    }
+
+    public function addUserGroup(UserGroup $userGroup): self
+    {
+        if (!$this->userGroup->contains($userGroup)) {
+            $this->userGroup->add($userGroup);
+        }
+
+        return $this;
+    }
+
+    public function removeUserGroup(UserGroup $userGroup): self
+    {
+        $this->userGroup->removeElement($userGroup);
+
+        return $this;
+    }
+
+     
+    
 }
