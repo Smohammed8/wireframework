@@ -3,24 +3,40 @@
 {% block title %}UserGroup index{% endblock %}
 
 {% block body %}
-    <h1>UserGroup index</h1>
+  
 
-    <table class="table">
+
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-1">
+            <div class="col-sm-6">
+                <h4>User Group </h4>
+            </div>
+            <div class="col-sm-6">
+                <a style="float:right;" class="btn btn-outline-primary" href="{{ path('app_user_group_new') }}"> <i class="fa fa-plus"> </i> Create new</a>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+    <hr>
+
+
+    <table class="table table-sm">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>IsActive</th>
-                <th>actions</th>
+                <th>#</th>
+                <th>Group Name</th>
+                <th> Total Users </th>
+                <th>Status </th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user_group in user_groups %}
             <tr>
-                <td>{{ user_group.id }}</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ user_group.name }}</td>
-                <td>{{ user_group.description }}</td>
+                <td>{{ user_group.users|length }}</td>
                 {# <td>{{ user_group.isActive ? 'Yes' : 'No' }}</td> #}
 
                 <td>
@@ -28,39 +44,43 @@
 
                 <form class="d-inline" method="post" action="{{ path('user_group_action',{'id':user_group.id})}}" onsubmit="return confirm('Are you sure you want to {{ user_group.isActive ? 'DeActivate':'Activate'}} this User Group?');">
                     <input name="activateUserGroup" value="{{ user_group.isActive ? 0 : 1}}" hidden>
-                    {{ user_group.isActive ?  '<button class="btn btn-sm badge badge-danger"> <i class="fa fa-check-circle" style="font-size:16px;color:green"></i>&nbsp; Deactivate </button>': '<button class="btn btn-sm btn-success"> <i class="fa fa-check-circle" style="font-size:16px;color:red"></i>&nbsp; Activate </button>' }}
+                    {{ user_group.isActive ?  '<button class="btn btn-outline-secondary btn-sm"> <i class="fa fa-check-circle" style="font-size:16px;color:green"></i>&nbsp; Activated </button>': '<button class="btn btn-outline-danger"> <i class="fa fa-times" style="font-size:16px;color:red"></i>&nbsp; Inactive </button>' }}
 
                 </form>
         
         </td>
 
-                {# <td>
-                    <a href="{{ path('app_user_group_show', {'id': user_group.id}) }}">show</a>
-                    <a href="{{ path('app_user_group_edit', {'id': user_group.id}) }}">edit</a>
-                </td> #}
+          
 
         
 
 
 
 <td>
+    <div class="btn-group">
            {# {% if is_granted('ad_prmsn_to_grp') %} #}
 
-          <a href="{{ path('user_group_permission', {'id': user_group.id}) }}" class="btn btn-info btn-sm" title="add permissions">
+          <a href="{{ path('user_group_permission', {'id': user_group.id}) }}" class="btn btn-outline-secondary btn-sm mr-1" title="add permissions">
             <i class="fa fa-list"></i>&nbsp;Permissions
         </a>
            {# {% endif %} #}
 
          {# {% if is_granted('ad_usr_to_grp') %} #}
-        <a href="{{ path('user_group_users', {'id': user_group.id}) }}" class="btn btn-success btn-sm" title="add users">
+        <a href="{{ path('user_group_users', {'id': user_group.id}) }}" class="btn btn-outline-secondary btn-sm mr-1" title="add users">
             <i class="fa fa-users"></i>&nbsp;Users
         </a>
         {# {% endif %} #}
         {# {% if is_granted('edt_grp') %} #}
-                        <a href="{{ path('app_user_group_edit', {'id': user_group.id}) }}" class="btn btn-warning btn-sm" title="edit">
-            <i class="fa fa-pen"></i> Edit
+                        <a href="{{ path('app_user_group_edit', {'id': user_group.id}) }}" class="btn btn-outline-secondary btn-sm mr-1" title="edit">
+                            <i class=" fa fa-edit"> </i>  Edit
         </a>
         {# {% endif %} #}
+
+        {% if  user_group.users|length < 1 %}
+        {{ include('user_group/_delete_form.html.twig') }}
+        {% endif  %}
+        </div>
+
 </td>
 
             </tr>
@@ -72,5 +92,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_group_new') }}">Create new</a>
+ 
 {% endblock %}

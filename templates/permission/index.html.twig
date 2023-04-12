@@ -3,28 +3,48 @@
 {% block title %}Permission index{% endblock %}
 
 {% block body %}
-    <h1>Permission index</h1>
 
-    <table class="table">
+
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-1">
+            <div class="col-sm-6">
+                <h4>Permission </h4>
+            </div>
+            <div class="col-sm-6">
+                <a style="float:right;" class="btn btn-outline-primary" href="{{ path('app_permission_new') }}"> <i class="fa fa-plus"> </i> Create new</a>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+    <hr>
+
+
+    <table class="table table-sm">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Name</th>
                 <th>Code</th>
                 <th>Description</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for permission in permissions %}
             <tr>
-                <td>{{ permission.id }}</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ permission.name }}</td>
                 <td>{{ permission.code }}</td>
                 <td>{{ permission.description }}</td>
                 <td>
-                    <a href="{{ path('app_permission_show', {'id': permission.id}) }}">show</a>
-                    <a href="{{ path('app_permission_edit', {'id': permission.id}) }}">edit</a>
+                 
+                        <div class="btn-group">
+                    <a class="btn btn-outline-secondary btn-sm mr-1" href="{{ path('app_permission_edit', {'id': permission.id}) }}"> <i class=" fa fa-edit"> </i> Edit</a>
+                  
+           
+                    {{ include('permission/_delete_form.html.twig') }}
+                    <div>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +55,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_permission_new') }}">Create new</a>
 {% endblock %}
