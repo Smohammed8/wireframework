@@ -16,7 +16,7 @@ use \Twig_Extension;
 use DateTime;
 use Andegna\DateTimeFactory;
 use Andegna\DateTime as et_date;
-
+use Symfony\Bundle\SecurityBundle\Security;
 // use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Helper\DomPrint;
@@ -102,6 +102,11 @@ class EmployeeController extends AbstractController
     //     }
     // }
 
+
+
+    // if ($this->security->isGranted('ROLE_SALES_ADMIN')) {
+    //      // do something ..
+    // }
 
   #[Route('/search', name: 'ajax_search', methods: ['GET'])]
 

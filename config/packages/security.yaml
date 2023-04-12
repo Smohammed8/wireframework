@@ -27,7 +27,7 @@ security:
                 always_remember_me: true
             #Install 'composer require symfony/rate-limiter'
             login_throttling:  # brute force attack limiting
-                max_attempts : 5
+                max_attempts : 5  # per minute ...
                 interval: '2 minutes'
        
 
