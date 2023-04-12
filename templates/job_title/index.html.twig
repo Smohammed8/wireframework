@@ -1,27 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}JobTitle index{% endblock %}
+{% block title %}Job Title {% endblock %}
 
 {% block body %}
-    <h1>JobTitle index</h1>
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-1">
+            <div class="col-sm-6">
+                <h4>Job Title   </h4>
+            </div>
+            <div class="col-sm-6">
+                <a style="float:right;" class="btn btn-outline-primary" href="{{ path('app_job_title_new') }}"> <i class="fa fa-plus"> </i> Create new</a>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+    <hr>
 
-    <table class="table">
+    <table class="table table-sm">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>#</th>
+            
+                <th> job title</th>
+                <th> Category </th>
+                <th> Min. Education Req </th>
+                <th> Level </th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for job_title in job_titles %}
             <tr>
-                <td>{{ job_title.id }}</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ job_title.name }}</td>
+                <td>{{ job_title.jobTitleCategory }}</td>
+                <td>{{ job_title.minEducationalRequirment }}</td>
+                <td>{{ job_title.level }}</td>
                 <td>
-                    <a href="{{ path('app_job_title_show', {'id': job_title.id}) }}">show</a>
-                    <a href="{{ path('app_job_title_edit', {'id': job_title.id}) }}">edit</a>
+                 
+                <div class="btn-group">
+                    <a class="btn btn-outline-secondary btn-sm mr-1" href="{{ path('app_job_title_edit', {'id': job_title.id}) }}"> <i class=" fa fa-edit"> </i> Edit</a>
+                    {{ include('job_title/_delete_form.html.twig') }}
+                    <div>
                 </td>
+
             </tr>
         {% else %}
             <tr>
@@ -31,5 +54,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_job_title_new') }}">Create new</a>
 {% endblock %}

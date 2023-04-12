@@ -14,6 +14,9 @@ class JobTitleType extends AbstractType
         $builder
             ->add('name')
             ->add('jobTitleCategory')
+            ->add('minEducationalRequirment')
+            ->add('level')
+           
         ;
     }
 

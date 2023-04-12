@@ -28,7 +28,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{ employees |length }} </h3>
 
                 <p>Employee </p>
               </div>
@@ -38,7 +38,7 @@
                 <i class="fa fa-user-tie" aria-hidden="true"></i>
             </div>
 
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ path('app_employee_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -46,7 +46,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53</h3>
+                <h3>{{ employees |length }} </h3>
                 {# <h3>53<sup style="font-size: 20px">%</sup></h3> #}
 
                 <p>Academic Staff </p>
@@ -54,7 +54,7 @@
               <div class="icon">
                 <i class="fa fa-graduation-cap" aria-hidden="true"></i>
             </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ path('app_employee_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -62,14 +62,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{ employees |length }}  </h3>
 
                 <p>Admin Staff </p>
               </div>
               <div class="icon">
                 <i class="fa fa-flag" aria-hidden="true"></i>
             </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ path('app_employee_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -99,8 +99,10 @@
                   <span class="info-box-icon bg-info"><i class="fa fa-users"></i></span>
     
                   <div class="info-box-content">
-                    <span class="info-box-text">Users</span>
-                    <span class="info-box-number">10</span>
+                   
+                    <a href="{{ path('app_user_index') }}"> <span class="info-box-text">Users</span> </a>
+
+                    <span class="info-box-number">{{ users | length }} </span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -112,8 +114,8 @@
                   <span class="info-box-icon bg-success"><i class="fa fa-user-minus"></i></span>
     
                   <div class="info-box-content">
-                    <span class="info-box-text">Employee on leave</span>
-                    <span class="info-box-number">410</span>
+                   <a href="{{ path('app_employee_index') }}"> <span class="info-box-text">Employee on leave</span> </a>
+                    <span class="info-box-number">{{ employees |length }}   </span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -125,8 +127,10 @@
                   <span class="info-box-icon bg-warning"><i class="fa fa-calendar"></i></span>
     
                   <div class="info-box-content">
-                    <span class="info-box-text"> Retitements in this year</span>
-                    <span class="info-box-number">13</span>
+                
+                    <a href="{{ path('app_user_index') }}"> <span class="info-box-text"> Retitements in this year </span> </a>
+
+                    <span class="info-box-number">0</span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -138,7 +142,10 @@
                   <span class="info-box-icon bg-danger"><i class="fa fa-user-plus"></i></span>
     
                   <div class="info-box-content">
-                    <span class="info-box-text"> New promotions</span>
+                  
+
+                    <a href="{{ path('app_user_index') }}"> <span class="info-box-text"> New promotions </span> </a>
+
                     <span class="info-box-number">0</span>
                   </div>
                   <!-- /.info-box-content -->
@@ -155,11 +162,14 @@
         <h5 class="mb-2">Job <small><i> Information</i></small></h5>
         <div class="row">
           <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box shadow-none">
+            <div class="info-box">
               <span class="info-box-icon bg-info"><i class="fa fa-list"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text"> Vacant positions </span>
+            
+                <a href="{{ path('app_user_index') }}"> <span class="info-box-text">  Vacant positions </span> </a>
+
+
                 <span class="info-box-number"> 66</span>
               </div>
               <!-- /.info-box-content -->
@@ -168,11 +178,12 @@
           </div>
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box shadow-sm">
+            <div class="info-box">
               <span class="info-box-icon bg-success"><i class="fa fa-male"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Male Employee </span>
+              
+                <a href="{{ path('app_employee_index') }}"> <span class="info-box-text">  Male Employee   </span> </a>
                 <span class="info-box-number"> 256</span>
               </div>
               <!-- /.info-box-content -->
@@ -181,12 +192,13 @@
           </div>
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box shadow">
+            <div class="info-box">
               <span class="info-box-icon bg-warning"><i class="fa fa-female"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Female Employee </span>
-                <span class="info-box-number"> 656</span>
+                <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Female Employee   </span> </a>
+
+                <span class="info-box-number"> 0 </span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -194,11 +206,13 @@
           </div>
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box shadow-lg">
+            <div class="info-box">
               <span class="info-box-icon bg-danger"><i class="fa fa-dollar-sign"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Salary paid</span>
+                <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Salary paid  </span> </a>
+
+
                 <span class="info-box-number"> 123,000</span>
               </div>
               <!-- /.info-box-content -->
@@ -209,19 +223,19 @@
         </div>
         <!-- /.row -->
         <hr>
-
-    
-
                <!-- =========================================================== -->
                <h5 class="mb-2">Employment <small><i> Information</i></small></h5>
                <div class="row">
                  <div class="col-md-3 col-sm-6 col-12">
-                   <div class="info-box shadow-none">
+                   <div class="info-box shadow-lg">
                      <span class="info-box-icon bg-info"><i class="fa fa-user-minus"></i></span>
        
                      <div class="info-box-content">
-                       <span class="info-box-text"> Contract staff </span>
-                       <span class="info-box-number"> 66</span>
+            
+                       <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Contract staff  </span> </a>
+
+
+                       <span class="info-box-number"> 0 </span>
                      </div>
                      <!-- /.info-box-content -->
                    </div>
@@ -229,11 +243,13 @@
                  </div>
                  <!-- /.col -->
                  <div class="col-md-3 col-sm-6 col-12">
-                   <div class="info-box shadow-sm">
+                   <div class="info-box shadow-lg">
                      <span class="info-box-icon bg-success"><i class="fa fa-users"></i></span>
        
-                     <div class="info-box-content">
-                       <span class="info-box-text"> Permanet staff </span>
+                     <div class="info-box-content">   
+                       <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Permanet staff  </span> </a>
+
+
                        <span class="info-box-number"> 256</span>
                      </div>
                      <!-- /.info-box-content -->
@@ -242,12 +258,13 @@
                  </div>
                  <!-- /.col -->
                  <div class="col-md-3 col-sm-6 col-12">
-                   <div class="info-box shadow">
+                   <div class="info-box shadow-lg">
                      <span class="info-box-icon bg-warning"><i class="fa fa-sitemap"></i></span>
        
                      <div class="info-box-content">
-                       <span class="info-box-text"> Units </span>
-                       <span class="info-box-number"> 656</span>
+                
+                       <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Units   </span> </a>
+                       <span class="info-box-number"> 656 </span>
                      </div>
                      <!-- /.info-box-content -->
                    </div>
@@ -259,7 +276,8 @@
                      <span class="info-box-icon bg-danger"><i class="fa fa-user-minus"></i></span>
        
                      <div class="info-box-content">
-                       <span class="info-box-text"> This year resignation </span>
+                 
+                       <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> This year resignation    </span> </a>
                        <span class="info-box-number"> 2 </span>
                      </div>
                      <!-- /.info-box-content -->

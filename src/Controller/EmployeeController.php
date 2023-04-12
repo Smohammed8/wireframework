@@ -51,7 +51,7 @@ class EmployeeController extends AbstractController
 
 
     #[Route('/', name: 'app_employee_index', methods: ['GET'])]
-    public function index(EmployeeRepository $employeeRepository,PaginatorInterface $paginator, Request $request): Response
+    public function index(EmployeeRepository $employeeRepository, JobTitleRepository $jobTitleRepository,  UnitRepository $unitRepository, PaginatorInterface $paginator, Request $request): Response
     {
     
         $queryBuilder = $employeeRepository->getQuery($request->query->get('search'));
@@ -62,6 +62,9 @@ class EmployeeController extends AbstractController
 
          return $this->render('employee/index.html.twig', [
             'employees' => $data,
+            'units' =>$unitRepository->findAll(),
+            'jobTitles' =>$jobTitleRepository->findAll(),
+         //   'employementTypes'
          
         ]);
 

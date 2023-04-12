@@ -12,9 +12,11 @@ class PositionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('NoOfVacants')
-            ->add('unit')
+         
             ->add('jobTitle')
+            
+            ->add('unit')
+            ->add('NoOfVacants')
         ;
     }
 

@@ -88,7 +88,11 @@
                 <td>{{ employee.fatherNameAm }}</td>
                 <td>{{ employee.lastNameAm }}</td>
                 <td>{{ employee.updatedAt ? employee.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
-                <td>{{ employee.employementDate ? employee.employementDate|ago : '' }}</td>
+                <td>     {{ employee.employementDate ? employee.employementDate|date("F j, Y") }}  </td>
+
+            
+
+
                      <td>{{ employee.position.jobTitle ? employee.position.jobTitle  : '' }}</td>
                 <td>
                   
@@ -125,8 +129,11 @@
                                 <div class="form-group">
                                     <label> Working unit:</label>
                                     <select class="select2" style="width: 100%;">
-                                        <option selected>ASC</option>
-                                        <option>DESC</option>
+                                        <option value="" >Select job title </option>
+                                        {% for unit in units %}
+                                            <option  value="{{ unit.id }}"> {{ unit.name }} </option>
+                                        {% endfor %}
+                                     
                                     </select>
                                 </div>
                             </div>
@@ -134,8 +141,10 @@
                                 <div class="form-group">
                                     <label>Job title :</label>
                                     <select class="select2" style="width: 100%;">
-                                        <option selected>Title</option>
-                                        <option>Date</option>
+                                        <option value=""> Select job title </option>
+                                        {% for unit in units %}
+                                            <option  value="{{ unit.id }}"> {{ unit.name }} </option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
@@ -144,8 +153,10 @@
                                 <div class="form-group">
                                     <label> Employement type:</label>
                                     <select class="select2" style="width: 100%;">
-                                        <option selected>Title</option>
-                                        <option>Date</option>
+                                        <option value=""> Select job title </option>
+                                        {% for unit in units %}
+                                            <option  value="{{ unit.id }}"> {{ unit.name }} </option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
