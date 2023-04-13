@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Agreement{% endblock %}
+
+{% block body %}
+    <h1>Create new Agreement</h1>
+
+    {{ include('agreement/_form.html.twig') }}
+
+    <a href="{{ path('app_agreement_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,148 @@
+{# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+ #}
+
+
+
+
+{{ form_start(form) }}
+
+{{ form_errors(form) }}
+
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">Patient registaration form</h3>
+
+        <div class="card-tools">
+        
+            <a   class="btn btn-outline-secondary btn-sm" href="{{ path('app_patient_index') }}"> <i class=" fa fa-list"> </i> Close </a>
+       
+
+          
+        
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <div class="row">
+
+      
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1">First Name</label>
+            {# {# <input type="email" class="form-control" id="code" placeholder="Enter code"> #}
+
+            {{ form_widget(form.firstName,{'attr':{'class':'form-control','id':'firstName'}}) }} 
+
+          </div>
+         
+    
+    
+
+     
+       <div class="form-group">
+        <label for="exampleInputEmail1"> Father Name</label>
+        {{ form_widget(form.middleName,{'attr':{'class':'form-control','id':'middleName'}}) }} 
+      
+     </div>
+     
+     <div class="form-group">
+        <label for="exampleInputEmail1"> last Name</label>
+        {{ form_widget(form.lastName,{'attr':{'class':'form-control','id':'middleName'}}) }} 
+      
+     </div>
+
+
+
+
+     <div class="form-group">
+        <label for="exampleInputEmail1"> Age </label>
+        {# {{ form_widget(form.dob,{'attr':{'class':'form-control','id':'dob'}}) }}  #}
+        <input type="number" name="age" class="form-control">
+
+      
+     </div>
+
+
+
+
+
+
+   <div class="form-group">
+    <label for="exampleInputEmail1"> Woreda </label>
+  
+    {{ form_widget(form.woreda,{'attr':{'class':'form-control select2'}}) }} 
+       </div>
+
+       <div class="help-block text-danger">{{form_errors(form.woreda)}}</div>
+      
+       
+ </div>
+
+
+
+          <div class="col-md-6">
+        
+            <div class="form-group">
+              <label>Phone:</label>
+
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                </div>
+                <input type="text" cname="Phone" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+
+                
+              </div>
+              </div>
+
+
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Sex</label>
+              
+                {{ form_widget(form.gender,{'attr':{'class':'form-control select2','id':'sex'}}) }} 
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1"> EMR </label>
+                {{ form_widget(form.emr,{'attr':{'class':'form-control','id':'emr'}}) }} 
+              </div>
+             
+              <div class="form-group">
+                <label for="exampleInputEmail1"> Address</label>
+                {{ form_widget(form.address,{'attr':{'class':'form-control','id':'address'}}) }} 
+              
+             </div>
+
+             <div class="form-group">
+                <label for="exampleInputEmail1"> indigent </label>
+                {{ form_widget(form.indigent,{'attr':{'class':'form-control select2','id':'indigent'}}) }} 
+              
+             </div>
+            
+            
+              </div>
+          
+            </div>
+
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-secondary float-right"> <i class=" fa fa-edit"> </i> {{ button_label|default('Submit') }}</button>
+        </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.card-body -->
+
+      
+    </div>
+    <!-- /.card -->
+
+
+    
+
+    {{ form_end(form) }} 
+

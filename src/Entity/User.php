@@ -53,8 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $status = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: SalaryScale::class)]
-    private Collection $salaryScales;
+
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
@@ -62,19 +61,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: EmployeeEducation::class)]
-    private Collection $employeeEducation;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: InternalExperience::class)]
-    private Collection $internalExperiences;
+  
 
     #[ORM\ManyToMany(targetEntity: UserGroup::class, inversedBy: 'users')]
     private Collection $userGroup;
     public function __construct()
     {
-        $this->salaryScales = new ArrayCollection();
-        $this->employeeEducation = new ArrayCollection();
-        $this->internalExperiences = new ArrayCollection();
         $this->userGroup = new ArrayCollection();
     
     }
@@ -254,35 +246,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, SalaryScale>
-     */
-    public function getSalaryScales(): Collection
-    {
-        return $this->salaryScales;
-    }
-
-    public function addSalaryScale(SalaryScale $salaryScale): self
-    {
-        if (!$this->salaryScales->contains($salaryScale)) {
-            $this->salaryScales->add($salaryScale);
-            $salaryScale->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSalaryScale(SalaryScale $salaryScale): self
-    {
-        if ($this->salaryScales->removeElement($salaryScale)) {
-            // set the owning side to null (unless already changed)
-            if ($salaryScale->getUser() === $this) {
-                $salaryScale->setUser(null);
-            }
-        }
-
-        return $this;
-    }
+ 
 
     public function getPhoto(): ?string
     {
@@ -307,67 +271,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, EmployeeEducation>
-     */
-    public function getEmployeeEducation(): Collection
-    {
-        return $this->employeeEducation;
-    }
-
-    public function addEmployeeEducation(EmployeeEducation $employeeEducation): self
-    {
-        if (!$this->employeeEducation->contains($employeeEducation)) {
-            $this->employeeEducation->add($employeeEducation);
-            $employeeEducation->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEmployeeEducation(EmployeeEducation $employeeEducation): self
-    {
-        if ($this->employeeEducation->removeElement($employeeEducation)) {
-            // set the owning side to null (unless already changed)
-            if ($employeeEducation->getUser() === $this) {
-                $employeeEducation->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, InternalExperience>
-     */
-    public function getInternalExperiences(): Collection
-    {
-        return $this->internalExperiences;
-    }
-
-    public function addInternalExperience(InternalExperience $internalExperience): self
-    {
-        if (!$this->internalExperiences->contains($internalExperience)) {
-            $this->internalExperiences->add($internalExperience);
-            $internalExperience->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInternalExperience(InternalExperience $internalExperience): self
-    {
-        if ($this->internalExperiences->removeElement($internalExperience)) {
-            // set the owning side to null (unless already changed)
-            if ($internalExperience->getUser() === $this) {
-                $internalExperience->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, UserGroup>
      */
