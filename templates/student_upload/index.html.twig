@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StudentUpload index{% endblock %}
+
+{% block body %}
+    <h1>StudentUpload index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Upload</th>
+                <th>File</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student_upload in student_uploads %}
+            <tr>
+                <td>{{ student_upload.id }}</td>
+                <td>{{ student_upload.upload }}</td>
+                <td>{{ student_upload.file }}</td>
+                <td>{{ student_upload.createdAt ? student_upload.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_student_upload_show', {'id': student_upload.id}) }}">show</a>
+                    <a href="{{ path('app_student_upload_edit', {'id': student_upload.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_student_upload_new') }}">Create new</a>
+{% endblock %}

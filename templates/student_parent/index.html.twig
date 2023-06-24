@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StudentParent index{% endblock %}
+
+{% block body %}
+    <h1>StudentParent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student_parent in student_parents %}
+            <tr>
+                <td>{{ student_parent.id }}</td>
+                <td>{{ student_parent.phone }}</td>
+                <td>{{ student_parent.email }}</td>
+                <td>{{ student_parent.address }}</td>
+                <td>
+                    <a href="{{ path('app_student_parent_show', {'id': student_parent.id}) }}">show</a>
+                    <a href="{{ path('app_student_parent_edit', {'id': student_parent.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_student_parent_new') }}">Create new</a>
+{% endblock %}

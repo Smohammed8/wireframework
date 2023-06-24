@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StudentLeave index{% endblock %}
+
+{% block body %}
+    <h1>StudentLeave index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Status</th>
+                <th>CreatedAt</th>
+                <th>ApprovedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student_leave in student_leaves %}
+            <tr>
+                <td>{{ student_leave.id }}</td>
+                <td>{{ student_leave.startDate ? student_leave.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ student_leave.endDate ? student_leave.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ student_leave.status }}</td>
+                <td>{{ student_leave.createdAt ? student_leave.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ student_leave.approvedAt ? student_leave.approvedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_student_leave_show', {'id': student_leave.id}) }}">show</a>
+                    <a href="{{ path('app_student_leave_edit', {'id': student_leave.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_student_leave_new') }}">Create new</a>
+{% endblock %}

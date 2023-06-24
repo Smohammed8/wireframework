@@ -1,0 +1,383 @@
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+     
+          <div class="card-header">
+            <h3 class="card-title"> <i class="fa fa-file"> </i>  Student files </h3>
+            <div class="card-tools">
+              
+              <a href="#my-modal0" onclick="event.preventDefault();setValue(employee.id);" role="button"  data-toggle="modal" class="btn btn-tool">
+                <i class="fa fa-upload"></i> Upload
+              </a>
+            </div>
+          </div>
+       
+          {# {% if student.student_uploads|length > 0 %} #}
+        <!-- ./card-header -->
+        <div class="card-body">
+          <table class="table table-bordered table-hover table-sm">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th> Type </th>
+                <th> Uploaded File </th>
+                <th> Date </th>
+                <th> User </th>
+            
+                <th> Action </th>
+              </tr>
+            </thead>
+            <tbody>
+              
+          
+          
+                {% for student_upload in student_uploads %}
+
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <td>{{  loop.index }}</td>
+                <td>{{ student_upload.upload }} </td>
+                {% if student_upload.file == null %}
+                  <td> -   </td>
+                  {% else %}
+                  <td> <a  class="radius-round bord1er-2 brc-warning-m1" href="{{ asset('employee_file/'~ student_upload.file)}}"> View file      </a>    </td>
+                 {% endif %} 
+                <td> {{ student_upload.createdAt |eth_date }} </td>
+
+                <td> {{ student_upload.user }} </td>
+
+
+               
+                <td class="text-right py-0 align-middle">
+                <div class="btn-group">
+                 <a  class="btn  btn-sm btn-outline-primary  mr-1" href="{{ path('app_student_upload_edit', {'id':student_upload.id}) }}"><i class="fa fa-edit"> </i> Edit</a>
+                  {{ include('student_upload/_delete_form.html.twig') }}
+              </td>
+              </tr>
+            {% else %}
+              <tr>
+                  <td colspan="21">No records found!</td>
+              </tr>
+          {% endfor %}
+
+            </tbody>
+          </table>
+          <div class="btn btn-sm float-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(student_uploads) }}</div>
+
+        </div>
+        {# {% endif %} #}
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+      <!-- /.row -->
+
+
+
+
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+     
+          <div class="card-header">
+            <h3 class="card-title"> <i class="fa fa-graduation-cap"> </i> Education & Study</h3>
+            <div class="card-tools">
+              
+              <a href="#my-modal1" onclick="event.preventDefault();setValue(employee.id);" role="button"  data-toggle="modal" class="btn btn-tool">
+                <i class="fa fa-plus"></i> Add
+              </a>
+            </div>
+          </div>
+       
+          {% if student.registrations|length > 0 %}
+        <!-- ./card-header -->
+        <div class="card-body">
+          <table class="table table-bordered table-hover table-sm">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th> Education Level </th>
+                <th> Instition  </th>
+                <th> Start</th>
+             
+                <th> Testimonals </th>
+                <th> Action </th>
+              </tr>
+            </thead>
+            <tbody>
+              
+         
+              {% for registration in student.registrations %}
+
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <td>{{  loop.index }}</td>
+                <td>{{  registration.grade }} </td>
+                <td>{{  registration.semester }} </td>
+                <td> {{ registration.startDate |eth_date }} </td>
+
+                <td> {{ registration.user }} </td>
+
+
+                   {# {% if registration.file == null %}
+                   <td> -   </td>
+                   {% else %}
+                   <td> <a  class="radius-round bord1er-2 brc-warning-m1" href="{{ asset('employee_file/'~ employeeEducation.file)}}"> View Upload      </a>    </td>
+                  {% endif %}  #}
+
+
+                <td class="text-right py-0 align-middle">
+                <div class="btn-group">
+
+               
+
+             
+                <a  class="btn  btn-sm btn-outline-primary  mr-1" href="{{ path('app_registration_edit', {'id': registration.id}) }}"><i class="fa fa-edit"> </i> Edit</a>
+               
+                
+                  {{ include('registration/_delete_form.html.twig') }}
+              </td>
+              </tr>
+            {% else %}
+              <tr>
+                  <td colspan="21">No records found!</td>
+              </tr>
+          {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+        {% endif %}
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+    
+
+  {# <!-- /.row -->
+  <div class="modal fade" id="my-modal0">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add file for <u> {{employee }} </u></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        {% include "student_upload/_form.html.twig" %}
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal --> #}
+
+  <style>
+          
+  /* Make Select2 boxes match Bootstrap3 as well as Bootstrap4 heights: */
+            .select2-selection__rendered {
+            line-height: 32px !important;
+            }
+            .select2-selection {
+            height: 34px !important;
+            }
+            </style>      
+
+                  {# <!-- /.row -->
+                  <div class="modal fade" id="my-modal1">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Add education & study for <u> {{ student }} </u></h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form action="{{path('add_education')}}" method="POST" class="form" enctype="multipart/form-data">
+                          <input type="hidden" required  value="{{student.id}}" name="employee" class="form-control"/>  
+                        <div class="modal-body">
+
+                            <div class="col-md-12">
+                              <label>Educational level 
+                              </label>
+                             
+                              <select class="select2 form-control" required  name="education" style="width:100%;">
+                                <option value=""> - </option>
+                              {% for educationalLevel in educationalLevels %}
+                              
+                                  <option value="{{educationalLevel.id}}">{{educationalLevel.name}}</option>
+                                {% endfor %}
+                              </select>
+                            </div> 
+                             <br/>
+                            <div class="col-md-12">
+                            <label> Instition: </label>
+                            <input type="text" name="institution" required   class="form-control"/>     
+                              </div> 
+                              <br/>
+                              <div class="col-md-12">
+                                <label> From : </label>
+                                <input type="text"  name="from" required  class="form-control start"  autocomplete="off">    
+                               </div> 
+                            <br/>
+                               <div class="col-md-12">
+                                <label>To : </label>
+                                <input type="text"  name="to" required   class="form-control end"  autocomplete="off">   
+                               </div> 
+                               
+                               <br/>
+                               <div class="col-md-12">
+                                <label> Certification </label>
+                                <input type="file" name="file"  class="form-control"/>     
+                               </div> 
+                               <br/>
+                               
+                              </div>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                      </div>
+                      </form>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+                               #}
+                                        
+             
+
+                  {# <div class="modal fade" id="my-modal6">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Add Language skill for <u> {{employee }} </u> </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                      
+                        <form action="" method="POST" class="form">
+                          <input type="hidden" required  value="{{ student.id }}" name="employee" class="form-control"/>  
+                          <div class="modal-body">
+
+
+                          <div class="col-md-12">
+                            <label>Language </label>
+                            <select class="select2 form-control" required  name="langauge"  style="width:100%;">
+                              <option value="">- </option>
+                            {% for language in languages %}
+                                <option value="{{language.id }}">{{ language.name}}</option>
+                              {% endfor %}
+                            </select>
+                          </div> 
+                        <br/>
+
+                        <div class="col-md-12">
+                          <label> Reading </label>
+                          <select class="select2 form-control" required  name="read"  style="width:100%;">
+                            <option value="">- </option>
+                              <option value="Native"> Native</option>
+                              <option value="Excellent"> Excellent </option>
+                              <option value="Very good"> very good</option>
+                              <option value="Good"> Good</option>
+                              <option value="Poor"> Poor</option>
+                         
+                          </select>
+                        </div> 
+                      <br/>
+                      <div class="col-md-12">
+                        <label> Writing </label>
+                        <select class="select2 form-control" required  name="write"  style="width:100%;">
+                          <option value="">- </option>
+                          <option value="Native"> Native</option>
+                          <option value="Excellent"> Excellent </option>
+                          <option value="Very good"> very good</option>
+                          <option value="Good"> Good</option>
+                          <option value="Poor"> Poor</option>
+                       
+                        </select>
+                      </div> 
+                    <br/>
+                    <div class="col-md-12">
+                      <label> Speaking  </label>
+                      <select class="select2 form-control" required  name="speak"  style="width:100%;">
+                        <option value="">- </option>
+                        <option value="Native"> Native</option>
+                        <option value="Excellent"> Excellent </option>
+                        <option value="Very good"> very good</option>
+                        <option value="Good"> Good</option>
+                        <option value="Poor"> Poor</option>
+                      </select>
+                    </div> 
+                  <br/>
+                  <div class="col-md-12">
+                    <label> Listening  </label>
+                    <select class="select2 form-control" required  name="listen"  style="width:100%;">
+                      <option value="">- </option>
+                      <option value="Native"> Native</option>
+                      <option value="Excellent"> Excellent </option>
+                      <option value="Very good"> very good</option>
+                      <option value="Good"> Good</option>
+                      <option value="Poor"> Poor</option>
+                    </select>
+                  </div> 
+                <br/>
+               </div>
+          <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+            </div>
+                        </form>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal --> #}
+
+<script>
+function deleteAdmission(admissionId, route, token) {
+swal.fire({
+title: "Are you sure?",
+text: "You won't be able to revert this!",
+type: "warning",
+showCancelButton: true,
+confirmButtonText: "Yes, Delete it!"
+}).then(function (result) {
+if (result.value) {
+$.ajax({
+type: "POST",
+url: route,
+data: {
+'_token': token
+},
+dataType: 'json',
+success: function (data) {
+admissionButton = '\
+						<a href="#my-modal" role="button" class=" btn btn-sm btn-primary btn-white btn-round"\
+						data-toggle="modal">\
+								<i class="ace-icon fa fa-bed bigger-120"></i>\Employee\
+							</a>';
+                        swal.fire(
+                            "Date deleted!",
+                            "Data has been deleted.",
+                            "success"
+                        ).then(function(result){
+							location.reload();
+						})
+                        $('#row_admission_' + admissionId).remove();
+                        $('#btn_discharge_' + admissionId).remove();
+                        $('#patient_action_toolbar').prepend(admissionButton);
+                    },
+                    error: function (data) {
+                        if (data.status) {
+                            swal.fire("Forbidden!", "You can't delete this record!", "error");
+                        }
+                    }
+                });
+            }
+        });
+    }
+    </script>

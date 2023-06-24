@@ -130,9 +130,11 @@
 
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-         
+          {% if app.user %}
           <img    width="30px;" src="{{ asset('user_photo')}}/{{app.user.photo ? app.user.photo: 'user.png'}}" class="img-circle elevation-2">
-                    
+          {% else %}  
+
+          {% endif %}
           <span class="d-none d-md-inline">  
             
           {% if app.user %}
@@ -149,7 +151,13 @@
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- User image -->
           <li class="user-header bg-gray">
-            <img width="30px;" src="{{ asset('user_photo')}}/{{ app.user.photo ? app.user.photo: 'user.png'}}" class="img-circle elevation-2">
+            {% if app.user %}
+              <img width="30px;" src="{{ asset('user_photo')}}/{{ app.user.photo ? app.user.photo: 'user.png'}}" class="img-circle elevation-2">
+              {% else %}  
+                
+              {% endif %}
+
+           
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <p>
                {{ app.user.username }}-System Adminstarator 

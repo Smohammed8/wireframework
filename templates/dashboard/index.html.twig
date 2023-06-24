@@ -28,7 +28,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{ employees |length }} </h3>
+                <h3>{{ students |length }} </h3>
 
                 <p>Employee </p>
               </div>
@@ -38,7 +38,7 @@
                 <i class="fa fa-user-tie" aria-hidden="true"></i>
             </div>
 
-              <a href="{{ path('app_employee_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ path('app_student_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -46,7 +46,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>{{ employees |length }} </h3>
+                <h3>{{ students |length }} </h3>
                 {# <h3>53<sup style="font-size: 20px">%</sup></h3> #}
 
                 <p>Academic Staff </p>
@@ -54,7 +54,7 @@
               <div class="icon">
                 <i class="fa fa-graduation-cap" aria-hidden="true"></i>
             </div>
-              <a href="{{ path('app_employee_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ path('app_student_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -62,14 +62,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>{{ employees |length }}  </h3>
+                <h3>{{ students |length }}  </h3>
 
                 <p>Admin Staff </p>
               </div>
               <div class="icon">
                 <i class="fa fa-flag" aria-hidden="true"></i>
             </div>
-              <a href="{{ path('app_employee_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ path('app_student_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -114,8 +114,8 @@
                   <span class="info-box-icon bg-success"><i class="fa fa-user-minus"></i></span>
     
                   <div class="info-box-content">
-                   <a href="{{ path('app_employee_index') }}"> <span class="info-box-text">Employee on leave</span> </a>
-                    <span class="info-box-number">{{ employees |length }}   </span>
+                   <a href="{{ path('app_student_index') }}"> <span class="info-box-text">Employee on leave</span> </a>
+                    <span class="info-box-number">{{ students |length }}   </span>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
@@ -183,7 +183,7 @@
 
               <div class="info-box-content">
               
-                <a href="{{ path('app_employee_index') }}"> <span class="info-box-text">  Male Employee   </span> </a>
+                <a href="{{ path('app_student_index') }}"> <span class="info-box-text">  Male Employee   </span> </a>
                 <span class="info-box-number"> 256</span>
               </div>
               <!-- /.info-box-content -->
@@ -196,7 +196,7 @@
               <span class="info-box-icon bg-warning"><i class="fa fa-female"></i></span>
 
               <div class="info-box-content">
-                <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Female Employee   </span> </a>
+                <a href="{{ path('app_student_index') }}"> <span class="info-box-text"> Female Employee   </span> </a>
 
                 <span class="info-box-number"> 0 </span>
               </div>
@@ -210,7 +210,7 @@
               <span class="info-box-icon bg-danger"><i class="fa fa-dollar-sign"></i></span>
 
               <div class="info-box-content">
-                <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Salary paid  </span> </a>
+                <a href="{{ path('app_student_index') }}"> <span class="info-box-text"> Salary paid  </span> </a>
 
 
                 <span class="info-box-number"> 123,000</span>
@@ -232,7 +232,7 @@
        
                      <div class="info-box-content">
             
-                       <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Contract staff  </span> </a>
+                       <a href="{{ path('app_student_index') }}"> <span class="info-box-text"> Contract staff  </span> </a>
 
 
                        <span class="info-box-number"> 0 </span>
@@ -247,7 +247,7 @@
                      <span class="info-box-icon bg-success"><i class="fa fa-users"></i></span>
        
                      <div class="info-box-content">   
-                       <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Permanet staff  </span> </a>
+                       <a href="{{ path('app_student_index') }}"> <span class="info-box-text"> Permanet staff  </span> </a>
 
 
                        <span class="info-box-number"> 256</span>
@@ -263,7 +263,7 @@
        
                      <div class="info-box-content">
                 
-                       <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> Units   </span> </a>
+                       <a href="{{ path('app_student_index') }}"> <span class="info-box-text"> Units   </span> </a>
                        <span class="info-box-number"> 656 </span>
                      </div>
                      <!-- /.info-box-content -->
@@ -277,7 +277,7 @@
        
                      <div class="info-box-content">
                  
-                       <a href="{{ path('app_employee_index') }}"> <span class="info-box-text"> This year resignation    </span> </a>
+                       <a href="{{ path('app_student_index') }}"> <span class="info-box-text"> This year resignation    </span> </a>
                        <span class="info-box-number"> 2 </span>
                      </div>
                      <!-- /.info-box-content -->
@@ -347,3 +347,141 @@
 
         
 {% endblock %}
+
+
+
+
+   {# <!-- Main content -->
+   <section class="content">
+    <div class="container-fluid">
+
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+  
+              <div class="info-box-content">
+                <span class="info-box-text">Users</span>
+                <span class="info-box-number">
+                  10
+              
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-graduation-cap"></i></span>
+  
+              <div class="info-box-content">
+                <span class="info-box-text"> Students </span>
+                <span class="info-box-number">4,410</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+  
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+  
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-home"></i></span>
+  
+              <div class="info-box-content">
+                <span class="info-box-text">Class</span>
+                <span class="info-box-number">12</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-tasks"></i></span>
+  
+              <div class="info-box-content">
+                <span class="info-box-text">Sections </span>
+                <span class="info-box-number">40</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+      <!-- Info boxes -->
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-book"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Subjects </span>
+              <span class="info-box-number">
+                10
+             
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-tie"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"> Teachers</span>
+              <span class="info-box-number">41</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-graduation-cap"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"> Almuni</span>
+              <span class="info-box-number">760</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-warning elevation-1"> <i class=" 	fa fa-flag" aria-hidden="true"></i>
+             </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">This year payment </span>
+              <span class="info-box-number">2,000</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </div> #}

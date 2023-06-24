@@ -10,12 +10,12 @@
 
 
 
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-light-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link bg-gray bg-gray-light bg-gray bg-gray">
         <img src="{{ asset('assets/logo/ju.png') }}" alt="Logo" class="brand-image  elevation-3" style="opacity: .8">
 
-        <span style="color:white;font-size:15px;"> <b> E-cliam Managment syetem </b> </span>
+        <span style="color:white;font-size:15px;"> <b> School Managment </b> </span>
       </a>
 
 
@@ -40,7 +40,7 @@
       </div>
 
 
-<hr/>
+
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         
@@ -76,7 +76,7 @@
     
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-key"></i>
               <p>
                 User Managment
                 <i class="fas fa-angle-left right"></i>
@@ -108,23 +108,56 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon  fa fa-user"></i>
+              <i class="nav-icon  fas fa-users"></i>
               <p>
-             Patients
+             Personnels
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ path('app_patient_index') }}" class="nav-link">
+                <a href="{{ path('app_user_index') }}" class="nav-link">
                   <i class="fa fa-caret-right nav-icon"></i>
-                  <p>List of patients  </p>
+                  <p> Teachers </p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="" class="nav-link">
                   <i class="fa fa-caret-right nav-icon"></i>
-                  <p>  Hire Employee </p>
+                  <p>  Parents </p>
+                </a>
+              </li>
+         
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p>  Committe </p>
+                </a>
+              </li>
+           
+            </ul>
+          </li>
+
+  
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon  fa fa-user"></i>
+              <p>
+            Students
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ path('app_student_index') }}" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p> Student </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p> Placement </p>
                 </a>
               </li>
          
@@ -132,9 +165,51 @@
             </ul>
           </li>
 
-  
+        
 
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon  fa fa-graduation-cap"></i>
+              <p>
+            Acadamics
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ path('app_grade_index') }}" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p> Class </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ path('app_section_index') }}" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p>  Section </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ path('app_subject_index') }}" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p> Subjects </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ path('app_stream_index') }}" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p> Stream </p>
+                </a>
+              </li>
 
+              <li class="nav-item">
+                <a href="{{ path('app_semester_index') }}" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p> Semesters</p>
+                </a>
+              </li>
+           
+            </ul>
+          </li>
 
 
 
@@ -160,16 +235,10 @@
               <li class="nav-item">
                 <a href="" class="nav-link">
                   <i class="fa fa-caret-right nav-icon"></i>
-                  <p>Lease </p>
+                  <p>Report </p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fa fa-caret-right nav-icon"></i>
-                  <p> Residents </p>
-                </a>
-              </li>
-         
+          
            
             </ul>
           </li>

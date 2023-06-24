@@ -1,0 +1,239 @@
+<div class="card card-primary card-outline">
+          
+
+<div class="card-header">
+    <h3 class="card-title">   <i class="fas fa-book"></i> Employee Atendance Sheet</h3>
+
+    <div class="card-tools">
+      <div class="input-group input-group-sm">
+        <input type="text" class="form-control" id="searchTerm" placeholder="Search leave">
+        <div class="input-group-append">
+          <div class="btn btn-primary">
+            <i class="fas fa-search"></i>
+          </div>
+
+          <a href="#attendance-modal" onclick="event.preventDefault();setValue(employee.id);" role="button"  data-toggle="modal" class="btn btn-sm btn-outline-primary ml-1">
+            <i class="fa fa-plus"> </i> Attend
+          </a>
+       
+          </div>
+      </div>
+    </div>
+    <!-- /.card-tools -->
+  </div>
+
+<div class="card-body">
+
+  <div class="row">
+
+
+
+    <div class="col-5 col-sm-2">
+      <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">{{ cyear }} E.C</a>
+        <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">{{ cyear -1 }} E.C</a>
+        <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">{{ cyear -2 }} E.C</a>
+        <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">{{ cyear -3 }} E.C</a>
+      </div>
+    </div>
+    <div class="col-7 col-sm-10">
+      <div class="tab-content" id="vert-tabs-tabContent">
+        <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+            <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Shift</th>
+                {# <th>Year</th> #}
+                <th>Month</th>
+                <th>Day </th>
+                <th> Status </th>
+                <th>Created at</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for attendance in attendances %}
+            {% if  attendance.year == cyear  %}
+            <tr>
+                <td>{{ attendance.id }}</td>
+            
+                  
+                <td>
+                  {% if attendance.shift == 1 %}
+                  {{ " Morning" }}
+                  {% else %}
+                  {{ "Afternoon" }}
+                  {% endif %}
+                </td>
+              
+                <td>{{ attendance.month |getMonth }}</td>
+                <td>{{ attendance.cday }} </td>
+                <td>{{ attendance.isAttend ? 'Attended' : 'Absented' }}</td>
+                <td> {{ attendance.createdAt ? attendance.createdAt|eth_date  }} at {{ attendance.createdAt ? attendance.createdAt|date('H:i:s') : '' }}</td>
+                <td>
+                 
+                    <a href="{{ path('app_attendance_edit', {'id': attendance.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="7" style="color:red;">No attendance found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{# 
+    <a href="{{ path('app_attendance_new') }}">Create new</a> #}
+        </div>
+        <div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Shift</th>
+                        {# <th>Year</th> #}
+                        <th>Month</th>
+                        <th>Day </th>
+                        <th> Status </th>
+                        <th>Created at</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                {% for attendance in attendances %}
+                    {% if  attendance.year == cyear -1  %}
+                    <tr>
+                        <td>{{ attendance.id }}</td>
+                    
+                          
+                        <td>
+                          {% if attendance.shift == 1 %}
+                          {{ " Morning" }}
+                          {% else %}
+                          {{ "Afternoon" }}
+                          {% endif %}
+                        </td>
+                      
+                        <td>{{ attendance.month |getMonth }}</td>
+                        <td>{{ attendance.cday }} </td>
+                        <td>{{ attendance.isAttend ? 'Attended' : 'Absented' }}</td>
+                        <td> {{ attendance.createdAt ? attendance.createdAt|eth_date  }} at {{ attendance.createdAt ? attendance.createdAt|date('H:i:s') : '' }}</td>
+                        <td>
+                         
+                            <a href="{{ path('app_attendance_edit', {'id': attendance.id}) }}">Edit</a>
+                        </td>
+                    </tr>
+                        {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" style="color:red;">No attendance found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Shift</th>
+                        {# <th>Year</th> #}
+                        <th>Month</th>
+                        <th>Day </th>
+                        <th> Status </th>
+                        <th>Created at</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for attendance in attendances %}
+                    {% if  attendance.year == cyear -2  %}
+                    <tr>
+                        <td>{{ attendance.id }}</td>
+                    
+                          
+                        <td>
+                          {% if attendance.shift == 1 %}
+                          {{ " Morning" }}
+                          {% else %}
+                          {{ "Afternoon" }}
+                          {% endif %}
+                        </td>
+                      
+                        <td>{{ attendance.month |getMonth }}</td>
+                        <td>{{ attendance.cday }} </td>
+                        <td>{{ attendance.isAttend ? 'Attended' : 'Absented' }}</td>
+                        <td> {{ attendance.createdAt ? attendance.createdAt|eth_date  }} at {{ attendance.createdAt ? attendance.createdAt|date('H:i:s') : '' }}</td>
+                        <td>
+                         
+                            <a href="{{ path('app_attendance_edit', {'id': attendance.id}) }}">Edit</a>
+                        </td>
+                    </tr>
+                {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="7" style="color:red;">No attendance found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
+            <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Shift</th>
+                {# <th>Year</th> #}
+                <th>Month</th>
+                <th>Day </th>
+                <th> Status </th>
+                <th>Created at</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for attendance in attendances %}
+            {% if  attendance.year == cyear -3  %}
+            <tr>
+                <td>{{ attendance.id }}</td>
+            
+                  
+                <td>
+                  {% if attendance.shift == 1 %}
+                  {{ " Morning" }}
+                  {% else %}
+                  {{ "Afternoon" }}
+                  {% endif %}
+                </td>
+              
+                <td>{{ attendance.month |getMonth }}</td>
+                <td>{{ attendance.cday }} </td>
+                <td>{{ attendance.isAttend ? 'Attended' : 'Absented' }}</td>
+                <td> {{ attendance.createdAt ? attendance.createdAt|eth_date  }} at {{ attendance.createdAt ? attendance.createdAt|date('H:i:s') : '' }}</td>
+                <td>
+                 
+                    <a href="{{ path('app_attendance_edit', {'id': attendance.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="7" > <span style="color:red;"> No attendance found </span> </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- /.card -->
+</div>
+

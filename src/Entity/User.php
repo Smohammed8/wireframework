@@ -65,9 +65,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToMany(targetEntity: UserGroup::class, inversedBy: 'users')]
     private Collection $userGroup;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Student::class)]
+    private Collection $students;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Registration::class)]
+    private Collection $registrations;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: StudentUpload::class)]
+    private Collection $studentUploads;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: StudentLeave::class)]
+    private Collection $studentLeaves;
+
+    #[ORM\OneToOne(mappedBy: 'account', cascade: ['persist', 'remove'])]
+    private ?Student $student = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: StudentParent::class)]
+    private Collection $studentParents;
     public function __construct()
     {
         $this->userGroup = new ArrayCollection();
+        $this->students = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
+        $this->studentUploads = new ArrayCollection();
+        $this->studentLeaves = new ArrayCollection();
+        $this->studentParents = new ArrayCollection();
     
     }
 
@@ -291,6 +314,178 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeUserGroup(UserGroup $userGroup): self
     {
         $this->userGroup->removeElement($userGroup);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Student>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+            $student->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        if ($this->students->removeElement($student)) {
+            // set the owning side to null (unless already changed)
+            if ($student->getUser() === $this) {
+                $student->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Registration>
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registration $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getUser() === $this) {
+                $registration->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, StudentUpload>
+     */
+    public function getStudentUploads(): Collection
+    {
+        return $this->studentUploads;
+    }
+
+    public function addStudentUpload(StudentUpload $studentUpload): static
+    {
+        if (!$this->studentUploads->contains($studentUpload)) {
+            $this->studentUploads->add($studentUpload);
+            $studentUpload->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentUpload(StudentUpload $studentUpload): static
+    {
+        if ($this->studentUploads->removeElement($studentUpload)) {
+            // set the owning side to null (unless already changed)
+            if ($studentUpload->getUser() === $this) {
+                $studentUpload->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, StudentLeave>
+     */
+    public function getStudentLeaves(): Collection
+    {
+        return $this->studentLeaves;
+    }
+
+    public function addStudentLeaf(StudentLeave $studentLeaf): static
+    {
+        if (!$this->studentLeaves->contains($studentLeaf)) {
+            $this->studentLeaves->add($studentLeaf);
+            $studentLeaf->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentLeaf(StudentLeave $studentLeaf): static
+    {
+        if ($this->studentLeaves->removeElement($studentLeaf)) {
+            // set the owning side to null (unless already changed)
+            if ($studentLeaf->getUser() === $this) {
+                $studentLeaf->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStudent(): ?Student
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?Student $student): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($student === null && $this->student !== null) {
+            $this->student->setAccount(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($student !== null && $student->getAccount() !== $this) {
+            $student->setAccount($this);
+        }
+
+        $this->student = $student;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, StudentParent>
+     */
+    public function getStudentParents(): Collection
+    {
+        return $this->studentParents;
+    }
+
+    public function addStudentParent(StudentParent $studentParent): static
+    {
+        if (!$this->studentParents->contains($studentParent)) {
+            $this->studentParents->add($studentParent);
+            $studentParent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentParent(StudentParent $studentParent): static
+    {
+        if ($this->studentParents->removeElement($studentParent)) {
+            // set the owning side to null (unless already changed)
+            if ($studentParent->getUser() === $this) {
+                $studentParent->setUser(null);
+            }
+        }
 
         return $this;
     }

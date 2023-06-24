@@ -5,6 +5,9 @@
 {% block body %}
 
 
+
+  {% if app.user.student  is not null %}
+
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -24,10 +27,102 @@
     <!-- Main content -->
     <section class="content">
 
+
+<form action="{{ path('app_send_request') }}" method="POST">
+
+     <div class="card collapsed-card border-primary-left-5  border border-primary">
+
+
+     <div class="card-header">
+
+         <b>  <i  class="fas fa-envelope"></i> Send leave request </b>
+         <div class="card-tools">
+             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus   "></i>
+             </button>
+ 
+         </div>
+      
+     </div>
+
+   
+     <div class="card-body">
+      
+        
+   <div class="row ">
+ 
+
+         <div class="input-group mb-3 col-md-6">
+ 
+ 
+         <div class="input-group-prepend">
+             <span title="Job level" class="input-group-text"><i  class="fa fa-tasks"></i></span>
+         </div>
+         
+         <select name="typeId" class="'form-control select2bs4" required="required">
+          <option value="">  -  </option>
+          {% for leave_type in leave_types %}
+          
+            <option value="{{ leave_type.id }} ">{{ leave_type.name }}   </option>
+          {% endfor %}
+         </select>
+         </div>
+
+
+         <input type="hidden" name="user"  value="{{ app.user.id }}" required class="form-control">
+         
+     <div class="input-group mb-3 col-md-6">
+ 
+ 
+                 <div class="input-group-prepend">
+                     <span title="Rason" class="input-group-text"> <i class="fa fa-user-check"> </i></span>
+                 </div>
+                <input type="text" name="reason"  placeholder="Reason to leave" required class="form-control">
+ 
+             </div>
+   </div>
+
+   <div class="input-group mb-3 col-md-6">
+ 
+ 
+   <div class="input-group-prepend">
+       <span title="Start date" class="input-group-text"><i  class="fa fa-calendar"></i></span>
+   </div>
+  <input type="text" name="st" placeholder="Start date" required class="form-control start">
+
+{# </div>
+
+   <div class="input-group mb-3 col-md-3">
+  #}
+ 
+   <div class="input-group-prepend">
+       <span title="End date" class="input-group-text"><i  class="fa fa-calendar"></i></span>
+   </div>
+  <input type="text" name="en"   placeholder="End date" required class="form-control end">
+  
+  </div>
+
+ 
+        
+         <button  type="submit" class="btn  m-1 btn-sm  btn-primary float-right">
+          <i class="fa fa-plus m-1"  ></i>
+          {{ button_label|default('Send') }}
+          
+          </button>
+   
+     
+     </div>
+
+  
+ </div>
+
+  </form>
+<br>
+        {% endif %}
+
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Search patient </h3>
+          <h3 class="card-title">Search student </h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -40,12 +135,12 @@
         </div>
         <div class="card-body">
           <div class="container-fluid">
-            <h2 class="text-center display-4">Search  <i class="fa fa-user"> </i></h4>
+            <h2 class="text-center display-4">Search  <i class="fa fa-user-tie"> </i></h4>
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                   {# <form action="{{ path('ajax_search')}}"> #}
                         <div class="input-group">
-                            <input type="text"  autocomplete="off" id="search" class="form-control form-control-lg" placeholder="Search..">
+                            <input type="text"  autocomplete="off" id="search" class="form-control form-control-lg" placeholder="Search employee">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-lg btn-default">
                                     <i class="fa fa-search"></i>
@@ -120,7 +215,9 @@
                                     $.each(arr, function(id, value) {
                                         if (key == 'entities') {
                                             if (id != 'error') {
-                                                entitySelector.append('<li class="list-group-item">  <i class="fa fa-user"> </i> <a href="/patient/'+id+'">'+value+'</a></li>');
+
+
+                                                entitySelector.append('<li class="list-group-item">  <i class="fa fa-user-tie"> </i> <a href="/employee/'+id+'">'+value+'</a></li>');
                                             } else {
                                                 entitySelector.append('<li class="errorLi">'+value+'</li>');
                                             }

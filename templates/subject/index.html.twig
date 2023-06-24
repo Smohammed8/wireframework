@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Subject index{% endblock %}
+
+{% block body %}
+ 
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-1">
+            <div class="col-sm-6">
+              
+                <h4> List of  Subjects in  <b><u> {{ grade }}</u>  </b></h4>
+            </div>
+            <div class="col-sm-6">
+                <a style="float:right;" class="btn btn-outline-primary" href="{{ path('app_subject_new') }}"> <i class="fa fa-plus"> </i> Create new</a>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+    <hr>
+
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Subject</th>
+                <th>Grade </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subject in subjects %}
+            <tr>
+                <td>{{ loop.index  }}</td>
+                <td>{{ subject.name }}</td>
+                <td>{{ subject.grade}}</td>
+                <td>
+                    <div class="btn-group">
+                    <a  class="btn btn-outline-secondary btn-sm mr-1" href=""> <i class="fa fa-users"> </i> Teachers </a>
+
+                    <a  class="btn btn-outline-secondary btn-sm mr-1" href="{{ path('app_subject_edit', {'id': subject.id}) }}"> <i class="fa fa-edit"> </i> Edit</a>
+                    
+                    {{ include('subject/_delete_form.html.twig') }}
+                    <div>
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3" style="color:red;"> No  subject is registered </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -21,21 +21,16 @@ class Woreda
     #[ORM\ManyToOne(inversedBy: 'woredas')]
     private ?Zone $zone = null;
 
-    #[ORM\OneToMany(mappedBy: 'woreda', targetEntity: Patient::class)]
-    private Collection $patients;
-
-    #[ORM\ManyToOne(inversedBy: 'woredas')]
-    private ?Agreement $agreement = null;
-
-    #[ORM\Column]
-    private ?bool $isAgreed = null;
-
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $code = null;
 
+    #[ORM\OneToMany(mappedBy: 'woreda', targetEntity: Student::class)]
+    private Collection $students;
+
     public function __construct()
     {
-        $this->patients = new ArrayCollection();
+     
+        $this->students = new ArrayCollection();
     }
     public function __toString()
     {
@@ -70,59 +65,10 @@ class Woreda
         return $this;
     }
 
-    /**
-     * @return Collection<int, Patient>
-     */
-    public function getPatients(): Collection
-    {
-        return $this->patients;
-    }
+  
 
-    public function addPatient(Patient $patient): self
-    {
-        if (!$this->patients->contains($patient)) {
-            $this->patients->add($patient);
-            $patient->setWoreda($this);
-        }
+   
 
-        return $this;
-    }
-
-    public function removePatient(Patient $patient): self
-    {
-        if ($this->patients->removeElement($patient)) {
-            // set the owning side to null (unless already changed)
-            if ($patient->getWoreda() === $this) {
-                $patient->setWoreda(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getAgreement(): ?Agreement
-    {
-        return $this->agreement;
-    }
-
-    public function setAgreement(?Agreement $agreement): self
-    {
-        $this->agreement = $agreement;
-
-        return $this;
-    }
-
-    public function isIsAgreed(): ?bool
-    {
-        return $this->isAgreed;
-    }
-
-    public function setIsAgreed(bool $isAgreed): self
-    {
-        $this->isAgreed = $isAgreed;
-
-        return $this;
-    }
 
     public function getCode(): ?string
     {
@@ -132,6 +78,36 @@ class Woreda
     public function setCode(?string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Student>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+            $student->setWoreda($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        if ($this->students->removeElement($student)) {
+            // set the owning side to null (unless already changed)
+            if ($student->getWoreda() === $this) {
+                $student->setWoreda(null);
+            }
+        }
 
         return $this;
     }

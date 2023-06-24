@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StudentLeave{% endblock %}
+
+{% block body %}
+    <h1>StudentLeave</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ student_leave.id }}</td>
+            </tr>
+            <tr>
+                <th>StartDate</th>
+                <td>{{ student_leave.startDate ? student_leave.startDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndDate</th>
+                <td>{{ student_leave.endDate ? student_leave.endDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ student_leave.status }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ student_leave.createdAt ? student_leave.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ApprovedAt</th>
+                <td>{{ student_leave.approvedAt ? student_leave.approvedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_student_leave_index') }}">back to list</a>
+
+    <a href="{{ path('app_student_leave_edit', {'id': student_leave.id}) }}">edit</a>
+
+    {{ include('student_leave/_delete_form.html.twig') }}
+{% endblock %}

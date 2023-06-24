@@ -1,0 +1,255 @@
+
+
+{% set formErrors = form.vars.errors.form.getErrors(true) %} {# If there are errors in the form, display them in this unorganized list #} {% if formErrors|length %}
+    <ul>
+        {% for error in formErrors %}
+        <li>{{ error.message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} 
+    {{ form_start(form) }} 
+    {{ form_errors(form) }}
+   
+
+        <div class="card border-primary-left-5  border border-primary">
+ 
+        {# <div class="card  collapsed-card border-primary-left-5  border border-primary"> #}
+        <div class="card-header">
+   
+            <b>  <i  class="fas fa-list"></i>  Basic Information </b>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus   "></i>
+                </button>
+    
+            </div>
+         
+        </div>
+
+      
+        <div class="card-body">
+         
+           
+            <div class="row m-2">
+    
+                <div class="input-group mb-3 col-md-4">
+    
+    
+                    <div class="input-group-prepend">
+                        <span title="First Name" class="input-group-text"><i  class="fas fa-user"></i></span>
+                    </div>
+                    {{ form_widget(form.firstName,{'attr':{'class':'form-control-sm','placeholder':"First Name",'readOnly': student.firstName ? true : false,"style":"text-transform: capitalize;"}}) }} {{form_errors(form.firstName)}}
+                    <span style="color:red;">* </span>
+                </div>
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Second Name" class="input-group-text"><i  class="fas fa-user"></i></span>
+                    </div>
+                    {{ form_widget(form.fatherName,{'attr':{'class':'form-control-sm','placeholder':"Father Name",'readOnly': student.fatherName ? true : false,"style":"text-transform: capitalize;"}}) }}
+                    <span style="color:red;">* </span>
+                </div>
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Last Name" class="input-group-text"><i  class="fas fa-user"></i></span>
+                    </div>
+                    {{ form_widget(form.lastName,{'attr':{'class':'form-control-sm','placeholder':"Last Name",'readOnly': student.lastName ? true : false,"style":"text-transform: capitalize;"}}) }}
+                    <span style="color:red;">* </span>
+                </div>
+            </div>
+    
+            <div class="row m-2">
+    
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Gender" class="input-group-text"><i  class="fas fa-mars"></i></span>
+                    </div>
+                    {{ form_widget(form.gender,{'attr':{'class':'form-control-sm select2bs4','placeholder':"Gender",'readOnly':student.gender ? true : false}}) }}
+                    <span style="color:red;">* </span>
+                </div>
+          
+
+                
+
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Nationality" class="input-group-text"><i  class="fas fa-flag"></i></span>
+                    </div>
+                    {{ form_widget(form.nationality,{'attr':{'class':'form-control-sm select2bs4','placeholder':"Nationality"}}) }}
+                    <span style="color:red;">* </span>
+                </div>
+
+
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Martial Status" class="input-group-text"><i  class="fas fa-baby"></i></span>
+                    </div>
+                    {{ form_widget(form.maritalStatus,{'attr':{'class':'form-control-sm select2bs4','placeholder':"Martial Status"}}) }}
+                    <span style="color:red;">* </span>
+                </div>
+            </div>
+        
+            <div class="row m-2">
+    
+
+            <div class="input-group mb-3 col-md-4">
+                <div class="input-group-prepend">
+                    <span title="Place of birth" class="input-group-text"><i  class="fas fa-home"></i></span>
+                </div>
+                {{ form_widget(form.birthPlace,{'attr':{'class':'form-control','placeholder':"Place of birth"}}) }}
+                <span style="color:red;"> *  </span>
+            </div>
+            </div>
+        </div>
+
+     
+    </div>
+    
+    <div class="card border-primary-left-5  border border-primary">
+        {# <div class="card  collapsed-card border-primary-left-5  border border-primary"> #}
+        <div class="card-header">
+            <b> <i  class="fas fa-list"></i> Contact Information </b>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus   "></i>
+                </button>
+    
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row m-2">
+    
+        
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="House number" class="input-group-text"><i  class="fa fa-list"></i></span>
+                    </div>
+                    {{ form_widget(form.houseNumber,{'attr':{'class':'form-control-sm','placeholder':"House number"}}) }}
+    
+                </div>
+
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Current address" class="input-group-text"> <i  class="fa fa-flag"></i> </span>
+                    </div>
+                    {{ form_widget(form.currentAddress,{'attr':{'class':'form-control-sm','placeholder':"Current address"}}) }}
+                    <span style="color:red;"> *  </span>
+                </div>
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Email" class="input-group-text"><i  class="fa fa-envelope-open"></i></span>
+                    </div>
+                    {{ form_widget(form.email,{'attr':{'class':'form-control-sm','placeholder':"Email address"}}) }}
+    
+                </div>
+            </div>
+    
+            <div class="row m-2">
+    
+       
+          
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Kebele" class="input-group-text"><i  class="fas fa-key"></i></span>
+                    </div>
+                    {{ form_widget(form.kebele,{'attr':{'class':'form-control-sm','placeholder':"Kebele"}}) }}
+    
+                </div>
+
+
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Date of birth" class="input-group-text"><i  class="fas fa-calendar"></i></span>
+                    </div>
+                    <input type="text"  name="dob" placeholder="Date of birth" class="form-control end" autocomplete="off">
+                    <span style="color:red;">*</span>
+                </div>
+
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Phone" class="input-group-text"><i  class="fas fa-phone"></i></span>
+                    </div>
+                    {{ form_widget(form.phone,{'attr':{'class':'form-control','placeholder':"Phone"}}) }}
+    
+                </div>
+
+        
+
+
+
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                      
+                        <span title="Woreda" class="input-group-text"><i  class="fas fa-list"></i></span>
+                    </div>
+                  <select class="form-control select2bs4" name="region"  style="width:100%;">
+                    <option value="">- </option>
+                  {% for region in regions %}
+                  
+                      <option value="{{region.id}}">{{region.name}}</option>
+                    {% endfor %}
+                  </select>
+                    
+                    <span style="color:red;">*</span>
+                   
+                </div>
+
+                
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                      
+                        <span title="Zone" class="input-group-text"><i  class="fas fa-list"></i></span>
+                    </div>
+            
+                   
+                      <select class="form-control select2bs4" name="zone"  style="width:100%;">
+                        <option value="">- </option>
+                      {% for zone in zones %}
+                      
+                          <option value="{{zone.id}}">{{zone.name}}</option>
+                        {% endfor %}
+                      </select>
+                      <span style="color:red;">* </span>
+                </div>
+
+
+
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                      
+                        <span title="Woreda" class="input-group-text"><i  class="fas fa-list"></i></span>
+                    </div>
+                  
+                    {{ form_widget(form.woreda,{'attr':{'class':'form-control select2bs4','placeholder':"Woreda"}}) }}
+                    <span style="color:red;">* </span>
+                    {# {{ form_widget(form.fieldOfStudy,{'attr':{'class':'form-control select2bs4','multiple':'multiple','placeholder':"Fields of study"}}) }} #}
+    
+                </div>
+
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                      
+                        <span title="Phone" class="input-group-text"><i  class="fas fa-user"></i></span>
+                    </div>
+                  
+                    {{ form_widget(form.photo,{'attr':{'class':'form-control','placeholder':"Photo"}}) }}
+                   
+    
+                </div>
+
+
+
+
+            </div>
+    
+        </div>
+    </div>
+
+
+
+
+    <button class="btn  m-1 btn-sm  btn-primary float-right">
+    <i class="fa fa-plus m-1"  ></i>
+    {{ button_label|default('Submit') }}
+    
+    </button> 
+    <a class="btn  m-1 btn-sm  btn-primary float-right" href="{{ path('app_student_index') }}"> <i class="fa fa-arrow-left" aria-hidden="true"></i>
+     Close</a>
+    {{ form_end(form) }}

@@ -1,0 +1,952 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Student{% endblock %}
+
+{% block body %}
+    <h1>Student</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ student.id }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ student.firstName }}</td>
+            </tr>
+            <tr>
+                <th>FatherName</th>
+                <td>{{ student.fatherName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ student.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ student.gender }}</td>
+            </tr>
+            <tr>
+                <th>Dob</th>
+                <td>{{ student.dob ? student.dob|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nationality</th>
+                <td>{{ student.nationality }}</td>
+            </tr>
+            <tr>
+                <th>BirthPlace</th>
+                <td>{{ student.birthPlace }}</td>
+            </tr>
+            <tr>
+                <th>CurrentAddress</th>
+                <td>{{ student.currentAddress }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ student.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ student.phone }}</td>
+            </tr>
+            <tr>
+                <th>HouseNumber</th>
+                <td>{{ student.houseNumber }}</td>
+            </tr>
+            <tr>
+                <th>MaritalStatus</th>
+                <td>{{ student.maritalStatus }}</td>
+            </tr>
+            <tr>
+                <th>Kebele</th>
+                <td>{{ student.kebele }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ student.photo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_student_index') }}">back to list</a>
+
+    <a href="{{ path('app_student_edit', {'id': student.id}) }}">edit</a>
+
+    {{ include('student/_delete_form.html.twig') }}
+{% endblock %} #}
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %} Student {% endblock %}
+
+{% block body %}
+    {# <small> Completing profile </small>
+    <div class="progress progress-xs">
+      <div class="progress-bar bg-success" style="width: 70%">   <span class="badge bg-success">70%</span> </div>
+      
+    </div> #}
+
+
+    <link href="{{ asset('assets/dist/bootstrap4-modal-fullscreen.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/dist/bootstrap4-modal-fullscreen.min.css') }}" rel="stylesheet" type="text/css" />
+  
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+              
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Student Profile</li>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+    
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+    
+
+           <div class="col-md-3">
+    
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                  <div class="card-body box-profile">
+                    <div class="text-center">
+                 
+                    <div class="position-relative">
+
+
+                    {% if student %}
+                     {# <img   width="20px" src="{{ asset('student_photo')}}/{{student.photo ? student.photo: 'user.png'}}" class="profile-user-img img-fluid img-circle"> #}
+                      <img   width="150px" src="{{ asset('student_photo')}}/{{student.photo ? student.photo: 'user.png'}}" class="rounded">
+                     
+                  
+                    {% endif %}    
+
+                      <span class="d-none d-md-inline">  
+                        
+                    
+
+    
+                           <div class="ribbon-wrapper ribbon-lg">
+                            <div class="ribbon bg-primary text-sm">
+                              Student
+                            </div>
+                         </div>
+
+                    </div>
+                 </div>
+
+
+    
+                    <h3 class="profile-username text-center">{{ student.firstName }} {{ student.fatherName }} </h3>
+    
+                    <p class="text-muted text-center"> Grade 10<sup>th </sup> Section A </p>
+    
+                    <ul class="list-group list-group-unbordered mb-3">
+                      <li class="list-group-item">
+                        {% set age = date().diff(date(student.dob)).y %}
+                        <b> Age : </b> <a class="float-right"> {{ age }} years old </a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>ID Number: </b> <a class="float-right"> {{ student.idNumber }} </a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Phone </b> <a class="float-right"> {{ student.phone}} </a>
+                      </li>
+                      <li class="list-group-item">
+                        <b> Date of join : </b> <a class="float-right"> {{ student.createdAt |eth_date }} E.C </a>
+                      </li>
+                      <li class="list-group-item">
+                        <b> This year payment: </b> <a class="float-right">ETB {{ '32,000' }} </a>
+                      </li>
+                    </ul>
+    
+                    {# <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> #}
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+    
+                <!-- About Me Box -->
+              
+                  <div class="card card-outline card-primary collapsed-card">
+               
+                  <!-- /.card-header -->
+
+                  <div class="card-header">
+                    <h3 class="card-title">    <i class="fa fa-users"></i>  <b> Student Families  </b> </h3>
+      
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i> More 
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    <strong><i class="fas fa-book mr-1"></i> Education</strong>
+    
+                    <p class="text-muted">
+                      {{ student.phone ?? '-' }}  in {{  student.woreda ?? '-' }} from  {{  student.phone ?? '-'  }} 
+                    </p>
+    
+                    <hr>
+    
+                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Place of birth</strong>
+    
+                    <p class="text-muted">  {{ student.birthPlace  ?? '-' }} </p>
+    
+                    <hr>
+    
+                    <strong><i class="fas fa-pencil-alt mr-1"></i> Experience </strong>
+    
+                    <p class="text-muted">
+                      {% set exp = date().diff(date(student.dob)).y %}
+
+                      <span class="tag tag-danger"> {{ exp }} years </span>
+                      {# <span class="tag tag-success">Coding</span>
+                      <span class="tag tag-info">Javascript</span>
+                      <span class="tag tag-warning">PHP</span>
+                      <span class="tag tag-primary">Node.js</span> #}
+                    </p>
+    
+           
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+
+            <div class="card card-outline  card-primary  collapsed-card">
+            <div class="card-header">
+              <h3 class="card-title">    <i class="fa fa-list"></i>  <b> Other Information </b> </h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i> More 
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              
+              <ul class="nav nav-pills flex-column">
+                <li class="nav-item active">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-dollar-sign"></i> Stream
+                    <span class="float-right">  {{ '-' }}  </span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-book"></i> Phone
+                    <span class="float-right"> {{ student.phone ?? '-'  }} </span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-user"></i> Gender
+                    <span class="float-right"> {{ student.gender  ?? '-'  }}  </span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="fa fa-envelope"></i> Email
+                    <span class="float-right"> {{ student.email   ?? '-'  }}  </span>
+                  </a>
+                </li>
+
+
+
+
+              </ul>
+            </div>
+            <!-- /.card-body -->
+          </div>
+       </div>
+              <!-- /.col -->
+    
+    
+    
+    <div class="col-md-9">  
+  
+              
+
+            <div class="card card-primary card-outline card-outline-tabs">
+              <div class="card-header p-0 border-bottom-0">
+                <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+
+            
+
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true"> <i class="fa fa-user-tie"> </i>  Profile </a>
+                  </li>
+                
+                  <li class="nav-item">
+                    <a class="nav-link " id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false"> <i class="fa fa-list"> </i>   Testimonials   </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill" href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false"><i class="fa fa-balance-scale"></i> Mark </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false"> <i class="fa fa-list"> </i>  Printable </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-five-leaves-tab" data-toggle="pill"  href="#custom-tabs-five-leaves" role="tab" aria-controls="custom-tabs-five-leaves" aria-selected="false"> <i class="fa fa-list"> </i>  Leave </a>
+                  </li>
+                
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-six-attendance-tab" data-toggle="pill" href="#custom-tabs-six-attendance" role="tab" aria-controls="#custom-tabs-six-attendance" aria-selected="false"> <i class="fa fa-calendar-alt"> </i>  Attendance </a>
+                  </li>
+  {# 
+                  <li class="nav-item">
+                    <a class="nav-link" id="" data-toggle="pill" href="" role="tab" aria-controls="custom-tabs-four-certification" aria-selected="false"> Certification </a>
+                  </li>
+
+
+                  <li class="nav-item">
+                    <a class="nav-link" id="" data-toggle="pill" href="" role="tab" aria-controls="custom-tabs-four-misconduct" aria-selected="false"> Misconduct </a>
+                  </li> #}
+
+                </ul>
+              </div>
+
+
+              <div class="card-body">
+                 <div class="tab-content" id="custom-tabs-four-tabContent">
+
+                 
+                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                              
+                         
+                  {% include "student/job_info.html.twig" %}        
+               </div>
+
+
+            {# <div class="tab-pane fade" id="custom-tabs-six-attendance" role="tabpanel" aria-labelledby="custom-tabs-six-attendance-tab">
+                              
+                         
+               {% include "student/attendance.html.twig" %}     
+
+            </div> #}
+
+            
+
+     <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+                  
+             {% include "student/profile.html.twig" %}       
+         </div>
+   <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+    <div class="row">
+      <div class="col-12">
+        <!-- Custom Tabs -->
+        <div class="card">
+          <div class="card-header d-flex p-0">
+            <h3 class="card-title p-3">Student effiency</h3>
+            <ul class="nav nav-pills ml-auto p-2">
+              <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Result </a></li>
+              {# <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab"> Add Efficiency </a></li> #}
+              <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Add mark</a></li>
+          
+
+              <button type="button" data-toggle="modal" data-target="#efficiency" target="_top" class="btn  btn-sm btn-outline-primary float-right mr-1"><i class="fa fa-balance-scale"></i> Add Efficiency </button>
+           
+           
+              </ul>
+           
+
+
+            </div><!-- /.card-header -->
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+              <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>student</th>
+                        <th>Date of insertion</th>
+                        <th>Total</th>
+                        <th>Year</th>
+                        <th>Evaluation period </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for student_parent in student.studentParents %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ student_parent.student }}</td>
+                        <td>{{ student_parent.createdAt ? student_parent.createdAt|eth_date : '' }} E.C</td>
+                        <td>{{ student_parent.phone }} %</td>
+                        <td>{{ student_parent.relation }}</td>
+                        <td>{{ student_parent.user }}</td>
+                        <td>
+                        <div class="btn-group">
+                            <a  class="btn btn-outline-primary btn-sm mr-1" href="{{ path('app_student_parent_show', {'id':student_parent.id}) }}"> <i class="fa fa-eye"> </i> Detail</a>
+                            <a  class="btn btn-outline-primary btn-sm mr-1" href="{{ path('app_student_parent_edit', {'id': student_parent.id}) }}"> <i class="fa fa-edit"> </i> Edit</a>
+                            {{ include('student_parent/_delete_form.html.twig') }}
+                         <div>
+        
+        
+        
+                          
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">No records found!</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        
+
+              </div>
+              <!-- /.tab-pane -->
+              {# <div class="tab-pane" id="tab_2">
+               Tab2
+              </div> #}
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_3">
+                {# {{ path('add_evalution') }} #}
+                <form class="form-horizontal" action="" method="POST">
+                  <input type="hidden" value="{{ student.id }}" name="student">
+                <div class="form-group row">
+                  <label for="inputName" class="col-sm-2 col-form-label"> Year </label>
+               
+                
+                  <div class="col-sm-10">
+                    <select class="select2 form-control" required  name="year"  style="width:100%;">
+                        <option value="">- </option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                   
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label"> Evaluation period</label>
+                   
+                  
+                    <div class="col-sm-10">
+                      <select class="select2 form-control" required  name="period"  style="width:100%;">
+                        <option value="">- </option>
+                      {% for leave_type in leave_types %}
+                      
+                          <option value="{{leave_type.id}}">{{leave_type.name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Mark(100%)</label>
+                    <div class="col-sm-10">
+                      <input type="text"  min="0" max="100" class="form-control" name="mark" id="inputEmail" placeholder="">
+                    </div>
+                  </div>
+             
+            
+                  <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                      <button type="submit" class="btn  btn-sm btn-outline-primary  mr-1"> <i class="fa fa-plus"> </i> Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div><!-- /.card-body -->
+        </div>
+        <!-- ./card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+                  
+                    
+
+
+                  </div>
+                 
+                  <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
+                   <div>
+              
+
+                   <div class="timeline-item">
+                    <p> Below, You can print out student certification such as student ID, Hire letter,experience letter,prmotion leter,demotion letter,promotion letter,leave letter and misconduct letter. </p>
+                        <div class="timeline-footer">
+                          {# <a href="{{ path('print-id', {'id': student.id}) }}" class="btn btn-primary btn-sm mr-1"> <i class="fa fa-caret-right nav-icon"> </i> Hire Leter</a>
+                          <a href="{{ path('ID', {'id': student.id}) }}" class="btn btn-primary  btn-sm mr-1"><i class="fa fa-caret-right nav-icon"> </i>  Identification card </a>
+                          <a href="{{ path('certificate', {'id': student.id}) }}" class="btn btn-primary  btn-sm mr-1"><i class="fa fa-caret-right nav-icon"> </i>  Certification </a> #}
+                          <a href="#" class="btn btn-primary  btn-sm mr-1"><i class="fa fa-caret-right nav-icon"> </i>  Experience letter</a>
+                          <a href="#" class="btn btn-primary  btn-sm mr-1"><i class="fa fa-caret-right nav-icon"> </i>  Promotion leter</a>
+                          <a href="#" class="btn btn-primary  btn-sm mr-1"><i class="fa fa-caret-right nav-icon"> </i>  Leave Leter</a>
+                          <a href="#" class="btn btn-primary  btn-sm mr-1"> <i class="fa fa-caret-right nav-icon"> </i>  Misconduct leter </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="tab-pane fade" id="custom-tabs-five-leaves" role="tabpanel" aria-labelledby="custom-tabs-five-leaves-tab">
+                   <div>
+            
+                   <div class="timeline-item">
+              
+                        <div class="timeline-footer">
+                          
+
+                        <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+                        <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
+                        
+                      
+                         
+                          <section class="content-header">
+                            <div class="container-fluid">
+                              
+                        student leave means, including Annual break ,Delivery break, traing and study,Retirmentm resignation and descipline dismissal are common leaves of an student in an organization.
+                            </div><!-- /.container-fluid -->
+                          </section>
+                      
+                          <!-- Main content -->
+                          <section class="content">
+                            <div class="row">
+                              <div class="col-md-3">
+                                <a href="#" class="btn btn-primary btn-block mb-3 floar-left"><b><i class="fa fa-list"></i> student Leave History</b></a>
+                      
+                                <div class="card">
+                              
+                                  <div class="card-body p-0">
+                                    <ul class="nav nav-pills flex-column">
+
+                                    {% for leave_type in leave_types %}
+                                      <li class="nav-item active">
+                                        <a href="#" class="nav-link">
+                                          <i class="fa fa-caret-right "></i>  {{leave_type.name }}
+                                         
+                                          <span class="badge bg-warning float-right">{{ leave_type.studentLeaves|length}}</span>
+                                          </a>
+                                      </li>
+                                    {% endfor %}
+                             
+                                    </ul>
+                                  </div>
+                                  <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+
+                                <a href="#" class="btn btn-primary btn-block mb-3 floar-left"><b><i class="fa fa-list"></i> student Termination </b></a>
+                      
+                                <div class="card">
+                              
+                                <div class="card-body p-0">
+                                  <ul class="nav nav-pills flex-column">
+
+
+                                  {% for leave_type in leave_types %}
+               
+                                    <li class="nav-item active">
+                                      <a href="#" class="nav-link">
+                                        <i class="fa fa-caret-right "></i>  {{leave_type.name }}
+                                           </a>
+                                    </li>
+                                  {% endfor %}
+                           
+                                  </ul>
+                                </div>
+                                <!-- /.card-body -->
+                              </div>
+                              
+                              </div>
+                              <!-- /.col -->
+                              <div class="col-md-9">
+                                <div class="card card-primary card-outline">
+                                  <div class="card-header">
+                                    <h3 class="card-title">student Leave</h3>
+                      
+                                    <div class="card-tools">
+                                      <div class="input-group input-group-sm">
+                                        {# <input type="text" class="form-control" id="searchTerm" placeholder="Search leave"> #}
+                                        <div class="input-group-append">
+                                          {# <div class="btn btn-primary">
+                                            <i class="fas fa-search"></i>
+                                          </div> #}
+                                          {% if student.isdropOut is not null %}
+                                          <a href="#" role="button"  data-toggle="modal" class="btn btn-sm btn-outline-primary ml-1">
+                                            <span style="color:red;">  <i class="fa fa-check">  </i>  Terminated on {{ student.terminatedDate |eth_date  }} </span> with {{ student.leaveReason }}
+                                          </a>
+                                          {% else %}
+                                            <a href="#leave-reason" onclick="event.preventDefault();setValue(student.id);" role="button"  data-toggle="modal" class="btn btn-sm btn-outline-primary ml-1">
+                                              <span> <i class="fa fa-user-minus">  </i> Termination </span> 
+                                            </a>
+                                          {% endif %}
+                                          {% if student.isdropOut is  null %}
+                                          <a href="#leave-modal" onclick="event.preventDefault();setValue(student.id);" role="button"  data-toggle="modal" class="btn btn-sm btn-outline-primary ml-1">
+                                            <i class="fa fa-plus"> </i> New leave
+                                          </a>
+                                        {% endif %}
+                                          </div>
+                                      </div>
+                                    </div>
+                                    <!-- /.card-tools -->
+                                  </div>
+                               
+                              
+                                  
+                         
+    
+                              
+    <table class="table table-hover table-sm">
+      <thead>
+          <tr>
+              <th> Leav types </th>
+              
+              <th> Date range </th>
+              <th> Days </th>
+              <th> Action </th>
+          </tr>
+      </thead>
+      <tbody>
+        
+
+{% for leave_type in leave_types %}
+<tr>
+
+<th><b> {{ loop.index }}) {{ leave_type.name }} </b> </th>
+         {% for student_leave in leave_type.studentLeaves %}
+              <tr>
+            <td>
+                    
+              &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-caret-right"> </i> <a href="{{ path('app_student_show', {'id': student_leave.student.id}) }}"> {{ student_leave.student }} </a>
+             </td>
+               <td>
+              {{ student_leave.startDate  |eth_date }} - {{ student_leave.endDate |eth_date}}
+                      
+                  </td>
+
+                  <td>
+                 
+
+                     {% set days = student_leave.endDate.diff(date(student_leave.startDate)).d ?? '-' %}
+                      {{ days  }}
+                  </td>
+
+                  {# <td>
+                      <a  class="" href=""> <i class="fa fa-check"> </i> Check-in</a>
+               
+                      
+                  </td> #}
+
+                  <td>
+
+                  {% if student_leave.status == 'Active' %}
+                     
+
+                          <a class="btn btn-sm btn-warning" href="#" onclick="toggleCheck('{{path("student_checked_in",{"id":student_leave.id })}}')">
+                            <i class="ace-icon fa fa-user-tie bigger-110 ">&nbsp;</i>
+
+                            Check in
+                        </a>
+
+
+                  {% else %}
+
+             
+                 {% endif %}
+
+
+               <td>
+
+                 
+              
+              </tr>
+          {% else %}
+              <tr>
+                  <td colspan="4"> - </td>
+              </tr>
+          {% endfor %}
+   
+           </tr>
+          {% else %}
+              <tr>
+                  <td colspan="4"> No record found </td>
+              </tr>
+        
+      {% endfor %}
+      </tbody>
+
+  </table>
+
+     
+    <div class="btn btn-sm float-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(leave_types) }}</div>
+        
+
+  <!-- /.table -->
+    </div>
+                                    <!-- /.mail-box-messages -->
+ </div>
+                                  <!-- /.card-body -->
+                                  <div class="card-footer p-0">
+                                    <div class="mailbox-controls">
+                                      <div class="float-right">
+                                     
+{#                       
+                                      <div class="btn-sm btn float-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(mailboxes) }}</div>
+                      
+                       #}
+                      
+                                        <!-- /.btn-group -->
+                                      </div>
+                                      <!-- /.float-right -->
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- /.card -->
+                              </div>
+                              <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                          </section>
+                          <!-- /.content -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function toggleCheck(route) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    type: "warning",
+    icon: 'warning',
+    showCancelButton: true,
+    denyButtonText: "Cancel",
+    confirmButtonText: "Yes, Check-in"
+  }).then(function (result) {
+    if (result.value) {
+      $.ajax({
+        type: "POST",
+        url: route,
+        data: {},
+        dataType: 'json',
+        success: function (data) {
+          if (data.success) {
+            Swal.fire("student check-in status changed!", "Leave Status has been updated.", "success").then(function (result) {
+              location.reload();
+            });
+      
+           }
+           else {
+            Swal.fire("Error changing leave status!", data.message, "error");
+          }
+        }
+      });
+    }
+  });
+}
+
+
+</script>
+
+
+
+
+<script>
+$(document).ready(function() {
+  $("#searchTerm").on("keyup", function() {
+    var searchTerm = $(this).val();
+    $.ajax({
+      url: "/search",
+      type: "POST",
+      data: {
+        searchTerm: searchTerm
+      },
+      success: function(results) {
+        $("#table tbody").html("");
+        $.each(results, function(index, result) {
+          $("#table tbody").append("<tr><td>" + result.description + "</td><td>" + result.description + "</td></tr>");
+        });
+      }
+    });
+  });
+});
+</script>
+
+  <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+                      <!-- Bootstrap 4 -->
+                      <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+                          <script>
+                            $(function () {
+                              //Enable check and uncheck all functionality
+                              $('.checkbox-toggle').click(function () {
+                                var clicks = $(this).data('clicks')
+                                if (clicks) {
+                                  //Uncheck all checkboxes
+                                  $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false)
+                                  $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square')
+                                } else {
+                                  //Check all checkboxes
+                                  $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true)
+                                  $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
+                                }
+                                $(this).data('clicks', !clicks)
+                              })
+                              //Handle starring for font awesome
+                              $('.mailbox-star').click(function (e) {
+                                e.preventDefault()
+                                //detect type
+                                var $this = $(this).find('a > i')
+                                var fa    = $this.hasClass('fa')
+                          
+                                //Switch states
+                                if (fa) {
+                                  $this.toggleClass('fa-star')
+                                  $this.toggleClass('fa-star-o')
+                                }
+                              })
+                            })
+                          </script>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+          </div>
+              <!-- /.col -->
+         </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+        </section>
+
+
+
+
+
+
+
+        <div class="modal fade" id="leave-modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"> Add new leave for <u> {{student }} </u> </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {# {{ path('add_leave') }} #}
+              <form action="" method="POST" class="form">
+                <input type="hidden" required  value="{{ student.id }}" name="student" class="form-control"/>  
+                <div class="modal-body">
+
+
+                <div class="col-md-12">
+                  <label> Leave type </label>
+                  <select class="select2 form-control" required  name="leave_type"  style="width:100%;">
+                    <option value="">- </option>
+                  {% for leave_type in leave_types %}
+                      <option value="{{leave_type.id }}">{{ leave_type.name}}</option>
+                    {% endfor %}
+                  </select>
+                </div> 
+              <br/>
+
+                   <div class="col-md-12">
+                    <label> Leave date </label>
+                    <input type="text"required  name="sdate" class="form-control start"/>     
+                    </div> 
+                    <div class="col-md-12">
+                      <label>Due date</label>
+                      <input type="text" name="edate" class="form-control start"/>     
+                    </div>
+                   <br/>
+                    <div class="col-md-12">
+                    <label>Description</label>
+                    <textarea  name="desc" class="form-control" rows="4" cols="50"  required> </textarea>
+                    </div> 
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Check-out</button>
+                </div>
+              </div>
+              </form>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- /.content -->
+
+
+        <div class="modal fade" id="leave-reason">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"> Termination for <u> {{student }} </u> </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {# {{ path('terminate') }} #}
+              <form action="" method="POST" class="form">
+                <input type="hidden" required  value="{{ student.id }}" name="student" class="form-control"/>  
+                <div class="modal-body">
+
+
+                <div class="col-md-12">
+                  <label> Reason of termination  </label>
+                  <select class="select2 form-control" required  name="reason"  style="width:100%;">
+                    <option value="">- </option>
+                    {% for leave_type in leave_types %}
+                      <option value="{{leave_type.id }}">{{ leave_type.name}}</option>
+                    {% endfor %}
+                  </select>
+                </div> 
+                <br/>
+                  <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Terminate</button>
+                </div>
+              </div>
+              </form>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- /.content -->
+
+     
+        
+    {# {{ include('evaluation/efficiency.html.twig') }}  #}
+
+
+{% endblock %}

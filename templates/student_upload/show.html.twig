@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StudentUpload{% endblock %}
+
+{% block body %}
+    <h1>StudentUpload</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ student_upload.id }}</td>
+            </tr>
+            <tr>
+                <th>Upload</th>
+                <td>{{ student_upload.upload }}</td>
+            </tr>
+            <tr>
+                <th>File</th>
+                <td>{{ student_upload.file }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ student_upload.createdAt ? student_upload.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_student_upload_index') }}">back to list</a>
+
+    <a href="{{ path('app_student_upload_edit', {'id': student_upload.id}) }}">edit</a>
+
+    {{ include('student_upload/_delete_form.html.twig') }}
+{% endblock %}

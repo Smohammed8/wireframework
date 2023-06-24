@@ -1,0 +1,241 @@
+<div class="row">
+
+<div class=" card col-md-12 mb-2 border card card-primary">
+  {# <span class="border border-primary">   </span> #}
+
+<div class="card-body" style="font-family:inherit; font-size:1rem; color:#6c757d;">
+    <div class="row">
+    
+        <div class="col-md-11">
+            <div class="row justify-content-between">
+
+
+            <div class="card-body p-0">
+              
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item active">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> FullName : 
+                  <span class="float-right">{{ student.firstName }} {{ student.fatherName }} {{ student.lastName }} </span><br>
+                  <span class="float-right"> [ {{ student.firstNameAm ?? '__'  }} {{ student.fatherNameAm ?? '__'  }} {{ student.lastNameAm ?? '__'  }}  ] </span>
+                </a>
+              </li>
+              {# <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Job title :
+                  <span class="float-right"> {{ student.position.jobTitle ?? '-' }}  </span>
+                </a>
+              </li> #}
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-caret-right"></i> Gender
+                  <span class="float-right"> {{ student.gender  ?? '-'}} </span>
+                </a>
+              </li>
+              {# <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Telephone :
+                  <span class="float-right"> {{ student.phone ?? '-'}}  </span>
+                </a>
+              </li> #}
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Class:
+                  <span class="float-right"> Grade 5<sup>th</sup> Section C </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Birth place :
+                  <span class="float-right"> {{ student.birthPlace  ?? '-'}}</span>
+                </a>
+              </li>
+
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Email :
+                  <span class=" float-right"> {{ student.email ?? '-'}}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Current address:
+                  <span class="badge bg-warning float-right"> {{ student.currentAddress  ?? '-' }} </span>
+                </a>
+              </li>
+
+       
+
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Nationality:
+                  <span class=" float-right">  {{ student.nationality ?? 'Ethiopian'  }}  </span>
+                </a>
+              </li>
+              {# {% set exp = date().diff(date(student.createdAt)).y %} #}
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Date of join :
+                  <span class="float-right">    {{ student.createdAt|ago }}  </span>
+                </a>
+              </li>
+
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Status :
+                  <span class=" float-right">  {{ student.status ?? '-' }} </span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> Current Status:
+
+                    {% if  student.isdropOut  == 1 %}
+                  <span class="badge bg-info float-right">   Dropped-out   </span>
+
+        
+                    {% else %}
+                      <span class="badge bg-info float-right">    Active  </span>
+                    {% endif %}
+                </a>
+              </li>
+
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa fa-caret-right"></i> House No:
+                  <span class="badge bg-info float-right">   {{ student.house_number  ?? '-'   }}    </span>
+                </a>
+              </li>
+
+            
+            </ul>
+          </div>  
+                <div class="col-md-6" style="border-left:1px solid black;">
+                <div class="card-body p-0">
+                    {% set age = date().diff(date(student.dob)).y %}
+                <ul class="nav nav-pills flex-column">
+                  {# <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Age : 
+                      <span class="float-right">   {{ age ?? '-'  }}  years old  </span>
+                   
+                    </a>
+                  </li> #}
+
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Phone: 
+                      <span class="float-right"> {{ student.phone ?? '-' }}    </span>
+                   
+                    </a>
+                  </li>
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Marital Status :
+                      <span class="float-right"> {{ student.maritalStatus  ?? '-' }}   </span>
+                   
+                    </a>
+                  </li>
+
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Kebele :
+                      <span class="float-right"> {{ student.kebele ?? '-' }}  </span>
+                   
+                    </a>
+                  </li>
+
+                  <li class="nav-item active">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-caret-right"></i> Disablity:
+
+                        <span class="badge bg-warning float-right">   <i class="fa fa-wheelchair"></i>  {{ student.isDisabled ? 'Yes' : 'No'  }}  </span>
+
+                   
+                    </a>
+                  </li>
+
+  
+
+               {% if student.account is not  null %}
+                  <li class="nav-item active">
+                    <a href="{{ path('app_user_show', {'id': student.account.id}) }}" class="nav-link">
+                        <i class="fa fa-caret-right"></i> User Account:
+                      <span class="float-right"> {{student.account.username ?? '-'}} </span>
+                   
+                    </a>
+                  </li>
+              {% else %}
+
+                <li class="nav-item active">
+
+                    <a href="#my-modal0" onclick="event.preventDefault();setValue(student.id);" role="button"  data-toggle="modal" class="nav-link">
+                    
+                      <i class="fa fa-caret-right"></i> User Account:
+                    <span class="float-right">   
+                    
+                      <span class="float-right"> Create account  </span>
+                  
+                    </a></span>
+                
+                  </a>
+                </li>
+
+
+
+              {% endif  %}
+                  <style>
+                    #sal {
+                        border-bottom: 3px double;
+                    }
+                </style>
+            
+
+
+               
+
+
+
+
+
+
+
+
+
+
+
+             
+               
+
+
+
+
+  
+                
+
+                  </ul>
+                  </div>
+                  
+
+        
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+</div>
+
+</div>
+

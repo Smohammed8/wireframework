@@ -25,7 +25,12 @@ class UserType extends AbstractType
         $role=[
             "System Adminstrator"=>"ROLE_ADMIN",
             "Data encoder" => "ROLE_DATA_ENCODER",
-            "Manager" => "ROLE_MANAGER",
+            "Teacher" => "ROLE_TEACHER",
+            "Student" => "ROLE_STUDENT",
+            "Cashier" => "ROLE_CASHIER",
+            "School Head" => "ROLE_SCHOOL_HEAD",
+            "Student Parent" => "ROLE_PARENT",
+            "School Committee" => "ROLE_COMMITTEE",
     
         ];
 

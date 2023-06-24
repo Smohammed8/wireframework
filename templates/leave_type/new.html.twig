@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New LeaveType{% endblock %}
+
+{% block body %}
+    <h1>Create new LeaveType</h1>
+
+    {{ include('leave_type/_form.html.twig') }}
+
+    <a href="{{ path('app_leave_type_index') }}">back to list</a>
+{% endblock %}

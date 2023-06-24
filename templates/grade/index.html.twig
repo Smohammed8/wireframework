@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}classes {% endblock %}
+
+{% block body %}
+
+
+    <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-1">
+            <div class="col-sm-6">
+                <h4> List of  classes </h4>
+            </div>
+            <div class="col-sm-6">
+                <a style="float:right;" class="btn btn-outline-primary" href="{{ path('app_grade_new') }}"> <i class="fa fa-plus"> </i> Create new</a>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+    <hr>
+    
+
+        <table class="table table-hover table-sm table-responsive-sm"> 
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Stream </th>
+                <th>Code </th>
+                <th>Sections </th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for grade in grades %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ grade.name }}</td>
+                <td>{{ grade.stream ?? '-' }}</td>
+                <td>{{ grade.code ?? '-' }}</td>
+                <td>{{ grade.sections|length }}</td>
+           
+                <td>
+                    <div class="btn-group">
+                    <a  class="btn btn-outline-secondary btn-sm mr-1" href="{{ path('app_section', {'id': grade.id}) }}"> <i class="fa fa-tasks"> </i> Sections </a>
+                    <a  class="btn btn-outline-secondary btn-sm mr-1" href="{{ path('app_subject', {'id': grade.id}) }}"> <i class="fa fa-book"> </i> Subjects </a>
+                   
+                    <a  class="btn btn-outline-secondary btn-sm mr-1" href="{{ path('app_grade_edit', {'id': grade.id}) }}"> <i class="fa fa-edit"> </i> Edit</a>
+                    
+                    {{ include('grade/_delete_form.html.twig') }}
+                    <div>
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+  
+{% endblock %}

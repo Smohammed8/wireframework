@@ -1,29 +1,36 @@
 <?php
+namespace App\Twig\Extension;
 
-namespace App\Twig;
-
-use App\Helper\Utils;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use App\Entity\Level;
+use App\Repository\SalaryScaleRepository;
 use Twig\TwigFunction;
 use Symfony\Component\Form\FormView;
 use DateTime;
 use Andegna\DateTime as eth_date;
-use \Twig_Extension;
+use \Twig_Extension;    
 use Andegna\Constants;
 use Andegna\DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use App\Twig\Extension\TwigExtension;
+use App\Helper\Utils;
+use App\Helper\PayrollHelper;
 
-class AppExtension extends AbstractExtension
-{
+use Andegna\Validator\DateValidator;
 
+use function PHPUnit\Framework\returnSelf;
+
+class TwigExtension extends AbstractExtension{
+
+ 
+
+    private $salaryScaleRepository;
     private $entityManager;
     private $urlGeneratorInterface;
     private $templating;
-
+    private $level;
     public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $urlGeneratorInterface, \Twig\Environment $templating)
     {
 
@@ -31,19 +38,34 @@ class AppExtension extends AbstractExtension
         $this->urlGeneratorInterface = $urlGeneratorInterface;
         $this->templating = $templating;
     }
+
+
  public function getFilters(): array
     {
         return [
        
             new TwigFilter('eth_date', [$this, 'toEthiopianDate']),
             new TwigFilter('age', [$this, 'age']),
+            new TwigFilter('salary', [$this, 'getSalary']),
+            new TwigFilter('getMonth', [$this, 'getMonthName']),
+           
+            new TwigFilter('eth_date2', [$this, 'toEthiopianDate2']),
+            new TwigFilter('net', [$this, 'getNet']),
+            new TwigFilter('duduct', [$this, 'getDeducted']),
+            new TwigFilter('tax', [$this, 'getTax']),
+            new TwigFilter('pension', [$this, 'getPension']),
+          
+
+          
         ];
     }
     public function getFunctions(): array
     {
         return [
+            // new TwigFunction('salary', [$this, 'getSalary']),
+            //new TwigFunction('net', [$this, 'getNetIncome']),
             new TwigFunction('eth_date', [$this, 'toEthiopianDate']),
-            new TwigFunction('eth_date2', [$this, 'toEthiopianDate2']),
+            new TwigFunction('eth_date3', [$this, 'toEthiopianDate3']),
             new TwigFunction('age', [$this, 'age']),
             new TwigFunction('age2', [$this, 'age2']),
             new TwigFunction('dateSub', [$this, 'dateSub']),
@@ -52,7 +74,7 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function toEthiopianDate(\DateTime $value=null)
+    public function toEthiopianDate(DateTime $value=null)
     {
         if($value==null){
             $value=new DateTime('now');
@@ -60,7 +82,11 @@ class AppExtension extends AbstractExtension
         return (new eth_date($value))->format("l, M  d/Y");
     }
   
-    public function toEthiopianDate2(\DateTime $value=null)
+
+
+
+
+    public function toEthiopianDate2(DateTime $value=null)
     {
         if($value=null){
             $value=new DateTime('now');
@@ -68,9 +94,34 @@ class AppExtension extends AbstractExtension
       //  return (new eth_date($value))->format("l, M  d/Y h:i A");
         return (new eth_date($value))->format("d/m/Y");
     }
-  
-    
-    
+   
+
+    public function getSalary($level)
+    {
+
+    return  $this->salaryScaleRepository->find($level)->getStartSalary();
+      
+    }
+
+    // public function getNet($amoint)
+    // {
+    //     return PayrollHelper::getNetIncome($amoint);
+    // }
+
+    // public function getDeducted($amoint)
+    // {
+    //     return PayrollHelper::getDeducation($amoint);
+    // }
+    // public function getTax($amoint)
+    // {
+    //     return PayrollHelper::getTax($amoint);
+    // }
+
+    // public function getPension($amoint)
+    // {
+    //     return PayrollHelper::getPension($amoint);
+    // }
+
     /*
     public function getFilters(): array
     {
@@ -96,13 +147,35 @@ class AppExtension extends AbstractExtension
         ];
     }
     */
+public function getMonthName($name){
 
-    public function getConsumableCategory()
-    {
-     return $this->entityManager->getRepository(ConsumableCategory::class)->findAll();   
+                if($name == 1 )
+                return 'Sep';
+                else if($name == 2)
+                return 'Oct';
+                else if($name == 3)
+                return 'Nov';
+                else if($name == 4)
+                return 'Dec';
+                else if($name == 5)
+                return 'Jan';
+                else if($name == 6)
+                return 'Feb';
+                else if($name == 7)
+                return 'Mar';
+                else if($name == 8)
+                return 'Apr';
+                else if($name == 9)
+                return 'May';
+                else if($name == 10)
+                return 'Jun';
+                else if($name == 11)
+                return  'July';
+                else if($name == 12)
+                return 'Aug';
+                else
+                return 'Puagme';
     }
-
-
 
     public function fromGretoEth($gregorian)
     {
@@ -112,14 +185,14 @@ class AppExtension extends AbstractExtension
     public function fromGretoEthstr($gregorian)
     {
         # code..
-        $ethipic = new AD($gregorian);
-        dump($gregorian);
+        $ethipic = new eth_date($gregorian);
+      //  dump($gregorian);
         return $ethipic->format('F j Y');
     }
     public function fromGretoEthstrint($gregorian)
     {
         # code..
-        $ethipic = new AD($gregorian);
+        $ethipic = new eth_date($gregorian);
         return $ethipic->format('F j');
     }
     public function nowEth()
@@ -130,7 +203,7 @@ class AppExtension extends AbstractExtension
     public function fromGretoEthstrM($gregorian)
     {
         # code..
-        $ethipic = new AD($gregorian);
+        $ethipic = new eth_date($gregorian);
         return $ethipic->format('F');
     }
     public function fromEthtoGre($ethipic)
@@ -144,7 +217,7 @@ class AppExtension extends AbstractExtension
     {
         $next = clone $date;
         $next = $next->modify("+ $plus day");
-        $ethipic = new AD($next);
+        $ethipic = new eth_date($next);
         return $ethipic->format('F j Y D');
         // return $next->format("Y-m-d");
     }
@@ -252,3 +325,5 @@ class AppExtension extends AbstractExtension
         return $arr;
     }*/
 }
+
+    
