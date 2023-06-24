@@ -78,6 +78,38 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             return $qb;
             
     }
+
+    public function getParents()
+    {
+        $oprator =   'PARENT';
+        $qb= $this->createQueryBuilder('a');
+        $qb->andWhere('a.roles LIKE :roles') ->setParameter('roles', '%"'.$oprator.'"%');
+
+        $qb->orderBy('a.id', 'DESC');
+           return  $qb->getQuery()->getResult();
+            
+    }
+    public function getTeachers()
+    {
+        $oprator =   'TEACHER';
+        $qb= $this->createQueryBuilder('a');
+        $qb->andWhere('a.roles LIKE :roles') ->setParameter('roles', '%"'.$oprator.'"%');
+
+        $qb->orderBy('a.id', 'DESC');
+           return  $qb->getQuery()->getResult();
+            
+    }
+
+    public function getCommittee()
+    {
+        $oprator =   'COMMITTEE';
+        $qb= $this->createQueryBuilder('a');
+        $qb->andWhere('a.roles LIKE :roles') ->setParameter('roles', '%"'.$oprator.'"%');
+
+        $qb->orderBy('a.id', 'DESC');
+           return  $qb->getQuery()->getResult();
+            
+    }
     public function findForUserGroup($usergroup = null)
     {
         $qb = $this->createQueryBuilder('u');

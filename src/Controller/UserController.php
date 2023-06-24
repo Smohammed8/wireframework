@@ -37,6 +37,53 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/teachers', name: 'app_teachers_index', methods: ['GET'])]
+    public function getTeacher(UserRepository $userRepository,PaginatorInterface $paginator, Request $request): Response
+    {
+   
+        $queryBuilder = $userRepository->getTeachers();
+        $data = $paginator->paginate($queryBuilder, 
+          $request->query->getInt('page', 1),
+            10
+         );
+
+        return $this->render('user/index.html.twig', [
+            'users' => $data,
+            'list' =>'List of teachers'
+        ]);
+    }
+
+    #[Route('/parents', name: 'app_parents_index', methods: ['GET'])]
+    public function getParents(UserRepository $userRepository,PaginatorInterface $paginator, Request $request): Response
+    {
+   
+    $queryBuilder = $userRepository->getParents();
+        $data = $paginator->paginate($queryBuilder, 
+          $request->query->getInt('page', 1),
+            10
+         );
+        return $this->render('user/index.html.twig', [
+            'users' => $data,
+            'list' =>'List of parents'
+        ]);
+    }
+
+    #[Route('/committee', name: 'app_committee_index', methods: ['GET'])]
+    public function getCommitte(UserRepository $userRepository,PaginatorInterface $paginator, Request $request): Response
+    {
+   
+    $queryBuilder = $userRepository->getCommittee();
+        $data = $paginator->paginate($queryBuilder, 
+          $request->query->getInt('page', 1),
+            10
+         );
+        return $this->render('user/index.html.twig', [
+            'users' => $data,
+            'list' => 'List of School Committee'
+        ]);
+    }
+
+
 
     #[Route('/profile', name: 'profile', methods: ['GET'])]
     public function profile(Request $request, UserRepository $userRepository): Response
