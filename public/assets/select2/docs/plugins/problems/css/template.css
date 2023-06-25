@@ -9,7 +9,7 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%); }
 
-.button, .button-secondary {
+.button, .button-primary {
   display: inline-block;
   padding: 7px 20px; }
 
@@ -401,15 +401,15 @@ td {
   .button:active {
     box-shadow: 0 1px 0 #118ab5; }
 
-.button-secondary {
+.button-primary {
   background: white;
   color: #f6635e;
   border: 1px solid #f6635e;
   border-radius: 3px; }
-  .button-secondary:hover {
+  .button-primary:hover {
     background: #f6635e;
     color: white; }
-  .button-secondary:active {
+  .button-primary:active {
     box-shadow: 0 1px 0 #f32b24; }
 
 .bullets {

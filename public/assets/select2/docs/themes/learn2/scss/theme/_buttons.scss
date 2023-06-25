@@ -3,7 +3,7 @@
 	@include button-color($core-accent);
 }
 
-.button-secondary {
+.button-primary {
 	@extend %button;
-	@include button-color($secondary-link);
+	@include button-color($primary-link);
 }

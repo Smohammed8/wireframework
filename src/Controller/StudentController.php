@@ -21,9 +21,11 @@ use Date;
 use Andegna\DateTimeFactory;
 use Andegna\DateTime as et_date;
 use App\Repository\LeaveTypeRepository;
+use App\Repository\RegionRepository;
 use App\Repository\RegistrationRepository;
 use App\Repository\StudentParentRepository;
 use App\Repository\StudentUploadRepository;
+use App\Repository\ZoneRepository;
 use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/student')]
@@ -43,7 +45,32 @@ class StudentController extends AbstractController
         ]);
     }
 
+    #[Route('/search', name: 'ajax_search', methods: ['GET'])]
 
+    public function searchAction(Request $request, StudentRepository $studentRepository)
+    {
+   
+  
+        $requestString = $request->get('q');
+        $entities = $studentRepository->searchResult($requestString);
+        if(!$entities) {
+            $result['entities']['error'] = '<p style="color:red;"> No student found! </p>';
+        } else {
+            $result['entities'] = $this->getRealEntities($entities);
+        }
+  
+        return new Response(json_encode($result));
+    }
+  
+  
+    public function getRealEntities($entities){
+  
+      foreach ($entities as $entity){
+          $realEntities[$entity->getId()] = $entity->getFirstName().' '.$entity->getFatherName().'   '.$entity->getLastName().'- <u>'.$entity->getIdNumber().'</u>';
+      }
+  
+      return $realEntities;
+  }
     public function  getstudentID(){
 
         $cyear = AmharicHelper::getCurrentYear();
@@ -61,7 +88,12 @@ class StudentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_student_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, StudentRepository $studentRepository): Response
+    public function new(Request $request, 
+    StudentRepository $studentRepository,
+    RegionRepository $regionRepository,
+    ZoneRepository $zoneRepository,
+    
+    ): Response
     {
         $student = new Student();
         $form = $this->createForm(StudentType::class, $student);
@@ -127,16 +159,16 @@ class StudentController extends AbstractController
             $student->setUser($this->getUser());
             $student->setCreatedAt(new DateTime('now'));
             $student->setIdNumber($idReturn);
-
             $studentRepository->save($student, true);
+            $this->addFlash('success','Student has been successfully registered!'); 
+            return $this->redirectToRoute('app_student_show',['id'=>$student->getId() ] );
 
-            return $this->redirectToRoute('app_student_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('student/new.html.twig', [
             'student' => $student,
-          //  'regions'=> $regionRepository->findAll(),
-          //  'zones' =>$zoneRepository->findAll(),
+            'regions'=> $regionRepository->findAll(),
+            'zones' =>$zoneRepository->findAll(),
             'form' => $form,
         ]);
     }
@@ -147,11 +179,8 @@ class StudentController extends AbstractController
     RegistrationRepository $registrationRepository,
     LeaveTypeRepository $leaveTypeRepository,
     StudentParentRepository $studentParentRepository,
-
     PaginatorInterface $paginator,
-    Request $request
-    
-    ): Response
+    Request $request): Response
     {
         return $this->render('student/show.html.twig', [
             'student' => $student,
@@ -166,32 +195,7 @@ class StudentController extends AbstractController
     }
 
 
-    #[Route('/search', name: 'ajax_search', methods: ['GET'])]
-
-    public function searchAction(Request $request, StudentRepository $studentRepository)
-    {
-   
-  
-        $requestString = $request->get('q');
-        $entities = $studentRepository->searchResult($requestString);
-        if(!$entities) {
-            $result['entities']['error'] = '<p style="color:red;"> No student foound! </p>';
-        } else {
-            $result['entities'] = $this->getRealEntities($entities);
-        }
-  
-        return new Response(json_encode($result));
-    }
-  
-  
-    public function getRealEntities($entities){
-  
-      foreach ($entities as $entity){
-          $realEntities[$entity->getId()] = $entity->getFirstName().' '.$entity->getFatherName().'   '.$entity->getLastName().'- <u>'.$entity->getIdNumber().'</u>';
-      }
-  
-      return $realEntities;
-  }
+ 
 
 
     #[Route('/{id}/edit', name: 'app_student_edit', methods: ['GET', 'POST'])]

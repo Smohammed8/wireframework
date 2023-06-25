@@ -36,7 +36,8 @@
                 <td>{{ subject.grade}}</td>
                 <td>
                     <div class="btn-group">
-                    <a  class="btn btn-outline-secondary btn-sm mr-1" href=""> <i class="fa fa-users"> </i> Teachers </a>
+                     
+                    <a  class="btn btn-outline-secondary btn-sm mr-1" href="{{ path('app_subject_assignment_index', {'id': subject.id}) }}"> <i class="fa fa-users"> </i> Teachers </a>
 
                     <a  class="btn btn-outline-secondary btn-sm mr-1" href="{{ path('app_subject_edit', {'id': subject.id}) }}"> <i class="fa fa-edit"> </i> Edit</a>
                     

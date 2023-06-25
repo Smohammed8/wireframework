@@ -10,15 +10,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Helper\Constants;
+use App\Helper\AmharicHelper;
+use App\Helper\DomPrint;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Andegna\DateTime as AD;
+use DateTime;
+use Date;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/section')]
 class SectionController extends AbstractController
 {
     #[Route('/', name: 'app_section_index', methods: ['GET'])]
-    public function index(SectionRepository $sectionRepository): Response
+    public function index(SectionRepository $sectionRepository,PaginatorInterface $paginator, Request $request): Response
     {
+
+        $queryBuilder = $sectionRepository->getQuery($request->query->get('search'));
+        $data = $paginator->paginate($queryBuilder, $request->query->getInt('page', 1),
+            10
+         );
         return $this->render('section/all_list.html.twig', [
-            'sections' => $sectionRepository->findAll(),
+            'sections' => $data,
         ]);
     }
 
@@ -57,11 +71,18 @@ class SectionController extends AbstractController
         ]);
     }
     #[Route('/{id}/sections', name: 'app_section', methods: ['GET'])]
-   public function getSection(Grade $grade,SectionRepository $sectionRepository,Request $request){
+   public function getSection(Grade $grade,PaginatorInterface $paginator,SectionRepository $sectionRepository,Request $request){
+
+
+
+  //  $queryBuilder = $sectionRepository->getQuery($request->query->get('search'));
+     $data = $paginator->paginate($sectionRepository->getSections($grade), $request->query->getInt('page', 1),
+        10
+     );
 
 
     return $this->render('section/index.html.twig', [
-        'sections' =>  $sectionRepository->getSections($grade),
+        'sections' =>$data,
          'grade' => $grade->getName()
     ]);
 }

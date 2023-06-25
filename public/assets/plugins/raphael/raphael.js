@@ -6870,8 +6870,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
         container.canvas = cnvs;
         container.clear();
         container._left = container._top = 0;
-        isFloating && (container.renderfix = function () {});
-        container.renderfix();
+        isFloating && (container.renderix = function () {});
+        container.renderix();
         return container;
     };
     R._engine.setViewBox = function (x, y, w, h, fit) {
@@ -6907,7 +6907,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
         return this;
     };
     /*\
-     * Paper.renderfix
+     * Paper.renderix
      [ method ]
      **
      * Fixes the issue of Firefox and IE9 regarding subpixel rendering. If paper is dependent
@@ -6916,7 +6916,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
      **
        Special thanks to Mariusz Nowak (http://www.medikoo.com/) for this method.
     \*/
-    R.prototype.renderfix = function () {
+    R.prototype.renderix = function () {
         var cnvs = this.canvas,
             s = cnvs.style,
             pos;
@@ -7959,7 +7959,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
                 container.appendChild(c);
             }
         }
-        res.renderfix = function () {};
+        res.renderix = function () {};
         return res;
     };
     R.prototype.clear = function () {

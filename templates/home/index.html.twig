@@ -140,7 +140,7 @@
                 <div class="col-md-8 offset-md-2">
                   {# <form action="{{ path('ajax_search')}}"> #}
                         <div class="input-group">
-                            <input type="text"  autocomplete="off" id="search" class="form-control form-control-lg" placeholder="Search employee">
+                            <input type="text"  autocomplete="off" id="search" class="form-control form-control-lg" placeholder="Search student">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-lg btn-default">
                                     <i class="fa fa-search"></i>
@@ -217,7 +217,7 @@
                                             if (id != 'error') {
 
 
-                                                entitySelector.append('<li class="list-group-item">  <i class="fa fa-user-tie"> </i> <a href="/employee/'+id+'">'+value+'</a></li>');
+                                                entitySelector.append('<li class="list-group-item">  <i class="fa fa-user-tie"> </i> <a href="/student/'+id+'">'+value+'</a></li>');
                                             } else {
                                                 entitySelector.append('<li class="errorLi">'+value+'</li>');
                                             }

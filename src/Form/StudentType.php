@@ -55,10 +55,19 @@ class StudentType extends AbstractType
             ->add('email')
             ->add('phone')
             ->add('houseNumber')
-        
             ->add('maritalStatus', ChoiceType::class,["choices" => ["Select marital status"=>null,"Married" => "Married","Single"=>"Single"]])
-            //->add('dob')
-      
+           
+            ->add('isDisabled', ChoiceType::class, 
+                [
+                    'choices' => [
+                        'Yes' => '1',
+                        'No' => '0',
+                    ],
+                'expanded' => true
+                ]
+            )
+
+            
             
             ->add('kebele')
           //  ->add('photo')

@@ -1,382 +1,468 @@
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Profile</h1>
+{% extends 'base.html.twig' %}
+
+  {% block title %}
+ User password changing
+  {% endblock %}
+  {% block stylesheets %}
+  
+    <style>
+  
+  
+      .image-container {
+        position: relative;
+  
+      }
+  
+      .image {
+        display: block;
+  
+      }
+  
+      .overlay {
+        position: absolute;
+        bottom: 0;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.5); /* Black see-through */
+        color: #f1f1f1;
+        width: 100%;
+        transition: 0.5s ease;
+        opacity: 0;
+        color: blue;
+        font-size: 20px;
+        padding: 20px;
+        text-align: center;
+      }
+  
+      .image-container:hover .overlay {
+        opacity: 1;
+      }
+    </style>
+  {% endblock %}
+  {% block body %}
+    <div class="row">
+      <div
+        class="col-md-4">
+  
+        <!-- Profile Image -->
+        <div class="card card-primary card-outline">
+          <div class="card-body box-profile">
+  
+  
+            <div class="text-center image-container">
+  
+            <img src="{{ asset('user_photo/user.png') }}"  width="100px;" class="img-circle elevation-2" alt="User Image">
+    
+
+{#   
+              <img class="profile-user-img image img-fluid img-circle " src="{{ asset('profile')}}/{{user_info.photo ? user_info.photo : 'user.png'}}" alt="User profile picture">
+   #}
+              <div class="overlay">
+                <i class="fa fa-camera d-block" id="btn-upload-photo"></i>
+              </div>
+  
+            </div>
+            {# {{ form_start(photoform, { 'attr': { 'role':'form', 'id':'photoform'} }) }}
+  
+  
+            {{ form_widget(photoform.ImageFile) }}
+            {{ form_end(photoform) }} #}
+            <h3 class="profile-username text-center">{{ user.firstName }}
+           
+              {{ user.fatherName }}</h3>
+  
+               <ul class="list-group list-group-unbordered mb-3">
+              <li class="list-group-item">
+                <b>Gender</b>
+                <a class="float-right">{{ user.gender == 'M' ? "Male" : "Female" }}</a>
+              </li>
+              <li class="list-group-item">
+                <b>Age</b>
+  
+                <a class="float-right">{{ '-' }}</a>
+              </li>
+              <li class="list-group-item">
+                <b>Phone</b>
+                <a class="float-right">{{ user.phone ?? '-' }}</a>
+              </li>
+  
+  
+              {% if user.email is not null %}
+                <li class="list-group-item">
+                  <b>Email</b>
+                  <a class="float-right">{{ user.email ? user.email : null }}</a>
+                </li>
+              {% endif %}
+  
+  
+              <li class="list-group-item">
+                <b>Role</b>
+                <a class="float-right">
+  
+                  {% for role in user.roles %}
+                  {% if role == "rlspad" %}
+                  Super Admin
+                  
+                  
+                  
+                    {% elseif  role != "ROLE_USER"  or user.roles|length ==1  %}
+                      <span class="badge badge-default">{{ role }}
+                      </span>
+  
+                    {% endif %}
+  
+  
+                  {% endfor %}
+                </a>
+              </li>
+              <li class="list-group-item">
+                <b> Workin unit</b>
+                <a class="float-right">{{ '-' }}</a>
+              </li>
+            </ul>
+  
+            
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User Profile</li>
-            </ol>
-          </div>
+          <!-- /.card-body -->
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
+        <!-- /.card -->
+  
+      </div>
+      <!-- /.col -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header p-2">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link active" href="#about" data-toggle="tab">About</a>
+              </li>
+            
+              <li class="nav-item">
+                <a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
+              </li>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-3">
+              {% if not is_granted('print_usr_credntail') %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('user_info_print', {'id':user.id}) }}" >    <i class="fa fa-print "></i> Print Credentail</a>
+              </li>
+            {% endif %}	
+            {% if app.user.id ==  user.id  %}
+       
+              <li class="nav-item">
+                <a class="nav-link"  href="#change_pass"  data-toggle="tab">    <i class="fa fa-lock "></i> Change password</a>
+              </li>
+       
+            {% endif %}	
+   
 
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user4-128x128.jpg"
-                       alt="User profile picture">
-                </div>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
-
-                <p class="text-muted text-center">Software Engineer</p>
-
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
-                  </li>
-                </ul>
-
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-            <!-- About Me Box -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">About Me</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+  
+  
+            </ul>
           </div>
-          <!-- /.col -->
-          <div class="col-md-9">
-            <div class="card">
-              <div class="card-header p-2">
-                <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-                </ul>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content">
-                  <div class="active tab-pane" id="activity">
-                    <!-- Post -->
-                    <div class="post">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-                        <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Shared publicly - 7:30 PM today</span>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="active tab-pane" id="about">
+              
+                   Hi
+
+              </div>
+
+
+              <div class="tab-pane" id="change_pass">
+
+         
+
+         
+           
+
+              {% if app.user %}
+            
+                      <form class="d-inline editform" method="POST"  action="{{ path('change_password', {'id':app.user.id}) }}">
+                      
+                       <div class="form-group">
+                         <label>
+                           Old Password</label>
+                         <input class="form-control" name="oldPassword" required type="password">
+                         <div class=" text-success ml-3"></div>
+                       </div>
+                       <div class="form-group">
+                         <label>
+                           New Password</label>
+                         <input class="form-control" name="newPassword" required type="password">
+                         <div class=" text-success ml-3"></div>
+                       </div>
+                       <div class="form-group">
+                         <label>
+                           Confirm Password</label>
+                         <input class="form-control" name="confirmPassword" required type="password">
+                         
+                         <div class=" text-success ml-3"></div>
+                       </div>
+                       <a href="{{ path('app_user_show',{'id': app.user.id}) }}" class="btn btn-info cancel">Cancel</a>
+                   
+                       <button type="submit" class="btn btn-success">Save Changes</button>
+                       </form>
+                    
+                   {% else  %}
+                    <span style="color:red;"> Inactive session! please login again  </span>
+                    {% endif %}
+   
+   
+             
+
+
+                   </div>
+  
+              <div class="tab-pane" id="settings">
+  
+       
+  
+  
+                <strong>
+                  <i class="fas  mr-1"></i>
+                  Last Logged in</strong>
+  
+                <p class="text-muted ">
+  
+  
+                  <span class="ml-3">
+                    {{ user.lastLogin |eth_date }}  at  {{ user.lastLogin | date('h:m') }}
+                  </span>
+                </p>
+                <hr/>
+                <div>
+                  <strong>
+                    <i class="fas fa-user  mr-1"></i>
+                    Username</strong>
+                  <a href="#" class="float-right btn-tool edit-mr">
+                    <i class="fas fa-edit"></i>
+                  </a>
+  
+                  <p class="text-muted p mt-2">
+                    {{ user.username }}
+                  </p>
+  
+                  <!-- textarea -->
+                  <div class="form-group fg d-none mt-2">
+  
+                    <form class="d-inline editform" method="post" action="{{ path('edit_user')}}">
+                      <div class="form-group">
+                        <input class="form-control" name="username" id="username">
+                        <div class=" text-success ml-3"></div>
                       </div>
-                      <!-- /.user-block -->
-                      <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p>
-
-                      <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                          </a>
-                        </span>
-                      </p>
-
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-                    </div>
-                    <!-- /.post -->
-
-                    <!-- Post -->
-                    <div class="post clearfix">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
-                        <span class="username">
-                          <a href="#">Sarah Ross</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Sent you a message - 3 days ago</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <p>
-                        Lorem ipsum represents a long-held tradition for designers,
-                        typographers and the like. Some people hate it and argue for
-                        its demise, but others ignore the hate as they create awesome
-                        tools to help create filler text for everyone from bacon lovers
-                        to Charlie Sheen fans.
-                      </p>
-
-                      <form class="form-horizontal">
-                        <div class="input-group input-group-sm mb-0">
-                          <input class="form-control form-control-sm" placeholder="Response">
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-danger">Send</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <!-- /.post -->
-
-                    <!-- Post -->
-                    <div class="post">
-                      <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image">
-                        <span class="username">
-                          <a href="#">Adam Jones</a>
-                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        </span>
-                        <span class="description">Posted 5 photos - 5 days ago</span>
-                      </div>
-                      <!-- /.user-block -->
-                      <div class="row mb-3">
-                        <div class="col-sm-6">
-                          <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-6">
-                          <div class="row">
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="../../dist/img/photo2.png" alt="Photo">
-                              <img class="img-fluid" src="../../dist/img/photo3.jpg" alt="Photo">
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-sm-6">
-                              <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg" alt="Photo">
-                              <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                            </div>
-                            <!-- /.col -->
-                          </div>
-                          <!-- /.row -->
-                        </div>
-                        <!-- /.col -->
-                      </div>
-                      <!-- /.row -->
-
-                      <p>
-                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
-                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
-                        <span class="float-right">
-                          <a href="#" class="link-black text-sm">
-                            <i class="far fa-comments mr-1"></i> Comments (5)
-                          </a>
-                        </span>
-                      </p>
-
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
-                    </div>
-                    <!-- /.post -->
-                  </div>
-                  <!-- /.tab-pane -->
-                  <div class="tab-pane" id="timeline">
-                    <!-- The timeline -->
-                    <div class="timeline timeline-inverse">
-                      <!-- timeline time label -->
-                      <div class="time-label">
-                        <span class="bg-danger">
-                          10 Feb. 2014
-                        </span>
-                      </div>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-envelope bg-primary"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                          <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                          <div class="timeline-body">
-                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                            weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                            jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                            quora plaxo ideeli hulu weebly balihoo...
-                          </div>
-                          <div class="timeline-footer">
-                            <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-user bg-info"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                          <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                          </h3>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-comments bg-warning"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                          <div class="timeline-body">
-                            Take me to your leader!
-                            Switzerland is small and neutral!
-                            We are more like Germany, ambitious and misunderstood!
-                          </div>
-                          <div class="timeline-footer">
-                            <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <!-- timeline time label -->
-                      <div class="time-label">
-                        <span class="bg-success">
-                          3 Jan. 2014
-                        </span>
-                      </div>
-                      <!-- /.timeline-label -->
-                      <!-- timeline item -->
-                      <div>
-                        <i class="fas fa-camera bg-purple"></i>
-
-                        <div class="timeline-item">
-                          <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                          <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                          <div class="timeline-body">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                            <img src="https://placehold.it/150x100" alt="...">
-                          </div>
-                        </div>
-                      </div>
-                      <!-- END timeline item -->
-                      <div>
-                        <i class="far fa-clock bg-gray"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /.tab-pane -->
-
-                  <div class="tab-pane" id="settings">
-                    <form class="form-horizontal">
-                      <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
-                        </div>
-                      </div>
+                      <button class="btn btn-success">Save Changes</button>
+                      <button class="btn btn-info cancel" type="reset">Cancel</button>
                     </form>
+  
+  
                   </div>
-                  <!-- /.tab-pane -->
+  
+  
+                  <hr/>
                 </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
+             
+                <div>
+                  <strong>
+                    <i class="fas fa-key  mr-1"></i>
+                    Password</strong>
+                  <a href="#" class="float-right btn-tool edit-mr">
+                    <i class="fas fa-edit"></i>
+                  </a>
+  
+                  <p class="text-muted p mt-2">
+                    ***********
+                  </p>
+  
+           
+  
+  
+                  <hr/>
+                </div>
+                <div>
+                  <strong>
+                    <i class="fas fa-envelope  mr-1"></i>
+                    Email</strong>
+                  <a href="#" class="float-right btn-tool edit-mr">
+                    <i class="fas fa-edit"></i>
+                  </a>
+  
+                  <p class="text-muted p mt-2">
+                    {{ user.email ?? '-' }}
+                  </p>
+  
+                  <!-- textarea -->
+                  <div class="form-group fg d-none mt-2">
+  
+                    <form class="d-inline editform " method="post" action="{{ path('edit_user') }}">
+                      <div class="form-group">
+                        <input class="form-control" name="email" type="email">
+                        <div class=" text-success ml-3"></div>
+                      </div>
+                      <button class="btn btn-success">Save Changes</button>
+                      <button class="btn btn-info cancel" type="reset">Cancel</button>
+                    </form>
+  
+  
+                  </div>
+  
+  
+                  <hr/>
+                </div>
+  
+  
+              </div>
+              <!-- /.tab-pane -->
             </div>
-            <!-- /.card -->
+            <!-- /.tab-content -->
           </div>
-          <!-- /.col -->
+          <!-- /.card-body -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </div>
+  
+  {% endblock %}
+  {% block javascripts %}
+    <script>
+      $(function () { // Initialize Select2 Elements
+  $('.select2').select2()
+  });
+    </script>
+    <script>
+  
+      $('#btn-upload-photo').click(function () {
+  
+  $('#form_ImageFile').trigger('click');
+  
+  })
+  $('#form_ImageFile').change(function () {
+  $('#photoform').submit()
+  })
+  
+  // on stopping typing
+  $('#username').keyup(function () {
+  var field = $(this);
+  var value = $(this).val();
+  
+  if (value == null) {
+  console.log(field.next())
+  return false;
+  }
+  $.ajax({
+  url:"{{ path('check_username') }}",
+  method: "GET",
+  data: {
+  username: value
+  },
+  dataType: "JSON",
+  success: function (response) {
+  
+  if (! response) {
+  
+  field.removeClass('is-invalid')
+  field.addClass('is-valid')
+  return true;
+  } else {
+  field.removeClass('is-valid')
+  field.addClass('is-invalid')
+  }
+  
+  }
+  })
+  })
+  $('.editform').submit(function (e) {
+  e.preventDefault();
+  var field = $(this);
+  var value = $(this).find('input').val();
+  var email = $(this).find('input[name="email"]').val();
+  var username = $(this).find('input[name="username"]').val();
+  var oldPasswordField = $(this).find('input[name="oldPassword"]');
+  var oldPassword = oldPasswordField.val();
+  var newPassword = $(this).find('input[name="newPassword"]').val();
+  var confirmPassword = $(this).find('input[name="confirmPassword"]');
+  
+  if(newPassword && newPassword.length < 6){
+  $(this).find('input[name="newPassword"]').addClass('is-invalid');
+  $(this).find('input[name="newPassword"]').next().text("min password length is 6").addClass('text-danger')
+  return false;
+  }
+  if (newPassword && !(newPassword == confirmPassword.val())) {
+  confirmPassword.addClass('is-invalid');
+  confirmPassword.next().text("Please repeat your new password !!").addClass('text-danger')
+  return false;
+  
+  }
+  
+  $.ajax({
+  url:"{{ path('edit_user') }}",
+  method: "POST",
+  data: {
+  email: email,
+  username: username,
+  oldPassword: oldPassword,
+  newPassword: newPassword
+  },
+  dataType: "JSON",
+  success: function (response) {
+  
+  if (response.status) {
+    if(newPassword)
+    value="******";
+  field.parent().parent().find('p').text(value).removeClass('d-none').parent().find('a').removeClass('d-none');
+  field.parent().addClass('d-none')
+  field.parent().find('div').text();
+  
+  } else {
+    if(newPassword){
+  oldPasswordField.addClass('is-invalid')
+  oldPasswordField.next().text(response.message).addClass('text-danger');
+    }
+    else {
+  field.find('input').addClass('is-invalid')
+  field.find('input').next().text(response.message).addClass('text-danger');
+    }
+  
+  }
+  
+  }
+  })
+  })
+    </script>
+    <script>
+      $(".edit-mr").click(function (e) {
+  e.preventDefault()
+  $(".fg").addClass("d-none");
+  $(".p").removeClass("d-none");
+  $(".edit-mr").removeClass("d-none");
+  
+  $(this).parent().find("p").addClass("d-none");
+  $(this).parent().find(".fg").removeClass("d-none");
+  $(this).addClass("d-none");
+  });
+  $(".cancel").click(function (e) {
+  e.preventDefault()
+  $(".fg").addClass("d-none");
+  $(".p").removeClass("d-none");
+  $('.edit-mr').removeClass("d-none");
+  });
+  $(".edit-fr").click(function (e) {
+  e.preventDefault()
+  // $(".fr").addClass("d-none");
+  // $(".pr").removeClass("d-none");
+  $('.submitform').removeClass("d-none");
+  $(this).parent().find("p").addClass("d-none");
+  $(this).parent().find(".fr").removeClass("d-none");
+  $(this).addClass("d-none");
+  });
+  $(".cancelr").click(function (e) {
+  e.preventDefault()
+  $(".fr").addClass("d-none");
+  $(".submitform").addClass("d-none");
+  $(".pr").removeClass("d-none");
+  $('.edit-fr').removeClass("d-none");
+  });
+    </script>
+  {% endblock %}
+  

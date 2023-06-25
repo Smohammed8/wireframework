@@ -9,10 +9,10 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%); }
 
-.button, .button-secondary {
+.button, .button-primary {
   display: inline-block;
   padding: 7px 12px; }
-  .button:active, .button-secondary:active {
+  .button:active, .button-primary:active {
     margin: 2px 0 -2px 0; }
 
 body {
@@ -490,15 +490,15 @@ td {
   .button:active {
     box-shadow: 0 1px 0 #106c93; }
 
-.button-secondary {
+.button-primary {
   background: #F8B450;
   color: #fff;
   box-shadow: 0 3px 0 #f7a733; }
-  .button-secondary:hover {
+  .button-primary:hover {
     background: #f7a733;
     box-shadow: 0 3px 0 #f69b15;
     color: #fff; }
-  .button-secondary:active {
+  .button-primary:active {
     box-shadow: 0 1px 0 #f69b15; }
 
 .bullets {

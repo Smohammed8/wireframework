@@ -81,7 +81,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function getParents()
     {
-        $oprator =   'PARENT';
+        $oprator =   'ROLE_PARENT';
         $qb= $this->createQueryBuilder('a');
         $qb->andWhere('a.roles LIKE :roles') ->setParameter('roles', '%"'.$oprator.'"%');
 
@@ -91,7 +91,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
     public function getTeachers()
     {
-        $oprator =   'TEACHER';
+        $oprator =   'ROLE_TEACHER';
         $qb= $this->createQueryBuilder('a');
         $qb->andWhere('a.roles LIKE :roles') ->setParameter('roles', '%"'.$oprator.'"%');
 
@@ -102,7 +102,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function getCommittee()
     {
-        $oprator =   'COMMITTEE';
+        $oprator =   'ROLE_COMMITTEE';
         $qb= $this->createQueryBuilder('a');
         $qb->andWhere('a.roles LIKE :roles') ->setParameter('roles', '%"'.$oprator.'"%');
 

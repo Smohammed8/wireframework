@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subject assignment{% endblock %}
+
+{% block body %}
+    <h5>Create new subject assignment <b>[ Academic Year: {{cyear}}] </b> </h5>
+
+    {{ include('subject_assignment/_form.html.twig') }}
+
+    <a href="{{ path('app_subject_assignment_index') }}">Back to list</a>
+{% endblock %}

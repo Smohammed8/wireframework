@@ -83,6 +83,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: StudentParent::class)]
     private Collection $studentParents;
+
+    #[ORM\OneToMany(mappedBy: 'head', targetEntity: SectionHead::class)]
+    private Collection $sectionHeads;
+
+    #[ORM\OneToMany(mappedBy: 'teacher', targetEntity: SubjectAssignment::class)]
+    private Collection $subjectAssignments;
+
+    #[ORM\OneToMany(mappedBy: 'teacher', targetEntity: TeacherEducation::class)]
+    private Collection $teacherEducation;
     public function __construct()
     {
         $this->userGroup = new ArrayCollection();
@@ -91,6 +100,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->studentUploads = new ArrayCollection();
         $this->studentLeaves = new ArrayCollection();
         $this->studentParents = new ArrayCollection();
+        $this->sectionHeads = new ArrayCollection();
+        $this->subjectAssignments = new ArrayCollection();
+        $this->teacherEducation = new ArrayCollection();
     
     }
 
@@ -484,6 +496,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($studentParent->getUser() === $this) {
                 $studentParent->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SectionHead>
+     */
+    public function getSectionHeads(): Collection
+    {
+        return $this->sectionHeads;
+    }
+
+    public function addSectionHead(SectionHead $sectionHead): static
+    {
+        if (!$this->sectionHeads->contains($sectionHead)) {
+            $this->sectionHeads->add($sectionHead);
+            $sectionHead->setHead($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSectionHead(SectionHead $sectionHead): static
+    {
+        if ($this->sectionHeads->removeElement($sectionHead)) {
+            // set the owning side to null (unless already changed)
+            if ($sectionHead->getHead() === $this) {
+                $sectionHead->setHead(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SubjectAssignment>
+     */
+    public function getSubjectAssignments(): Collection
+    {
+        return $this->subjectAssignments;
+    }
+
+    public function addSubjectAssignment(SubjectAssignment $subjectAssignment): static
+    {
+        if (!$this->subjectAssignments->contains($subjectAssignment)) {
+            $this->subjectAssignments->add($subjectAssignment);
+            $subjectAssignment->setTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubjectAssignment(SubjectAssignment $subjectAssignment): static
+    {
+        if ($this->subjectAssignments->removeElement($subjectAssignment)) {
+            // set the owning side to null (unless already changed)
+            if ($subjectAssignment->getTeacher() === $this) {
+                $subjectAssignment->setTeacher(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TeacherEducation>
+     */
+    public function getTeacherEducation(): Collection
+    {
+        return $this->teacherEducation;
+    }
+
+    public function addTeacherEducation(TeacherEducation $teacherEducation): static
+    {
+        if (!$this->teacherEducation->contains($teacherEducation)) {
+            $this->teacherEducation->add($teacherEducation);
+            $teacherEducation->setTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeacherEducation(TeacherEducation $teacherEducation): static
+    {
+        if ($this->teacherEducation->removeElement($teacherEducation)) {
+            // set the owning side to null (unless already changed)
+            if ($teacherEducation->getTeacher() === $this) {
+                $teacherEducation->setTeacher(null);
             }
         }
 

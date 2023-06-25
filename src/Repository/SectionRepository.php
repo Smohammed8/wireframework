@@ -38,6 +38,13 @@ class SectionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function getQuery($search=null)
+    {
+        $qb= $this->createQueryBuilder('a');
+        $qb->andWhere("a.name  like '%$search%'");
+        $qb->orderBy('a.id', 'DESC');
+           return  $qb->getQuery();
+    }
 
     public function getSections($grade)
     {

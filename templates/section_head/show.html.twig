@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SectionHead{% endblock %}
+
+{% block body %}
+    <h1>SectionHead</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ section_head.id }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ section_head.year }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_section_head_index') }}">back to list</a>
+
+    <a href="{{ path('app_section_head_edit', {'id': section_head.id}) }}">edit</a>
+
+    {{ include('section_head/_delete_form.html.twig') }}
+{% endblock %}

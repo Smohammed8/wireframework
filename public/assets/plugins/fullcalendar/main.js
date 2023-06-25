@@ -9526,7 +9526,7 @@ var FullCalendar = (function (exports) {
         return DayCellRoot;
     }(BaseComponent));
 
-    function renderFill(fillType) {
+    function renderill(fillType) {
         return (createElement("div", { className: "fc-" + fillType }));
     }
     var BgEvent = function (props) { return (createElement(EventRoot, { defaultContent: renderInnerContent$3, seg: props.seg /* uselesss i think */, timeText: "", disableDragging: true, disableResizing: true, isDragging: false, isResizing: false, isDateSelecting: false, isSelected: false, isPast: props.isPast, isFuture: props.isFuture, isToday: props.isToday }, function (rootElRef, classNames, innerElRef, innerContent, hookProps) { return (createElement("div", { ref: rootElRef, className: ['fc-bg-event'].concat(classNames).join(' '), style: {
@@ -12592,16 +12592,16 @@ var FullCalendar = (function (exports) {
             return (createElement("tr", { ref: this.rootElRef, role: "row" },
                 props.renderIntro && props.renderIntro(),
                 props.cells.map(function (cell, col) {
-                    var normalFgNodes = _this.renderFgSegs(col, props.forPrint ? singleColPlacements[col] : multiColPlacements[col], props.todayRange, isForcedInvisible);
-                    var mirrorFgNodes = _this.renderFgSegs(col, buildMirrorPlacements(mirrorSegsByCol[col], multiColPlacements), props.todayRange, {}, Boolean(props.eventDrag), Boolean(props.eventResize), false);
+                    var normalFgNodes = _this.rendergSegs(col, props.forPrint ? singleColPlacements[col] : multiColPlacements[col], props.todayRange, isForcedInvisible);
+                    var mirrorFgNodes = _this.rendergSegs(col, buildMirrorPlacements(mirrorSegsByCol[col], multiColPlacements), props.todayRange, {}, Boolean(props.eventDrag), Boolean(props.eventResize), false);
                     return (createElement(TableCell, { key: cell.key, elRef: _this.cellElRefs.createRef(cell.key), innerElRef: _this.frameElRefs.createRef(cell.key) /* FF <td> problem, but okay to use for left/right. TODO: rename prop */, dateProfile: props.dateProfile, date: cell.date, showDayNumber: props.showDayNumbers, showWeekNumber: props.showWeekNumbers && col === 0, forceDayTop: props.showWeekNumbers /* even displaying weeknum for row, not necessarily day */, todayRange: props.todayRange, eventSelection: props.eventSelection, eventDrag: props.eventDrag, eventResize: props.eventResize, extraHookProps: cell.extraHookProps, extraDataAttrs: cell.extraDataAttrs, extraClassNames: cell.extraClassNames, extraDateSpan: cell.extraDateSpan, moreCnt: moreCnts[col], moreMarginTop: moreMarginTops[col], singlePlacements: singleColPlacements[col], fgContentElRef: _this.fgElRefs.createRef(cell.key), fgContent: ( // Fragment scopes the keys
                         createElement(Fragment, null,
                             createElement(Fragment, null, normalFgNodes),
                             createElement(Fragment, null, mirrorFgNodes))), bgContent: ( // Fragment scopes the keys
                         createElement(Fragment, null,
-                            _this.renderFillSegs(highlightSegsByCol[col], 'highlight'),
-                            _this.renderFillSegs(businessHoursByCol[col], 'non-business'),
-                            _this.renderFillSegs(bgEventSegsByCol[col], 'bg-event'))) }));
+                            _this.renderillSegs(highlightSegsByCol[col], 'highlight'),
+                            _this.renderillSegs(businessHoursByCol[col], 'non-business'),
+                            _this.renderillSegs(bgEventSegsByCol[col], 'bg-event'))) }));
                 })));
         };
         TableRow.prototype.componentDidMount = function () {
@@ -12628,7 +12628,7 @@ var FullCalendar = (function (exports) {
             }
             return [];
         };
-        TableRow.prototype.renderFgSegs = function (col, segPlacements, todayRange, isForcedInvisible, isDragging, isResizing, isDateSelecting) {
+        TableRow.prototype.rendergSegs = function (col, segPlacements, todayRange, isForcedInvisible, isDragging, isResizing, isDateSelecting) {
             var context = this.context;
             var eventSelection = this.props.eventSelection;
             var framePositions = this.state.framePositions;
@@ -12670,7 +12670,7 @@ var FullCalendar = (function (exports) {
             }
             return nodes;
         };
-        TableRow.prototype.renderFillSegs = function (segs, fillType) {
+        TableRow.prototype.renderillSegs = function (segs, fillType) {
             var isRtl = this.context.isRtl;
             var todayRange = this.props.todayRange;
             var framePositions = this.state.framePositions;
@@ -12687,7 +12687,7 @@ var FullCalendar = (function (exports) {
                     };
                     nodes.push(createElement("div", { key: buildEventRangeKey(seg.eventRange), className: "fc-daygrid-bg-harness", style: leftRightCss }, fillType === 'bg-event' ?
                         createElement(BgEvent, __assign({ seg: seg }, getSegMeta(seg, todayRange))) :
-                        renderFill(fillType)));
+                        renderill(fillType)));
                 }
             }
             return createElement.apply(void 0, __spreadArray([Fragment, {}], nodes));
@@ -12725,7 +12725,7 @@ var FullCalendar = (function (exports) {
             // get the max height amongst instance segs
             for (var key in segElMap) {
                 var height = Math.round(segElMap[key].getBoundingClientRect().height);
-                var instanceId = key.split(':')[0]; // deconstruct how renderFgSegs makes the key
+                var instanceId = key.split(':')[0]; // deconstruct how rendergSegs makes the key
                 eventInstanceHeights[instanceId] = Math.max(eventInstanceHeights[instanceId] || 0, height);
             }
             return eventInstanceHeights;
@@ -13753,15 +13753,15 @@ var FullCalendar = (function (exports) {
             return (createElement(DayCellRoot, { elRef: props.elRef, date: props.date, dateProfile: props.dateProfile, todayRange: props.todayRange, extraHookProps: props.extraHookProps }, function (rootElRef, classNames, dataAttrs) { return (createElement("td", __assign({ ref: rootElRef, role: "gridcell", className: ['fc-timegrid-col'].concat(classNames, props.extraClassNames || []).join(' ') }, dataAttrs, props.extraDataAttrs),
                 createElement("div", { className: "fc-timegrid-col-frame" },
                     createElement("div", { className: "fc-timegrid-col-bg" },
-                        _this.renderFillSegs(props.businessHourSegs, 'non-business'),
-                        _this.renderFillSegs(props.bgEventSegs, 'bg-event'),
-                        _this.renderFillSegs(props.dateSelectionSegs, 'highlight')),
-                    createElement("div", { className: "fc-timegrid-col-events" }, _this.renderFgSegs(sortedFgSegs, interactionAffectedInstances, false, false, false)),
-                    createElement("div", { className: "fc-timegrid-col-events" }, _this.renderFgSegs(mirrorSegs, {}, Boolean(props.eventDrag), Boolean(props.eventResize), Boolean(isSelectMirror))),
+                        _this.renderillSegs(props.businessHourSegs, 'non-business'),
+                        _this.renderillSegs(props.bgEventSegs, 'bg-event'),
+                        _this.renderillSegs(props.dateSelectionSegs, 'highlight')),
+                    createElement("div", { className: "fc-timegrid-col-events" }, _this.rendergSegs(sortedFgSegs, interactionAffectedInstances, false, false, false)),
+                    createElement("div", { className: "fc-timegrid-col-events" }, _this.rendergSegs(mirrorSegs, {}, Boolean(props.eventDrag), Boolean(props.eventResize), Boolean(isSelectMirror))),
                     createElement("div", { className: "fc-timegrid-now-indicator-container" }, _this.renderNowIndicator(props.nowIndicatorSegs)),
                     createElement(TimeColMisc, { date: props.date, dateProfile: props.dateProfile, todayRange: props.todayRange, extraHookProps: props.extraHookProps })))); }));
         };
-        TimeCol.prototype.renderFgSegs = function (sortedFgSegs, segIsInvisible, isDragging, isResizing, isDateSelecting) {
+        TimeCol.prototype.rendergSegs = function (sortedFgSegs, segIsInvisible, isDragging, isResizing, isDateSelecting) {
             var props = this.props;
             if (props.forPrint) {
                 return renderPlainFgSegs(sortedFgSegs, props);
@@ -13800,14 +13800,14 @@ var FullCalendar = (function (exports) {
                 return (createElement(TimeColMoreLink, { key: buildIsoString(computeEarliestSegStart(hiddenSegs)), hiddenSegs: hiddenSegs, top: positionCss.top, bottom: positionCss.bottom, extraDateSpan: extraDateSpan, dateProfile: dateProfile, todayRange: todayRange, nowDate: nowDate, eventSelection: eventSelection, eventDrag: eventDrag, eventResize: eventResize }));
             })));
         };
-        TimeCol.prototype.renderFillSegs = function (segs, fillType) {
+        TimeCol.prototype.renderillSegs = function (segs, fillType) {
             var _a = this, props = _a.props, context = _a.context;
             var segVCoords = computeSegVCoords(segs, props.date, props.slatCoords, context.options.eventMinHeight); // don't assume all populated
             var children = segVCoords.map(function (vcoords, i) {
                 var seg = segs[i];
                 return (createElement("div", { key: buildEventRangeKey(seg.eventRange), className: "fc-timegrid-bg-harness", style: computeSegVStyle(vcoords) }, fillType === 'bg-event' ?
                     createElement(BgEvent, __assign({ seg: seg }, getSegMeta(seg, props.todayRange, props.nowDate))) :
-                    renderFill(fillType)));
+                    renderill(fillType)));
             });
             return createElement(Fragment, null, children);
         };
@@ -14933,7 +14933,7 @@ var FullCalendar = (function (exports) {
     exports.removeExact = removeExact;
     exports.render = render;
     exports.renderChunkContent = renderChunkContent;
-    exports.renderFill = renderFill;
+    exports.renderill = renderill;
     exports.renderMicroColGroup = renderMicroColGroup;
     exports.renderScrollShim = renderScrollShim;
     exports.requestJson = requestJson;

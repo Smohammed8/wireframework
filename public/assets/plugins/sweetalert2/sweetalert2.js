@@ -1124,7 +1124,7 @@
     renderInput(instance, params);
   };
 
-  const renderFooter = (instance, params) => {
+  const renderooter = (instance, params) => {
     const footer = getFooter();
     toggle(footer, params.footer);
 
@@ -1385,7 +1385,7 @@
     renderCloseButton(instance, params);
     renderContent(instance, params);
     renderActions(instance, params);
-    renderFooter(instance, params);
+    renderooter(instance, params);
 
     if (typeof params.didRender === 'function') {
       params.didRender(getPopup());

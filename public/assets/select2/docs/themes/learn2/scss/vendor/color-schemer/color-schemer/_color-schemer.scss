@@ -24,8 +24,8 @@
   @return clean-or-harmonize($cs-primary, $cs-harmonize-color, $cs-harmonize-mode, $cs-harmonize-amount);
 }
 
-// Secondary color scheme
-@function cs-secondary($cs-primary:$cs-primary, $cs-scheme:$cs-scheme, $cs-hue-offset:$cs-hue-offset, $cs-brightness-offset:$cs-brightness-offset, $cs-harmonize-mode:$cs-harmonize-mode, $cs-harmonize-color:$cs-harmonize-color, $cs-harmonize-amount:$cs-harmonize-amount) {
+// primary color scheme
+@function cs-primary($cs-primary:$cs-primary, $cs-scheme:$cs-scheme, $cs-hue-offset:$cs-hue-offset, $cs-brightness-offset:$cs-brightness-offset, $cs-harmonize-mode:$cs-harmonize-mode, $cs-harmonize-color:$cs-harmonize-color, $cs-harmonize-amount:$cs-harmonize-amount) {
   $cs-brightness-offset: cs-brightness-offset($cs-brightness-offset);
 
   // mono
@@ -95,7 +95,7 @@
 
   // mono
   @if $cs-scheme == mono {
-    $color: mix(cs-primary(), cs-secondary());
+    $color: mix(cs-primary(), cs-primary());
     @return clean-or-harmonize($color, $cs-harmonize-color, $cs-harmonize-mode, $cs-harmonize-amount);
   }
 

@@ -1,0 +1,75 @@
+{# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+ #}
+
+
+{% set formErrors = form.vars.errors.form.getErrors(true) %} {# If there are errors in the form, display them in this unorganized list #} {% if formErrors|length %}
+    <ul>
+        {% for error in formErrors %}
+        <li>{{ error.message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} 
+    {{ form_start(form) }} 
+    {{ form_errors(form) }}
+   
+
+        <div class="card border-primary-left-5  border border-primary">
+ 
+        {# <div class="card  collapsed-card border-primary-left-5  border border-primary"> #}
+        <div class="card-header">
+   
+            <b>  <i  class="fas fa-list"></i>  Section head Assigmemnt </b>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus   "></i>
+                </button>
+    
+            </div>
+         
+        </div>
+
+      
+        <div class="card-body">
+         
+           
+            <div class="row m-2">
+    
+                <div class="input-group mb-3 col-md-4">
+    
+    
+                    <div class="input-group-prepend">
+                        <span title="First Name" class="input-group-text">S.Head</span>
+                    </div>
+                    {{ form_widget(form.head,{'attr':{'class':'form-control-sm select2bs4','placeholder':"Section head","style":"text-transform: capitalize;"}}) }}
+                    <span style="color:red;">* </span>
+                </div>
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Second Name" class="input-group-text">Section</span>
+                    </div>
+                    {{ form_widget(form.section,{'attr':{'class':'form-control-sm select2bs4','placeholder':"Section","style":"text-transform: capitalize;"}}) }}
+                    <span style="color:red;">* </span>
+                </div>
+                <div class="input-group mb-3 col-md-4">
+                    <div class="input-group-prepend">
+                        <span title="Academic year" class="input-group-text">A.Year </span>
+                    </div>
+
+                    {{ form_widget(form.year,{'attr':{'class':'form-control','placeholder':"Year",'value' : cyear }}) }}
+                    <span style="color:red;">* </span>
+                </div>
+            </div>
+
+            <button class="btn  m-1 btn-sm  btn-primary float-right">
+                <i class="fa fa-plus m-1"  ></i>
+                {{ button_label|default('Assign') }}
+                
+                </button> 
+                <a class="btn  m-1 btn-sm  btn-primary float-right" href="{{ path('app_student_index') }}"> <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                 Close</a>
+            </div>
+            </div>
+
+            {{ form_end(form) }}

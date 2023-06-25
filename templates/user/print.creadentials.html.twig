@@ -1,0 +1,66 @@
+
+
+{% extends "print.html.twig" %}
+		{% block body %}
+
+ 
+{# 	
+<img src="{{ asset('http://localhost/HRM/public/assets/logo/logo.jpg') }}" style="float: left;" width="70" height="70">  #}
+
+
+
+		<strong><p style="text-align:center; font-size:26px;margin-top:0px !important;"><u> Jimma University </u> </p> </strong> 	</span> 
+		  
+
+	 
+	 </span> 
+	 <br>
+	   <hr/>
+	   <span style="float: right;">Print Date :
+	 <u>	{{ 'now'|date('Y-m-d') }}</u><span><br/>
+		 
+	 </div>
+
+
+	<body>
+
+	
+	
+				<br/>
+				<br/>
+				<center>
+					<u> <b>User Credential </b></u>
+				</center>
+				<br>
+				<div style="display:block; width:100%">
+					 Name :
+					{{ user.firstname }} {{ user.fatherName }}
+					
+					<br>
+					<br>
+					Sex :
+					<u>{{user.gender }}</u>
+					<br>
+					<br>
+					Email :
+					<u>{{user.email }}</u>
+					<br>
+					<br>
+					Username :
+					<u>{{user.username }}</u>
+					<br>
+					<br>
+					Password :
+					<u>{{password }}</u>
+					
+				</div>
+
+
+				<br>
+                
+				<div class='sign'>
+					Printed By: &nbsp;<u>{{ app.user }}&nbsp;&nbsp;</u><br>
+					
+				</div>
+		
+{% endblock %}

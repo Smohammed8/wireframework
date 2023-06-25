@@ -24,19 +24,19 @@
     </div><!-- /.container-fluid -->
   </section>
 <hr>
-    <table class="table">
+    <table class="table table-sm">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Username</th>
                 {# <th>Roles</th> #}
                 {# <th>Password</th> #}
-                <th>FirstName</th>
-                <th>FatherName</th>
+                <th>Name</th>
+           
                 <th>Phone</th>
                 <th>Gender</th>
                 <th>Email</th>
-                <th>LastLogin</th>
+                <th>Last login</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -48,18 +48,18 @@
                 <td>{{ user.username }}</td>
                 {# <td>{{ user.roles ? user.roles|json_encode : '' }}</td> #}
                 {# <td>{{ user.password }}</td> #}
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.fatherName }}</td>
-                <td>{{ user.phone }}</td>
-                <td>{{ user.gender }}</td>
-                <td>{{ user.email }}</td>
+                <td>{{ user.getName }}</td>
+              
+                <td>{{ user.phone ?? '-' }}</td>
+                <td>{{ user.gende ?? '-' }}</td>
+                <td>{{ user.email ?? '-' }}</td>
                 <td>{{ user.lastLogin ? user.lastLogin|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.status }}</td>
+                <td>{{ user.status ?? '-' }}</td>
                 <td>
                     {# <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}"> <i class="fas fa-edit" >  </i> Edit</a> #}
 
-                    <a  class="btn btn-outline-secondary btn-sm" href="{{ path('app_user_show', {'id': user.id}) }}"> <i class="fa fa-eye"> </i> Show</a>
+                    <a  class="btn btn-outline-secondary btn-sm" href="{{ path('app_user_show', {'id': user.id}) }}"> <i class="fa fa-user"> </i> Profile</a>
                     <a  class="btn btn-outline-secondary btn-sm" href="{{ path('app_user_edit', {'id': user.id}) }}"> <i class="fa fa-edit"> </i> Edit</a>
                     <a  class="btn btn-outline-secondary btn-sm" href="{{ path('app_user_edit', {'id': user.id}) }}"> <i class="fa fa-trash"> </i> Delete</a>
                 </td>
