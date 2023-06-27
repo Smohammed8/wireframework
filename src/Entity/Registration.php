@@ -29,9 +29,20 @@ class Registration
     #[ORM\ManyToOne(inversedBy: 'registrations')]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'registrations')]
+    private ?Section $section = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $year = null;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->getGrade().'- Section '.$this->getSection()->getName();
     }
 
     public function getStudent(): ?Student
@@ -90,6 +101,30 @@ class Registration
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getSection(): ?Section
+    {
+        return $this->section;
+    }
+
+    public function setSection(?Section $section): static
+    {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    public function getYear(): ?int
+    {
+        return $this->year;
+    }
+
+    public function setYear(?int $year): static
+    {
+        $this->year = $year;
 
         return $this;
     }

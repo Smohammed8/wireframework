@@ -20,11 +20,13 @@ use DateTime;
 use Date;
 use Andegna\DateTimeFactory;
 use Andegna\DateTime as et_date;
+use App\Repository\GradeRepository;
 use App\Repository\LeaveTypeRepository;
 use App\Repository\RegionRepository;
 use App\Repository\RegistrationRepository;
 use App\Repository\StudentParentRepository;
 use App\Repository\StudentUploadRepository;
+use App\Repository\SubjectRepository;
 use App\Repository\ZoneRepository;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -180,17 +182,24 @@ class StudentController extends AbstractController
     LeaveTypeRepository $leaveTypeRepository,
     StudentParentRepository $studentParentRepository,
     PaginatorInterface $paginator,
+    SubjectRepository $subjectRepository,
+    GradeRepository $gradeRepository,
     Request $request): Response
     {
         return $this->render('student/show.html.twig', [
             'student' => $student,
-            'registrations' => $registrationRepository->findAll(),
+            'last'=> $registrationRepository->getLast($student),
+          //  'regitsrations' =>$student->getRegistrations(),
+           // 'registrations' => $paginator->paginate($student->getRegistrations(), $request->query->getInt('page', 1), 1),
+            'registrations' => $paginator->paginate($registrationRepository->getQuery($student), $request->query->getInt('page', 1), 1),
             'student_uploads' => $paginator->paginate($studentUploadRepository->getQuery($request->query->get('search')), $request->query->getInt('page', 1), 5),
             'leave_types' => $paginator->paginate($leaveTypeRepository->getQuery($request->query->get('search')), $request->query->getInt('page', 1), 10),          
             'cyear' => AmharicHelper::getCurrentYear(),
             'cmonth' => AmharicHelper::getCurrentMonth(),
             'cday' => AmharicHelper::getCurrentDay(),
             'student_parents' => $studentParentRepository->findAll(),
+            'subjects'=>$subjectRepository->findAll(),
+            'grades' => $gradeRepository->findAll()
         ]);
     }
 

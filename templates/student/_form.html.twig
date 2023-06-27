@@ -182,7 +182,7 @@
                 <div class="input-group mb-3 col-md-4">
                   
                   <select class="form-control select2bs4" name="region"  style="width:100%;">
-                    <option value="">- </option>
+                    <option value=""> Select region .. </option>
                   {% for region in regions %}
                   
                       <option value="{{region.id}}">{{region.name}}</option>
@@ -199,7 +199,8 @@
             
                    
                       <select class="form-control select2bs4" name="zone"  style="width:100%;">
-                        <option value="">- </option>
+                      
+                        <option value=""> Select zone .. </option>
                       {% for zone in zones %}
                       
                           <option value="{{zone.id}}">{{zone.name}}</option>

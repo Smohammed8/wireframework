@@ -30,6 +30,32 @@ class RegistrationRepository extends ServiceEntityRepository
         }
     }
 
+    public function getQuery($student)
+    {
+        $qb= $this->createQueryBuilder('a');
+        $qb->andWhere('a.student = :val')->setParameter('val', $student);
+        $qb->orderBy('a.id', 'DESC');
+           return  $qb->getQuery();
+    }
+
+
+       public function getLast($student)
+   {
+       return $this->createQueryBuilder('s')
+           ->andWhere('s.student = :val')->setParameter('val', $student)
+          ->orderBy('s.id', 'DESC')
+           ->setMaxResults(1)
+           ->getQuery()
+          // ->getResult()
+           ->getOneOrNullResult()
+       ;
+   }
+
+
+
+
+    
+
     public function remove(Registration $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

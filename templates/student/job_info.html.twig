@@ -74,48 +74,68 @@
 
 
 
+      {% if student.registrations|length > 0 %}
+
+        {# {% for grade in grades %} #}
+        {% for registration in registrations %}
+      <div class="card collapsed-card border-primary-left-5  border border-primary">
+
+
+      <div class="card-header">
+ 
+          <b> <i  class="fas fa-tasks"></i> {{  registration.grade }}  | Academic year -{{  registration.year ?? '' }} </b>
+          <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus   "></i>
+              </button>
+  
+          </div>
+       
+      </div>
+ 
+      <div class="card-body">
+
 
 <div class="row">
     <div class="col-12">
       <div class="card">
      
           <div class="card-header">
-            <h3 class="card-title"> <i class="fa fa-graduation-cap"> </i> Education & Study</h3>
+            <h3 class="card-title"> <i class="fa fa-book"> </i> List of subjetcs </h3>
             <div class="card-tools">
               
-              <a href="#my-modal1" onclick="event.preventDefault();setValue(employee.id);" role="button"  data-toggle="modal" class="btn btn-tool">
+              <a href="#my-modal1" onclick="event.preventDefault();setValue(student.id);" role="button"  data-toggle="modal" class="btn btn-tool">
                 <i class="fa fa-plus"></i> Add
               </a>
             </div>
           </div>
        
-          {% if student.registrations|length > 0 %}
+         
         <!-- ./card-header -->
         <div class="card-body">
           <table class="table table-bordered table-hover table-sm">
             <thead>
               <tr>
                 <th>#</th>
-                <th> Education Level </th>
-                <th> Instition  </th>
-                <th> Start</th>
-             
-                <th> Testimonals </th>
+                <th> Subject </th>
+                <th> 1<sup>st</sup> Semester  </th>
+                <th> 2<sup>nd</sup> Semester </th>
+                <th> Average </th>
+                <th> Rank </th>
                 <th> Action </th>
               </tr>
             </thead>
             <tbody>
               
-         
-              {% for registration in student.registrations %}
-
+          
+              {% for subject in registration.grade.subjects %}    
               <tr data-widget="expandable-table" aria-expanded="false">
                 <td>{{  loop.index }}</td>
-                <td>{{  registration.grade }} </td>
-                <td>{{  registration.semester }} </td>
-                <td> {{ registration.startDate |eth_date }} </td>
+                <td>{{  subject.name }}  </td>
+                <td>{{ '-' }} </td>
+                <td>{{ '-'}} </td>
+                <td>{{ '-'}} </td>
 
-                <td> {{ registration.user }} </td>
+                <td>{{ '-'}} </td>
 
 
                    {# {% if registration.file == null %}
@@ -127,32 +147,38 @@
 
                 <td class="text-right py-0 align-middle">
                 <div class="btn-group">
-
+                <a  class="btn  btn-sm btn-outline-primary  mr-1" href="{{ path('app_registration_edit', {'id': registration.id}) }}"><i class="fa fa-list"> </i> Details</a>
                
-
-             
                 <a  class="btn  btn-sm btn-outline-primary  mr-1" href="{{ path('app_registration_edit', {'id': registration.id}) }}"><i class="fa fa-edit"> </i> Edit</a>
                
                 
-                  {{ include('registration/_delete_form.html.twig') }}
+                  {# {{ include('registration/_delete_form.html.twig') }} #}
               </td>
               </tr>
+        
             {% else %}
               <tr>
-                  <td colspan="21">No records found!</td>
+                  <td colspan="21" style="color:red;">No sujects were registered yet!</td>
               </tr>
           {% endfor %}
-
+         
             </tbody>
           </table>
         </div>
-        {% endif %}
+     
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
     </div>
   </div>
-    
+  </div>
+  </div>
+{% else %}
+  <span> - </span>
+{% endfor %}
+<div class="btn btn-sm float-right" style="margin-right:10px;" id="custompaginator">{{ knp_pagination_render(registrations) }}</div>
+
+{% endif %}
 
   {# <!-- /.row -->
   <div class="modal fade" id="my-modal0">

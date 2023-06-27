@@ -33,10 +33,14 @@ class Section
     #[ORM\Column(nullable: true)]
     private ?bool $isFunctional = null;
 
+    #[ORM\OneToMany(mappedBy: 'section', targetEntity: Registration::class)]
+    private Collection $registrations;
+
     public function __construct()
     {
         $this->sectionHeads = new ArrayCollection();
         $this->subjectAssignments = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -152,6 +156,36 @@ class Section
     public function setIsFunctional(?bool $isFunctional): static
     {
         $this->isFunctional = $isFunctional;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Registration>
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setSection($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registration $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getSection() === $this) {
+                $registration->setSection(null);
+            }
+        }
 
         return $this;
     }
