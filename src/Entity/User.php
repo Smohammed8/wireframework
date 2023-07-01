@@ -92,6 +92,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'teacher', targetEntity: TeacherEducation::class)]
     private Collection $teacherEducation;
+
+    #[ORM\OneToMany(mappedBy: 'cashier', targetEntity: StudentPayment::class)]
+    private Collection $studentPayments;
     public function __construct()
     {
         $this->userGroup = new ArrayCollection();
@@ -103,6 +106,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->sectionHeads = new ArrayCollection();
         $this->subjectAssignments = new ArrayCollection();
         $this->teacherEducation = new ArrayCollection();
+        $this->studentPayments = new ArrayCollection();
     
     }
 
@@ -586,6 +590,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($teacherEducation->getTeacher() === $this) {
                 $teacherEducation->setTeacher(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, StudentPayment>
+     */
+    public function getStudentPayments(): Collection
+    {
+        return $this->studentPayments;
+    }
+
+    public function addStudentPayment(StudentPayment $studentPayment): static
+    {
+        if (!$this->studentPayments->contains($studentPayment)) {
+            $this->studentPayments->add($studentPayment);
+            $studentPayment->setCashier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentPayment(StudentPayment $studentPayment): static
+    {
+        if ($this->studentPayments->removeElement($studentPayment)) {
+            // set the owning side to null (unless already changed)
+            if ($studentPayment->getCashier() === $this) {
+                $studentPayment->setCashier(null);
             }
         }
 

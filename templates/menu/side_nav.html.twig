@@ -7,7 +7,14 @@
       <span style="color:white;font-size:15px;"> <b> Human Resource syetem </b> </span>
     </a> #}
 
+<style>
 
+.os-scrollbar{
+ background-color:#3c8dbc !important;
+ padding: 1px !important;
+
+}
+</style>
       <aside class="main-sidebar sidebar-light bg-light elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link bg-lightblue bg-lightblue-light bg-lightblue bg-lightblue ">
@@ -188,7 +195,14 @@
                 </a>
               </li>
          
-           
+              <li class="nav-item">
+                <a href="{{ path('app_payment_session_index') }}" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p> Payment Session </p>
+                </a>
+              </li>
+
+
             </ul>
           </li>
 
@@ -377,7 +391,14 @@
                 </a>
               </li>
 
-             
+              <li class="nav-item">
+                <a href="{{ path('app_academic_session_index') }}" class="nav-link">
+                  <i class="fa fa-caret-right nav-icon"></i>
+                  <p>Academic Session </p>
+                </a>
+              </li>
+
+            
            
             </ul>
           </li>

@@ -5,10 +5,10 @@
 {% block body %}
     <h1>Semester index</h1>
 
-    <table class="table">
+    <table class="table table-sm">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Name</th>
                 <th>actions</th>
             </tr>
@@ -19,7 +19,7 @@
                 <td>{{ semester.id }}</td>
                 <td>{{ semester.name }}</td>
                 <td>
-                    <a href="{{ path('app_semester_show', {'id': semester.id}) }}">show</a>
+                    <a href="{{ path('app_semester_show', {'id': semester.id}) }}">Months</a>
                     <a href="{{ path('app_semester_edit', {'id': semester.id}) }}">edit</a>
                 </td>
             </tr>

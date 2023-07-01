@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PaymentSession{% endblock %}
+
+{% block body %}
+    <h1>Create new PaymentSession</h1>
+
+    {{ include('payment_session/_form.html.twig') }}
+
+    <a href="{{ path('app_payment_session_index') }}">back to list</a>
+{% endblock %}

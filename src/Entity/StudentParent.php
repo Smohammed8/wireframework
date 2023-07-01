@@ -35,6 +35,12 @@ class StudentParent
     #[ORM\ManyToOne(inversedBy: 'studentParents')]
     private ?User $user = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $fatherName = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,30 @@ class StudentParent
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): static
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getFatherName(): ?string
+    {
+        return $this->fatherName;
+    }
+
+    public function setFatherName(?string $fatherName): static
+    {
+        $this->fatherName = $fatherName;
 
         return $this;
     }

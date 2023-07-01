@@ -20,11 +20,15 @@ use DateTime;
 use Date;
 use Andegna\DateTimeFactory;
 use Andegna\DateTime as et_date;
+use App\Repository\AcademicSessionRepository;
 use App\Repository\GradeRepository;
 use App\Repository\LeaveTypeRepository;
+use App\Repository\MonthRepository;
 use App\Repository\RegionRepository;
 use App\Repository\RegistrationRepository;
+use App\Repository\RelationshipRepository;
 use App\Repository\StudentParentRepository;
+use App\Repository\StudentPaymentRepository;
 use App\Repository\StudentUploadRepository;
 use App\Repository\SubjectRepository;
 use App\Repository\ZoneRepository;
@@ -184,6 +188,10 @@ class StudentController extends AbstractController
     PaginatorInterface $paginator,
     SubjectRepository $subjectRepository,
     GradeRepository $gradeRepository,
+    RelationshipRepository $relationshipRepository,
+    MonthRepository $monthRepository,
+    StudentPaymentRepository $studentPaymentRepository,
+    AcademicSessionRepository $academicSessionRepository,
     Request $request): Response
     {
         return $this->render('student/show.html.twig', [
@@ -199,7 +207,12 @@ class StudentController extends AbstractController
             'cday' => AmharicHelper::getCurrentDay(),
             'student_parents' => $studentParentRepository->findAll(),
             'subjects'=>$subjectRepository->findAll(),
-            'grades' => $gradeRepository->findAll()
+            'grades' => $gradeRepository->findAll(),
+            'relationships'  => $relationshipRepository->findAll(),
+            'academic_sessions' => $academicSessionRepository->findAll(),
+            'months' => $monthRepository->findAll(),
+            //'student_payments' => $studentPaymentRepository->findAll()
+            'student_payments' => $paginator->paginate($studentPaymentRepository->getQuery($student), $request->query->getInt('page', 1), 10),
         ]);
     }
 

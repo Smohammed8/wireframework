@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AcademicSession index{% endblock %}
+
+{% block body %}
+    <h1>AcademicSession index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Year</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for academic_session in academic_sessions %}
+            <tr>
+                <td>{{ academic_session.id }}</td>
+                <td>{{ academic_session.year }}</td>
+                <td>{{ academic_session.start ? academic_session.start|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ academic_session.end ? academic_session.end|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_academic_session_show', {'id': academic_session.id}) }}">show</a>
+                    <a href="{{ path('app_academic_session_edit', {'id': academic_session.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_academic_session_new') }}">Create new</a>
+{% endblock %}

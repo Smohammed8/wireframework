@@ -101,11 +101,15 @@ class Student
     #[ORM\Column(nullable: true)]
     private ?bool $isDisabled = null;
 
+    #[ORM\OneToMany(mappedBy: 'student', targetEntity: StudentPayment::class)]
+    private Collection $studentPayments;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
         $this->studentLeaves = new ArrayCollection();
         $this->studentParents = new ArrayCollection();
+        $this->studentPayments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -517,6 +521,36 @@ class Student
     public function setIsDisabled(?bool $isDisabled): static
     {
         $this->isDisabled = $isDisabled;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, StudentPayment>
+     */
+    public function getStudentPayments(): Collection
+    {
+        return $this->studentPayments;
+    }
+
+    public function addStudentPayment(StudentPayment $studentPayment): static
+    {
+        if (!$this->studentPayments->contains($studentPayment)) {
+            $this->studentPayments->add($studentPayment);
+            $studentPayment->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentPayment(StudentPayment $studentPayment): static
+    {
+        if ($this->studentPayments->removeElement($studentPayment)) {
+            // set the owning side to null (unless already changed)
+            if ($studentPayment->getStudent() === $this) {
+                $studentPayment->setStudent(null);
+            }
+        }
 
         return $this;
     }

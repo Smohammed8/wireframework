@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\StudentParent;
 use App\Form\StudentParentType;
+use App\Repository\RelationshipRepository;
 use App\Repository\StudentParentRepository;
+use App\Repository\StudentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +41,50 @@ class StudentParentController extends AbstractController
             'form' => $form,
         ]);
     }
+    #[Route('/add_parent', name: 'add_parent', methods: ['POST'])]
+    public function addstudentParent( Request $request,RelationshipRepository $relationshipRepository,StudentParentRepository $studentParentRepository, StudentRepository $studentRepository)
+    {
+       
+         
+          $studentParent = new StudentParent();
+        if ($request->getMethod() == 'POST') {
+            $student_id   = $request->get('student');
+          //  dd( $employee_id );
+            $fname  = $request->get('fname');
+            $lname  = $request->get('lname');
+            $address = $request->get('address');
+            $relation_id = $request->get('relation');
+            $email = $request->get('email');
+            $phone = $request->get('phone');
+            $student = $studentRepository->find($student_id); // convert string ID to object
+            $relation = $relationshipRepository->find($relation_id); // convert string ID to object
+          
+            $check =$studentParentRepository->findOneBy(['phone' => $phone, 'email'=>$email]);
+            if(!is_null($check)){
+                $this->addFlash('danger', "No duplicated student parent is permitted!");
+                return $this->redirectToRoute('app_student_show', ['id' =>$student->getId()]);
+             }
+            $studentParent->setRelation($relation);
+            $studentParent->setPhone($phone);
+            $studentParent->setFirstName($fname);
+            $studentParent->setFatherName($lname);
+            $studentParent->setStudent($student );
+            $studentParent->setEmail($email);
+            $studentParent->setAddress($address);
+            $studentParent->setCreatedAt(new \DateTimeImmutable());
+            $studentParent->setUser($this->getUser());
+            $studentParentRepository->save($studentParent, true);
+            $this->addFlash('success', "The student parent has been successfully added!");
+            return $this->redirectToRoute('app_student_show', ['id' =>$student->getId()]);
+            }
+
+        return $this->render('student/show.html.twig', [
+            //'student' =>$student 
+    
+    ]);
+
+        
+    }
 
     #[Route('/{id}', name: 'app_student_parent_show', methods: ['GET'])]
     public function show(StudentParent $studentParent): Response
@@ -57,10 +103,16 @@ class StudentParentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $studentParentRepository->save($studentParent, true);
 
-            return $this->redirectToRoute('app_student_parent_index', [], Response::HTTP_SEE_OTHER);
+          
+            $this->addFlash('success', "The student parent has been successfully updated!");
+            return $this->redirectToRoute('app_student_show', ['id' =>$studentParent->getStudent()->getId()]);
+
+            
+
+         //   return $this->redirectToRoute('app_student_parent_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('student_parent/edit.html.twig', [
+        return $this->render('student_parent/edit.html.twig', [
             'student_parent' => $studentParent,
             'form' => $form,
         ]);
@@ -72,7 +124,10 @@ class StudentParentController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$studentParent->getId(), $request->request->get('_token'))) {
             $studentParentRepository->remove($studentParent, true);
         }
+        $this->addFlash('success', "The student parent has been successfully deleted!");
+        return $this->redirectToRoute('app_student_show', ['id' =>$studentParent->getStudent()->getId()]);
 
-        return $this->redirectToRoute('app_student_parent_index', [], Response::HTTP_SEE_OTHER);
+
+       // return $this->redirectToRoute('app_student_parent_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -2,30 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\StudentParent;
+use App\Entity\PaymentSession;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class StudentParentType extends AbstractType
+class PaymentSessionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstName')
-            ->add('fatherName')
-            ->add('phone')
-            ->add('email')
-            ->add('address')
-           // ->add('student')
-            ->add('relation')
+            ->add('name')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => StudentParent::class,
+            'data_class' => PaymentSession::class,
         ]);
     }
 }

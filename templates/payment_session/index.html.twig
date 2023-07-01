@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PaymentSession index{% endblock %}
+
+{% block body %}
+    <h1>PaymentSession index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for payment_session in payment_sessions %}
+            <tr>
+                <td>{{ payment_session.id }}</td>
+                <td>{{ payment_session.name }}</td>
+                <td>
+                    <a href="{{ path('app_payment_session_show', {'id': payment_session.id}) }}">show</a>
+                    <a href="{{ path('app_payment_session_edit', {'id': payment_session.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_payment_session_new') }}">Create new</a>
+{% endblock %}

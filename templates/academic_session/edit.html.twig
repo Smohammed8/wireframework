@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit AcademicSession{% endblock %}
+
+{% block body %}
+    <h1>Edit AcademicSession</h1>
+
+    {{ include('academic_session/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_academic_session_index') }}">back to list</a>
+
+    {{ include('academic_session/_delete_form.html.twig') }}
+{% endblock %}

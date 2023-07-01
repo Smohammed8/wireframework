@@ -1,0 +1,154 @@
+
+  <div class="row">
+      <div class="col-12">
+        <!-- Custom Tabs -->
+        <div class="card">
+          <div class="card-header d-flex p-0">
+            <h3 class="card-title p-3">List of  <b><u>{{ student }}</u></b>'s  parent </h3>
+            <ul class="nav nav-pills ml-auto p-2">
+              <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab"> <i class="fa fa-list"> </i> Parents({{ student.studentParents|length }}) </a></li>
+              {# <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab"> Add Efficiency </a></li> #}
+              {% if student.studentParents|length   != 3 %}
+              <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab"><i class="fa fa-plus"> </i> Add parent</a></li>
+              {% endif %}
+{# 
+              <button type="button" data-toggle="modal" data-target="#efficiency" target="_top" class="btn  btn-sm btn-outline-primary float-right mr-1"><i class="fa fa-balance-scale"></i> Add Efficiency </button>
+            #}
+           
+              </ul>
+           
+
+
+            </div><!-- /.card-header -->
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+              <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Parent</th>
+                        <th>Date of insertion</th>
+                        <th>Phone</th>
+                        <th>Relationship</th>
+                        <th>Address </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for student_parent in student.studentParents %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ student_parent.firstName }} {{ student_parent.fatherName }}</td>
+                        <td>{{ student_parent.createdAt ? student_parent.createdAt|eth_date : '' }} E.C</td>
+                        <td>{{ student_parent.phone ?? '-' }} </td>
+                        <td>{{ student_parent.relation ?? '-' }}</td>
+                        <td>{{ student_parent.user ?? '-' }}</td>
+                        <td>
+                        <div class="btn-group">
+
+                            <a  class="btn btn-outline-primary btn-sm mr-1" href="{{ path('app_student_parent_edit', {'id': student_parent.id}) }}"> <i class="fa fa-edit"> </i> Edit</a>
+                            {{ include('student_parent/_delete_form.html.twig') }}
+                         <div>
+        
+        
+        
+                          
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">No records found!</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        
+
+              </div>
+              <!-- /.tab-pane -->
+              {# <div class="tab-pane" id="tab_2">
+               Tab2
+              </div> #}
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_3">
+               
+                <form class="form-horizontal" action="{{ path('add_parent') }} " method="POST">
+                  <input type="hidden" value="{{ student.id }}" name="student">
+         
+
+                <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Firt Name </label>
+                    <div class="col-sm-10">
+                      <input type="text"  class="form-control"   required  name="fname" placeholder="">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label"> Last Name </label>
+                    <div class="col-sm-10">
+                      <input type="text"  class="form-control"   required  name="lname" placeholder="">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Phone </label>
+                    <div class="col-sm-10">
+                      <input type="number"  class="form-control"  required   name="phone"  placeholder="">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                      <input type="email"  class="form-control" name="email" placeholder="">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Current Address</label>
+                    <div class="col-sm-10">
+                      <input type="text"  class="form-control"  required   name="address" placeholder="">
+                    </div>
+                  </div>
+             
+             
+
+                <div class="form-group row">
+                    <label for="inputName" class="col-sm-2 col-form-label"> Relationship</label>
+                   
+                
+                    <div class="col-sm-10">
+                      <select class="select2 form-control" required  name="relation"  style="width:100%;">
+                        <option value="">- </option>
+                      {% for relationship in relationships %}
+                      
+                          <option value="{{relationship.id}}">{{relationship.name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  {# <div class="form-group row">
+                    <label for="inputEmail" class="col-sm-2 col-form-label">Mark</label>
+                    <div class="col-sm-10">
+                      <input type="text"  min="0" max="100" class="form-control" name="mark" id="inputEmail" placeholder="">
+                    </div>
+                  </div> #}
+             
+            
+                  <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                      <button type="submit" class="btn  btn-sm btn-outline-primary  mr-1"> <i class="fa fa-plus"> </i> Save</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div><!-- /.card-body -->
+        </div>
+        <!-- ./card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+ 
